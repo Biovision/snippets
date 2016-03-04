@@ -1,0 +1,13 @@
+ru:
+  views:
+    pagination:
+      first: "⇤"
+      last: "⇥"
+      previous: "←"
+      next: "→"
+      truncate: "..."
+  shared:
+    flash_messages:
+      notice: "Замечание"
+      warning: "Предупреждение"
+      alert: "Внимание"

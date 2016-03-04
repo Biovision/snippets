@@ -1,0 +1,18 @@
+ru:
+  error:
+    zero: "нет ошибок"
+    one: "%{count} ошибка"
+    few: "%{count} ошибки"
+    many: "%{count} ошибок"
+    other: "%{count} ошибок"
+  nothing_found: "Ничего не нашлось"
+  create: "Создать"
+  view: "В просмотр"
+  list: "К списку"
+  edit: "Редактировать"
+  update: "Обновить"
+  delete: "Удалить"
+  submit: "Отправить"
+  are_you_sure: "Вы уверены?"
+  created_at: "Время создания"
+  updated_at: "Время обновления"
