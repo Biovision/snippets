@@ -1,0 +1,55 @@
+ru:
+  activerecord:
+    errors:
+      models:
+        user:
+          attributes:
+            email:
+              unreasonable: "не выглядит как e-mail"
+            slug:
+              invalid: "должен содержать от 1 до 20 английских букв, цифр или знаков подчёркивания"
+    attributes:
+      user:
+        ip: "Адрес при регистрации"
+        network: "Сеть"
+        slug: "Идентификатор"
+        gender: "Пол"
+        deleted: "Удалён"
+        bot: "Это бот"
+        allow_login: "Позволить вход"
+        email_confirmed: "Адрес электронной почты подтверждён"
+        allow_mail: "Разрешить уведомления по электронной почте"
+        last_seen: "Последняя активность"
+        password: "Пароль"
+        password_confirmation: "Подтверждение пароля"
+        email: "Электронная почта"
+        screen_name: "Логин"
+        name: "Имя"
+        image: "Картинка"
+        networks:
+          native: "Регистрация"
+        genders:
+          female: "Женский"
+          male: "Мужской"
+      user_role:
+        user_id: "Пользователь"
+        role: "Роль"
+        roles:
+          administrator: "Администратор"
+          moderator: "Модератор"
+      token:
+        user_id: "Пользователь"
+        ip: "IP-адрес"
+        last_used: "Последнее использование"
+        active: "Активен"
+        token: "Жетон"
+      code:
+        user_id: "Пользователь"
+        ip: "IP-адрес"
+        category: "Категория"
+        activated: "Активирован"
+        body: "Код"
+        payload: "Полезная нагрузка"
+        categories:
+          confirmation: "Подтверждение почты"
+          recovery: "Сброс пароля"
