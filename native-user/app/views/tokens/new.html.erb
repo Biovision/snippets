@@ -1,10 +1,8 @@
 <% content_for :meta_title, t('.title') %>
 <% content_for :options do %>
-    <div class="options">
-      <ul>
-        <li><%= link_to t(:list), tokens_path %></li>
-      </ul>
-    </div>
+    <ul>
+      <li><%= link_to t(:list), tokens_path %></li>
+    </ul>
 <% end %>
 
 <article class="edit-token">
