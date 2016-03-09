@@ -29,10 +29,12 @@
         <th><%= t(:updated_at) %></th>
         <td><%= time_tag user.updated_at %></td>
       </tr>
+      <% unless user.last_seen.blank? %>
       <tr>
         <th><%= t('activerecord.attributes.user.last_seen') %></th>
-        <td><%= time_tag @user.last_seen %></td>
+        <td><%= time_tag user.last_seen %></td>
       </tr>
+      <% end %>
       <tr>
         <th><%= t('activerecord.attributes.user.ip') %></th>
         <td><%= user.ip %></td>

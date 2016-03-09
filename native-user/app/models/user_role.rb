@@ -6,6 +6,8 @@ class UserRole < ActiveRecord::Base
   validates_presence_of :user_id
   validates_uniqueness_of :role, scope: [:user_id]
 
+  scope :for_user, ->(user) { where user: user }
+
   # @param [User] user
   # @param [Symbol] role
   def self.user_has_role?(user, role)
