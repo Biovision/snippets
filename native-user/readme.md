@@ -31,6 +31,49 @@ gem 'omniauth-facebook'
 gem 'omniauth-vkontakte'
 ```
 
+Дополнения в `app/controllers/application_controller.rb`
+--------------------------------------------------------
+
+```ruby
+  protected
+  
+  # Обёртка для исключения «Запись не найдена»
+  #
+  # @return [ActiveRecord::RecordNotFound]
+  def record_not_found
+    ActiveRecord::RecordNotFound
+  end
+
+  # Ограничить доступ для анонимных посетителей
+  def restrict_anonymous_access
+    redirect_to login_path, alert: t(:please_log_in) unless current_user.is_a? User
+  end
+
+  # Для доступа необходимо наличие роли у пользователя
+  #
+  # Неавторизованных пользователей перенаправляет на главную страницу.
+  # Анонимным посетителям предлагается выполнить вход.
+  #
+  # @param [Symbol] role
+  def require_role(role)
+    if current_user.is_a? User
+      redirect_to root_path, alert: t(:insufficient_role) unless current_user.has_role? role
+    else
+      redirect_to login_path, alert: t(:please_log_in)
+    end
+  end
+
+  # Информация об IP-адресе текущего посетителя для сущности
+  def tracking_for_entity
+    { ip: request.env['HTTP_X_REAL_IP'] || request.remote_ip }
+  end
+
+  # Информация о текущем пользователе для сущности
+  def owner_for_entity
+    { user: current_user }
+  end
+```
+
 Дополнения в `config/routes.rb`
 -------------------------------
 
