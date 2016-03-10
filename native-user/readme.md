@@ -35,6 +35,18 @@ gem 'omniauth-vkontakte'
 --------------------------------------------------------
 
 ```ruby
+  # Получить текущего пользователя из жетона доступа в куки
+  #
+  # @return [User|nil]
+  def current_user
+    @current_user ||= Token.user_by_token cookies['token']
+  end
+
+  # @param [Symbol] role
+  def current_user_has_role?(role)
+    current_user.is_a?(User) && current_user.has_role?(role)
+  end
+
   protected
   
   # Обёртка для исключения «Запись не найдена»
