@@ -38,9 +38,16 @@ config.i18n.enforce_available_locales = true
 config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}')]
 config.i18n.default_locale = :ru
 
-%w(app/service lib).each do |path|
+%w(app/services lib).each do |path|
   config.autoload_paths << config.root.join(path).to_s
 end
+
+config.action_dispatch.rescue_responses.merge!(
+    {
+        :'ApplicationController::UnauthorizedException' => :unauthorized,
+        :'ApplicationController::ForbiddenException' => :forbidden,
+    }
+)
 ```
 
 Добавления в `spec/rails_helper.rb` (`$ rails generate rspec:install`)
@@ -52,13 +59,29 @@ config.include FactoryGirl::Syntax::Methods
 Добавления в `app/controllers/application_controller.rb`
 
 ```ruby
-helper_method :current_page
+class UnauthorizedException < Exception
+end
+
+class ForbiddenException < Exception
+end
+
+helper_method :current_page, :param_from_request
 
 # Получить текущую страницу из запроса
 #
 # @return [Integer]
 def current_page
   @current_page ||= (params[:page] || 1).to_s.to_i.abs
+end
+
+# Получить параметр из запроса и нормализовать его
+#
+# Приводит параметр к строке в UTF-8 и удаляет недействительные в UTF-8 символы
+#
+# @param [Symbol] parameter
+# @return [String]
+def param_from_request(parameter)
+params[parameter].to_s.encode('UTF-8', 'UTF-8', invalid: :replace, replace: '')
 end
 ```
 
