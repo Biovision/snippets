@@ -3,11 +3,6 @@ Empty rails
 
 Локализация и настройки пумы для нового rails-приложения
 
-ToDo
-----
-
- * Помощник для очищенного параметра запроса
-
 Дополнительные куски
 --------------------
 
@@ -81,7 +76,7 @@ end
 # @param [Symbol] parameter
 # @return [String]
 def param_from_request(parameter)
-params[parameter].to_s.encode('UTF-8', 'UTF-8', invalid: :replace, replace: '')
+  params[parameter].to_s.encode('UTF-8', 'UTF-8', invalid: :replace, replace: '')
 end
 ```
 

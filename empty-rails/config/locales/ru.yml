@@ -13,6 +13,7 @@ ru:
   update: "Обновить"
   delete: "Удалить"
   submit: "Отправить"
+  save: "Сохранить"
   are_you_sure: "Вы уверены?"
   created_at: "Время создания"
   updated_at: "Время обновления"
@@ -22,3 +23,15 @@ ru:
   "yes": "Да"
   "no": "Нет"
   current_image: "Текущая картинка"
+  views:
+    pagination:
+      first: "⇤"
+      last: "⇥"
+      previous: "←"
+      next: "→"
+      truncate: "…"
+  shared:
+    flash_messages:
+      notice: "Замечание"
+      warning: "Предупреждение"
+      alert: "Внимание"
