@@ -39,7 +39,7 @@
     </tr>
     <tr>
       <th><%= t('activerecord.attributes.user.gender') %></th>
-      <td><%= user.gender.blank? ? t(:not_selected) : t("activerecord.attributes.user.genders.#{user.gender}") %></td>
+      <td><%= @user.gender.blank? ? t(:not_selected) : t("activerecord.attributes.user.genders.#{@user.gender}") %></td>
     </tr>
     </tbody>
   </table>

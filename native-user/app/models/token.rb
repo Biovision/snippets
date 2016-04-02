@@ -16,24 +16,28 @@ class Token < ActiveRecord::Base
   end
 
   def self.entity_parameters
-    %i(user_id client_id)
+    %i(user_id)
   end
 
   # @param [String] input
-  def self.user_by_token(input)
+  # @param [Boolean] touch_user
+  def self.user_by_token(input, touch_user = false)
     unless input.blank?
       pair = input.split(':')
-      self.user_by_pair pair[0], pair[1] if pair.length == 2
+      self.user_by_pair pair[0], pair[1], touch_user if pair.length == 2
     end
   end
 
   # @param [Integer] user_id
   # @param [String] token
-  def self.user_by_pair(user_id, token)
+  # @param [Boolean] touch_user
+  def self.user_by_pair(user_id, token, touch_user = false)
     instance = self.find_by user_id: user_id, token: token, active: true
     if instance.is_a?(self)
-      instance.update last_used: Time.now
-      instance.user
+      instance.touch
+      user = instance.user
+      user.touch(:last_seen) if touch_user
+      user
     else
       nil
     end

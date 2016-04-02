@@ -2,9 +2,11 @@ class My::ConfirmationsController < ApplicationController
   before_action :restrict_anonymous_access, only: [:create, :update]
   before_action :redirect_confirmed_user, only: [:create, :update]
 
+  # get /my/confirmation
   def show
   end
 
+  # post /my/confirmation
   def create
     if current_user.email.blank?
       redirect_to edit_my_profile_path, notice: t('my.confirmations.create.set_email')
@@ -15,8 +17,9 @@ class My::ConfirmationsController < ApplicationController
     end
   end
 
+  # patch /my/confirmation
   def update
-    @code = Code.find_by category: Code.categories[:confirmation], body: params[:code].to_s, activated: false
+    @code = Code.active.find_by category: Code.categories[:confirmation], body: params[:code].to_s
     if @code.is_a?(Code) && @code.owned_by?(current_user)
       activate_code
       redirect_to root_path
@@ -32,7 +35,7 @@ class My::ConfirmationsController < ApplicationController
   end
 
   def activate_code
-    @code.update activated: true
+    @code.decrement! :quantity
     @code.user.update email_confirmed: true if @code.payload == @code.user.email
   end
 end

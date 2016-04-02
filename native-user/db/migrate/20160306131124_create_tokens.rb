@@ -4,7 +4,6 @@ class CreateTokens < ActiveRecord::Migration
       t.timestamps null: false
       t.references :user, index: true, foreign_key: true, null: false
       t.inet :ip
-      t.datetime :last_used
       t.boolean :active, null: false, default: true
       t.string :token, null: false
     end

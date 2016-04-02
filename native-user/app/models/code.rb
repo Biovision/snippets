@@ -3,7 +3,7 @@ class Code < ActiveRecord::Base
 
   PER_PAGE = 25
 
-  enum category: [:confirmation, :recovery]
+  enum category: [:confirmation, :recovery, :invitation]
 
   validates_presence_of :user_id, :body
   validates_uniqueness_of :body
@@ -11,28 +11,32 @@ class Code < ActiveRecord::Base
   after_initialize :generate_body
 
   scope :recent, -> { order 'id desc' }
+  scope :active, -> { where 'quantity > 0' }
+  scope :invitations, -> { where category: Code.categories[:invitation] }
 
   def self.page_for_administration(current_page)
     recent.page(current_page).per(PER_PAGE)
   end
 
+  # @param [String] body
+  def self.active_invitation(body)
+    self.invitations.active.where(body: body).first
+  end
+
   # @param [User] user
   def self.recovery_for_user(user)
-    parameters = { user: user, category: categories[:recovery], activated: false }
-    self.find_by(parameters) || self.create(parameters.merge(payload: user.email))
+    parameters = { user: user, category: categories[:recovery] }
+    self.active.find_by(parameters) || self.create(parameters.merge(payload: user.email))
   end
 
   # @param [User] user
   def self.confirmation_for_user(user)
-    parameters = { user: user, category: categories[:confirmation], activated: false }
-    self.find_by(parameters) || self.create(parameters.merge(payload: user.email))
+    parameters = { user: user, category: categories[:confirmation] }
+    self.active.find_by(parameters) || self.create(parameters.merge(payload: user.email))
   end
 
-  # Track IP-address for the recent usage
-  #
-  # @param [String] ip
-  def track!(ip)
-    update! ip: ip
+  def activated?
+    self.quantity < 1
   end
 
   protected

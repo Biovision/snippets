@@ -105,7 +105,7 @@ RSpec.describe My::RecoveriesController, type: :controller do
     end
 
     context 'when code is expired' do
-      let(:code) { create :recovery_code, user: user, activated: true }
+      let(:code) { create :recovery_code, user: user, quantity: 0 }
 
       before :each do
         patch :update, { login: user.screen_name, code: code.body }.merge(new_password)

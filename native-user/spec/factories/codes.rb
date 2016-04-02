@@ -12,5 +12,10 @@ FactoryGirl.define do
       association :user, factory: :unconfirmed_user
       category Code.categories[:confirmation]
     end
+
+    factory :invitation_code do
+      association :user, factory: :confirmed_user
+      category Code.categories[:invitation]
+    end
   end
 end

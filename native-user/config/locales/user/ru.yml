@@ -56,14 +56,14 @@ ru:
         token: "Жетон"
       code:
         user_id: "Пользователь"
-        ip: "IP-адрес"
         category: "Категория"
-        activated: "Активирован"
         body: "Код"
         payload: "Полезная нагрузка"
+        quantity: "Количество активаций"
         categories:
           confirmation: "Подтверждение почты"
           recovery: "Сброс пароля"
+          invitation: "Приглашение"
   authentication:
     new:
       title: "Вход на сайт"
