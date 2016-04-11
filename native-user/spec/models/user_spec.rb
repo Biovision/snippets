@@ -3,6 +3,8 @@ require 'rails_helper'
 RSpec.describe User, type: :model do
   let(:model) { :user }
 
+  it_behaves_like 'has_valid_factory'
+
   describe 'before validating' do
     it 'normalizes screen name for native account' do
       entity = User.new network: :native, screen_name: 'USER_1'
@@ -41,10 +43,6 @@ RSpec.describe User, type: :model do
     it 'passes with non-unique slug for different networks' do
       entity = create model
       expect(build model, slug: entity.slug, network: :vkontakte).to be_valid
-    end
-
-    it 'passes with valid attributes' do
-      expect(build model).to be_valid
     end
   end
 

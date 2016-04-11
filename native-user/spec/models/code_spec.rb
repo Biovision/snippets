@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe Code, type: :model do
   let(:model) { :code }
 
+  it_behaves_like 'has_valid_factory'
   it_behaves_like 'required_user'
   it_behaves_like 'has_owner'
 

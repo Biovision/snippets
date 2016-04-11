@@ -24,6 +24,7 @@ gem 'mini_magick'
 
 # Attaching uploaded files to models
 gem 'carrierwave'
+gem 'carrierwave-bombshelter'
 
 # Аутентификация через OAuth
 gem 'omniauth-twitter'

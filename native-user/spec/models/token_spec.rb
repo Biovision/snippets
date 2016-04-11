@@ -3,15 +3,11 @@ require 'rails_helper'
 RSpec.describe Token, type: :model do
   let(:model) { :token }
 
+  it_behaves_like 'has_valid_factory'
   it_behaves_like 'has_owner'
   it_behaves_like 'required_user'
 
   describe 'validation' do
-    it 'passes with valid attributes' do
-      entity = build model
-      expect(entity).to be_valid
-    end
-
     it 'fails with non-unique token' do
       existing = create model
       entity   = build model, token: existing.token

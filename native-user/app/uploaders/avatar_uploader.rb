@@ -1,5 +1,10 @@
 class AvatarUploader < CarrierWave::Uploader::Base
   include CarrierWave::MiniMagick
+  include CarrierWave::BombShelter
+
+  def max_pixel_dimensions
+    [1920, 1920]
+  end
 
   storage :file
 
