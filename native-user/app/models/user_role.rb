@@ -3,7 +3,7 @@ class UserRole < ActiveRecord::Base
 
   enum role: [:administrator, :moderator]
 
-  validates_presence_of :user_id
+  validates_presence_of :user_id, :role
   validates_uniqueness_of :role, scope: [:user_id]
 
   scope :for_user, ->(user) { where user: user }

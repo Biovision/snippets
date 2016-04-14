@@ -91,7 +91,7 @@ gem 'omniauth-vkontakte'
 -------------------------------
 
 ```ruby
-  # Административные ресурсы
+  # Модуль пользователя
   resources :users, :tokens, :codes
 
   # Аутентификация
@@ -103,6 +103,7 @@ gem 'omniauth-vkontakte'
     get 'auth/:provider/callback' => :callback, as: :auth_callback
   end
 
+  # Личный кабинет пользователя
   namespace :my do
     resource :profile, except: [:destroy]
     resource :confirmation, :recovery, only: [:show, :create, :update]
