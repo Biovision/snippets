@@ -36,6 +36,8 @@ gem 'omniauth-vkontakte'
 --------------------------------------------------------
 
 ```ruby
+  helper_method :current_user, :current_user_has_role?
+
   # Получить текущего пользователя из жетона доступа в куки
   #
   # @return [User|nil]
@@ -108,6 +110,11 @@ gem 'omniauth-vkontakte'
     resource :profile, except: [:destroy]
     resource :confirmation, :recovery, only: [:show, :create, :update]
 
+    get '/' => 'index#index'
+  end
+
+  # Администрирование
+  namespace :admin do
     get '/' => 'index#index'
   end
 
