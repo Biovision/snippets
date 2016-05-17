@@ -2,37 +2,21 @@ require 'rails_helper'
 
 RSpec.describe UsersController, type: :controller do
   let(:current_user) { create :administrator }
-  let!(:user) { create :user }
+  let!(:entity) { create :user }
 
   before :each do
-    allow(controller).to receive(:require_role)
-    allow(controller).to receive(:current_user).and_return(current_user)
-    allow(User).to receive(:with_long_slug).and_return(user)
-  end
-
-  shared_examples 'entity_assigner' do
-    it 'assigns user to @entity' do
-      expect(assigns[:entity]).to eq(user)
-    end
+    allow(subject).to receive(:require_role)
+    allow(subject).to receive(:current_user).and_return(current_user)
+    allow(User).to receive(:with_long_slug).and_return(entity)
   end
 
   shared_examples 'user_assigner' do
     it 'finds user by long slug' do
-      expect(User).to have_received(:with_long_slug).with(user.long_slug)
+      expect(User).to have_received(:with_long_slug).with(entity.long_slug)
     end
 
     it 'assigns user to @user' do
-      expect(assigns[:user]).to eq(user)
-    end
-  end
-
-  describe 'get index' do
-    before(:each) { get :index }
-
-    it_behaves_like 'page_for_administrator'
-
-    it 'assigns list of users to @collection' do
-      expect(assigns[:collection]).to include(user)
+      expect(assigns[:user]).to eq(entity)
     end
   end
 
@@ -41,12 +25,8 @@ RSpec.describe UsersController, type: :controller do
 
     it_behaves_like 'page_for_administrator'
 
-    it 'assigns new instance User to @entity' do
+    it 'assigns a new instance of User to @entity' do
       expect(assigns[:entity]).to be_a_new(User)
-    end
-
-    it 'renders view "new"' do
-      expect(response).to render_template(:new)
     end
   end
 
@@ -71,7 +51,7 @@ RSpec.describe UsersController, type: :controller do
   end
 
   describe 'get show' do
-    before(:each) { get :show, id: user }
+    before(:each) { get :show, id: entity }
 
     it_behaves_like 'page_for_administrator'
     it_behaves_like 'entity_assigner'
@@ -82,36 +62,32 @@ RSpec.describe UsersController, type: :controller do
   end
 
   describe 'get edit' do
-    before(:each) { get :edit, id: user }
+    before(:each) { get :edit, id: entity }
 
     it_behaves_like 'page_for_administrator'
     it_behaves_like 'entity_assigner'
-
-    it 'renders view "edit"' do
-      expect(response).to render_template(:edit)
-    end
   end
 
   describe 'patch update' do
     before(:each) do
-      patch :update, id: user, user: { name: 'new name' }
+      patch :update, id: entity, user: { name: 'changed' }
     end
 
     it_behaves_like 'page_for_administrator'
     it_behaves_like 'entity_assigner'
 
     it 'updates user' do
-      user.reload
-      expect(user.name).to eq('new name')
+      entity.reload
+      expect(entity.name).to eq('changed')
     end
 
     it 'redirects to user page' do
-      expect(response).to redirect_to(user)
+      expect(response).to redirect_to(entity)
     end
   end
 
   describe 'delete destroy' do
-    before(:each) { delete :destroy, id: user }
+    before(:each) { delete :destroy, id: entity }
 
     context 'authorization' do
       it_behaves_like 'page_for_administrator'
@@ -122,13 +98,13 @@ RSpec.describe UsersController, type: :controller do
     end
 
     it 'marks user as deleted' do
-      user.reload
-      expect(user).to be_deleted
+      entity.reload
+      expect(entity).to be_deleted
     end
   end
 
   describe 'get profile' do
-    before(:each) { get :profile, slug: user.long_slug }
+    before(:each) { get :profile, slug: entity.long_slug }
 
     it_behaves_like 'user_assigner'
 

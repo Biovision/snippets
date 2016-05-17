@@ -6,11 +6,11 @@
 <% end %>
 
 <article class="users">
-  <h1><%= t('.header') %></h1>
+  <h1><%= t('.heading') %></h1>
 
   <%= render partial: 'filter', locals: { filter: @filter } %>
 
   <%= paginate @collection %>
-  <%= render partial: 'users/list', locals: { collection: @collection } %>
+  <%= render partial: 'list', locals: { collection: @collection } %>
   <%= paginate @collection %>
 </article>

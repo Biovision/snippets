@@ -64,6 +64,11 @@ ru:
           confirmation: "Подтверждение почты"
           recovery: "Сброс пароля"
           invitation: "Приглашение"
+  admin:
+    users:
+      index:
+        title: "Пользователи, страница %{page}"
+        heading: "Пользователи"
   authentication:
     new:
       title: "Вход на сайт"
@@ -108,9 +113,6 @@ ru:
       title: "Добавить пользователя"
     form:
       roles: "Роли"
-    index:
-      header: "Пользователи"
-      title: "Пользователи, страница %{page}"
     show:
       title: "Пользователь %{name}"
     user:
