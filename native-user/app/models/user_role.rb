@@ -12,7 +12,7 @@ class UserRole < ActiveRecord::Base
   # @param [Symbol] role
   def self.user_has_role?(user, role)
     if self.role_exists? role
-      self.where(user: user, role: self.roles[role]).count == 1
+      self.exists? user: user, role: self.roles[role]
     else
       false
     end

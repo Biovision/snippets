@@ -2,17 +2,11 @@ require 'rails_helper'
 
 RSpec.describe TokensController, type: :controller do
   let(:user) { create :administrator }
-  let!(:token) { create :token }
+  let!(:entity) { create :token }
 
   before :each do
-    allow(controller).to receive(:require_role)
-    allow(controller).to receive(:current_user).and_return(user)
-  end
-
-  shared_examples 'entity_assigner' do
-    it 'assigns token to @entity' do
-      expect(assigns[:entity]).to eq(token)
-    end
+    allow(subject).to receive(:require_role)
+    allow(subject).to receive(:current_user).and_return(user)
   end
 
   describe 'get index' do
@@ -21,7 +15,7 @@ RSpec.describe TokensController, type: :controller do
     it_behaves_like 'page_for_administrator'
 
     it 'assigns list of tokens to @collection' do
-      expect(assigns[:collection]).to include(token)
+      expect(assigns[:collection]).to include(entity)
     end
   end
 
@@ -60,30 +54,22 @@ RSpec.describe TokensController, type: :controller do
   end
 
   describe 'get show' do
-    before(:each) { get :show, id: token }
+    before(:each) { get :show, id: entity }
 
     it_behaves_like 'page_for_administrator'
     it_behaves_like 'entity_assigner'
-
-    it 'renders view "show"' do
-      expect(response).to render_template(:show)
-    end
   end
 
   describe 'get edit' do
-    before(:each) { get :edit, id: token }
+    before(:each) { get :edit, id: entity }
 
     it_behaves_like 'page_for_administrator'
     it_behaves_like 'entity_assigner'
-
-    it 'renders view "edit"' do
-      expect(response).to render_template(:edit)
-    end
   end
 
   describe 'patch update' do
     before(:each) do
-      patch :update, id: token, token: { active: '0' }
+      patch :update, id: entity, token: { active: '0' }
     end
 
     it_behaves_like 'page_for_administrator'
@@ -91,16 +77,16 @@ RSpec.describe TokensController, type: :controller do
 
     it 'updates token' do
       token.reload
-      expect(token).not_to be_active
+      expect(entity).not_to be_active
     end
 
     it 'redirects to token page' do
-      expect(response).to redirect_to(token)
+      expect(response).to redirect_to(entity)
     end
   end
 
   describe 'delete destroy' do
-    let(:action) { -> { delete :destroy, id: token } }
+    let(:action) { -> { delete :destroy, id: entity } }
 
     context 'authorization' do
       before(:each) { action.call }

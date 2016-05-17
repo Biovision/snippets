@@ -2,7 +2,7 @@
 <% content_for :options do %>
     <ul>
       <li><%= link_to t(:create), new_token_path %></li>
-      <li><%= link_to t(:list), tokens_path %></li>
+      <li><%= link_to t(:list), admin_tokens_path %></li>
       <li><%= link_to t(:edit), edit_token_path(@entity) %></li>
       <li><%= link_to_delete @entity %></li>
     </ul>

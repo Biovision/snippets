@@ -95,7 +95,7 @@ gem 'omniauth-vkontakte'
 ```ruby
   # Модуль пользователя
   resources :users, except: [:index]
-  resources :tokens, :codes
+  resources :tokens, :codes, except: [:index]
 
   # Аутентификация
   controller :authentication do
@@ -118,7 +118,7 @@ gem 'omniauth-vkontakte'
   namespace :admin do
     get '/' => 'index#index'
     
-    resources :users, only: [:index]
+    resources :users, :tokens, :codes, only: [:index]
   end
 
   # Профиль пользователя

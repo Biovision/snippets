@@ -6,7 +6,7 @@ RSpec.describe AuthenticationController, type: :controller do
   describe 'get new' do
     context 'when user is not logged in' do
       before :each do
-        allow(controller).to receive(:current_user).and_return(nil)
+        allow(subject).to receive(:current_user).and_return(nil)
         get :new
       end
 
@@ -17,7 +17,7 @@ RSpec.describe AuthenticationController, type: :controller do
 
     context 'when user is logged in' do
       before :each do
-        allow(controller).to receive(:current_user).and_return(user)
+        allow(subject).to receive(:current_user).and_return(user)
         get :new
       end
 
@@ -30,7 +30,7 @@ RSpec.describe AuthenticationController, type: :controller do
   describe 'post create' do
     context 'when user is logged in' do
       before :each do
-        allow(controller).to receive(:current_user).and_return(user)
+        allow(subject).to receive(:current_user).and_return(user)
         post :create
       end
 
@@ -43,7 +43,7 @@ RSpec.describe AuthenticationController, type: :controller do
       let(:action) { -> { post :create, login: user.slug, password: 'incorrect' } }
 
       before(:each) do
-        allow(controller).to receive(:current_user).and_return(nil)
+        allow(subject).to receive(:current_user).and_return(nil)
       end
 
       it 'renders view "new"' do
@@ -65,7 +65,7 @@ RSpec.describe AuthenticationController, type: :controller do
       let(:action) { -> { post :create, login: user.screen_name, password: '1234' } }
 
       before(:each) do
-        allow(controller).to receive(:current_user).and_return(nil)
+        allow(subject).to receive(:current_user).and_return(nil)
       end
 
       it 'adds token to table' do
@@ -90,7 +90,7 @@ RSpec.describe AuthenticationController, type: :controller do
 
       before(:each) do
         request.cookies['token'] = nil
-        allow(controller).to receive(:current_user).and_return(nil)
+        allow(subject).to receive(:current_user).and_return(nil)
       end
 
       it 'renders template "new"' do
@@ -114,7 +114,7 @@ RSpec.describe AuthenticationController, type: :controller do
 
     before :each do
       request.cookies['token'] = token.cookie_pair
-      allow(controller).to receive(:current_user).and_return(user)
+      allow(subject).to receive(:current_user).and_return(user)
       delete :destroy
     end
 

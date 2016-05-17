@@ -2,27 +2,11 @@ require 'rails_helper'
 
 RSpec.describe CodesController, type: :controller do
   let(:user) { create :administrator }
-  let!(:code) { create :code }
+  let!(:entity) { create :code }
 
   before :each do
-    allow(controller).to receive(:require_role)
-    allow(controller).to receive(:current_user).and_return(user)
-  end
-
-  shared_examples 'entity_assigner' do
-    it 'assigns code to @entity' do
-      expect(assigns[:entity]).to eq(code)
-    end
-  end
-
-  describe 'get index' do
-    before(:each) { get :index }
-
-    it_behaves_like 'page_for_administrator'
-
-    it 'assigns list of codes to @collection' do
-      expect(assigns[:collection]).to include(code)
-    end
+    allow(subject).to receive(:require_role)
+    allow(subject).to receive(:current_user).and_return(user)
   end
 
   describe 'get new' do
@@ -30,12 +14,8 @@ RSpec.describe CodesController, type: :controller do
 
     it_behaves_like 'page_for_administrator'
 
-    it 'assigns new instance Code to @entity' do
+    it 'assigns a new instance of Code to @entity' do
       expect(assigns[:entity]).to be_a_new(Code)
-    end
-
-    it 'renders view "new"' do
-      expect(response).to render_template(:new)
     end
   end
 
@@ -60,47 +40,39 @@ RSpec.describe CodesController, type: :controller do
   end
 
   describe 'get show' do
-    before(:each) { get :show, id: code }
+    before(:each) { get :show, id: entity }
 
     it_behaves_like 'page_for_administrator'
     it_behaves_like 'entity_assigner'
-
-    it 'renders view "show"' do
-      expect(response).to render_template(:show)
-    end
   end
 
   describe 'get edit' do
-    before(:each) { get :edit, id: code }
+    before(:each) { get :edit, id: entity }
 
     it_behaves_like 'page_for_administrator'
     it_behaves_like 'entity_assigner'
-
-    it 'renders view "edit"' do
-      expect(response).to render_template(:edit)
-    end
   end
 
   describe 'patch update' do
     before(:each) do
-      patch :update, id: code, code: { payload: 'new text' }
+      patch :update, id: entity, code: { payload: 'new text' }
     end
 
     it_behaves_like 'page_for_administrator'
     it_behaves_like 'entity_assigner'
 
     it 'updates code' do
-      code.reload
-      expect(code.payload).to eq('new text')
+      entity.reload
+      expect(entity.payload).to eq('new text')
     end
 
     it 'redirects to code page' do
-      expect(response).to redirect_to(code)
+      expect(response).to redirect_to(entity)
     end
   end
 
   describe 'delete destroy' do
-    let(:action) { -> { delete :destroy, id: code } }
+    let(:action) { -> { delete :destroy, id: entity } }
 
     context 'authorization' do
       before(:each) { action.call }

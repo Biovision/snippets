@@ -69,6 +69,14 @@ ru:
       index:
         title: "Пользователи, страница %{page}"
         heading: "Пользователи"
+    tokens:
+      index:
+        heading: "Жетоны"
+        title: "Жетоны, страница %{page}"
+    codes:
+      index:
+        heading: "Коды"
+        title: "Коды, страница %{page}"
   authentication:
     new:
       title: "Вход на сайт"
@@ -122,9 +130,6 @@ ru:
       success: "Жетон успешно обновлён"
     delete:
       success: "Жетон успешно удалён"
-    index:
-      header: "Жетоны"
-      title: "Жетоны, страница %{page}"
     show:
       title: "Жетон №%{id}"
     new:
@@ -136,9 +141,6 @@ ru:
       success: "Код успешно обновлён"
     delete:
       success: "Код успешно удалён"
-    index:
-      header: "Коды"
-      title: "Коды, страница %{page}"
     edit:
       title: "Редактирование кода"
     new:
