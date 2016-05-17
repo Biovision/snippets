@@ -42,7 +42,7 @@ gem 'omniauth-vkontakte'
   #
   # @return [User|nil]
   def current_user
-    @current_user ||= Token.user_by_token cookies['token']
+    @current_user ||= Token.user_by_token cookies['token'], true
   end
 
   # @param [Symbol] role

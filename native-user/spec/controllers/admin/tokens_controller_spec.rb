@@ -13,6 +13,6 @@ RSpec.describe Admin::TokensController, type: :controller do
     before(:each) { get :index }
 
     it_behaves_like 'page_for_administrator'
-    it_behaves_like 'entity_assigner'
+    it_behaves_like 'collection_assigner'
   end
 end

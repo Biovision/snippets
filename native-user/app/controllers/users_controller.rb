@@ -3,12 +3,6 @@ class UsersController < ApplicationController
   before_action :set_entity, only: [:show, :edit, :update, :destroy]
   before_action :set_user, only: [:profile]
 
-  # get /users
-  def index
-    @filter     = params[:filter] || Hash.new
-    @collection = User.page_for_administration current_page, @filter
-  end
-
   # get /users/new
   def new
     @entity = User.new

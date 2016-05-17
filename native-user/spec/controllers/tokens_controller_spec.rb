@@ -9,27 +9,13 @@ RSpec.describe TokensController, type: :controller do
     allow(subject).to receive(:current_user).and_return(user)
   end
 
-  describe 'get index' do
-    before(:each) { get :index }
-
-    it_behaves_like 'page_for_administrator'
-
-    it 'assigns list of tokens to @collection' do
-      expect(assigns[:collection]).to include(entity)
-    end
-  end
-
   describe 'get new' do
     before(:each) { get :new }
 
     it_behaves_like 'page_for_administrator'
 
-    it 'assigns new instance Token to @entity' do
+    it 'assigns a new instance of Token to @entity' do
       expect(assigns[:entity]).to be_a_new(Token)
-    end
-
-    it 'renders view "new"' do
-      expect(response).to render_template(:new)
     end
   end
 
@@ -76,7 +62,7 @@ RSpec.describe TokensController, type: :controller do
     it_behaves_like 'entity_assigner'
 
     it 'updates token' do
-      token.reload
+      entity.reload
       expect(entity).not_to be_active
     end
 

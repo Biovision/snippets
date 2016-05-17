@@ -2,10 +2,6 @@ class CodesController < ApplicationController
   before_action :restrict_access
   before_action :set_entity, only: [:show, :edit, :update, :destroy]
 
-  def index
-    @collection = Code.page_for_administration current_page
-  end
-
   def new
     @entity = Code.new
   end
