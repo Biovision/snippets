@@ -5,7 +5,7 @@ class Code < ActiveRecord::Base
 
   enum category: [:confirmation, :recovery, :invitation]
 
-  validates_presence_of :user_id, :body
+  validates_presence_of :body
   validates_uniqueness_of :body
 
   after_initialize :generate_body

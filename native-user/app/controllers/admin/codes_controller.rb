@@ -1,6 +1,7 @@
 class Admin::CodesController < ApplicationController
   before_action :restrict_access
 
+  # get /admin/codes
   def index
     @collection = Code.page_for_administration current_page
   end

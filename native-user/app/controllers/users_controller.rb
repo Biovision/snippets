@@ -1,7 +1,6 @@
 class UsersController < ApplicationController
-  before_action :restrict_access, except: [:profile]
+  before_action :restrict_access
   before_action :set_entity, only: [:show, :edit, :update, :destroy]
-  before_action :set_user, only: [:profile]
 
   # get /users/new
   def new
@@ -45,10 +44,6 @@ class UsersController < ApplicationController
     redirect_to users_path
   end
 
-  # get /u/:slug
-  def profile
-  end
-
   protected
 
   def restrict_access
@@ -57,11 +52,6 @@ class UsersController < ApplicationController
 
   def set_entity
     @entity = User.find params[:id]
-  end
-
-  def set_user
-    @user = User.with_long_slug(params[:slug])
-    raise record_not_found unless @user.is_a?(User) && !@user.deleted?
   end
 
   def entity_parameters

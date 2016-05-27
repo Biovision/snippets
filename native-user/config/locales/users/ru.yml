@@ -1,4 +1,11 @@
 ru:
+  user:
+    zero: "нет пользователей"
+    one: "%{count} пользователь"
+    few: "%{count} пользователя"
+    many: "%{count} пользователей"
+    other: "%{count} пользователей"
+  invalid_code: "Недействительный код"
   insufficient_role: "Ваша роль не подходит для доступа к странице"
   insufficient_rights: "Не хватает прав для просмотра"
   could_not_log_in: "Не удалось выполнить вход"
@@ -71,12 +78,12 @@ ru:
         heading: "Пользователи"
     tokens:
       index:
-        heading: "Жетоны"
         title: "Жетоны, страница %{page}"
+        heading: "Жетоны"
     codes:
       index:
-        heading: "Коды"
         title: "Коды, страница %{page}"
+        heading: "Коды"
   authentication:
     new:
       title: "Вход на сайт"
@@ -111,10 +118,6 @@ ru:
       success: "Пользователь успешно изменён"
     destroy:
       success: "Пользователь успешно удалён"
-    profile:
-      user_info: "Информация о пользователе"
-      registration_date: "Дата регистрации"
-      it_is_you: "Это вы"
     edit:
       title: "Редактирование пользователя"
     new:
@@ -125,6 +128,11 @@ ru:
       title: "Пользователь %{name}"
     user:
       account_data: "Данные аккаунта"
+  profiles:
+    show:
+      user_info: "Информация о пользователе"
+      registration_date: "Дата регистрации"
+      it_is_you: "Это вы"
   tokens:
     update:
       success: "Жетон успешно обновлён"
@@ -203,3 +211,6 @@ ru:
         leave_blank_if_necessary: "Если не будете менять пароль, оставьте эти поля пустыми."
         new_password: "Новый пароль"
         update: "Обновить данные"
+    index:
+      index:
+        title: "Личный кабинет"

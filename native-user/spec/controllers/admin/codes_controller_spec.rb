@@ -1,18 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Admin::CodesController, type: :controller do
-  let(:user) { create :administrator }
   let!(:entity) { create :code }
 
-  before :each do
-    allow(subject).to receive(:require_role)
-    allow(subject).to receive(:current_user).and_return(user)
-  end
-
-  describe 'get index' do
-    before(:each) { get :index }
-
-    it_behaves_like 'page_for_administrator'
-    it_behaves_like 'collection_assigner'
-  end
+  it_behaves_like 'list_for_administrator'
 end

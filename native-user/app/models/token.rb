@@ -36,7 +36,7 @@ class Token < ActiveRecord::Base
     if instance.is_a?(self)
       instance.touch
       user = instance.user
-      user.touch(:last_seen) if touch_user
+      user.update_columns(last_seen: Time.now) if touch_user
       user
     else
       nil

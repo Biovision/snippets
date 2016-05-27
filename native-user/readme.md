@@ -121,9 +121,9 @@ gem 'omniauth-vkontakte'
     resources :users, :tokens, :codes, only: [:index]
   end
 
-  # Профиль пользователя
-  scope 'u/(:slug)', controller: :users do
-    get '/' => :profile, as: :user_profile
+  # Публичный профиль пользователя
+  scope 'u/:slug', controller: :profiles do
+    get '/' => :show, as: :user_profile
   end
 ```
 

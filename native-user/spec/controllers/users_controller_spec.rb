@@ -102,14 +102,4 @@ RSpec.describe UsersController, type: :controller do
       expect(entity).to be_deleted
     end
   end
-
-  describe 'get profile' do
-    before(:each) { get :profile, slug: entity.long_slug }
-
-    it_behaves_like 'user_assigner'
-
-    it 'renders view "profile"' do
-      expect(response).to render_template(:profile)
-    end
-  end
 end

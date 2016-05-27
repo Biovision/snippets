@@ -1,7 +1,7 @@
 <% if collection.any? %>
     <ul>
       <% collection.each do |token| %>
-          <li><%= user_link token.user %><%= link_to "#{token.created_at}/#{token.last_used}", token %></li>
+          <li><%= user_link token.user %> <%= link_to "#{token.created_at}/#{token.updated_at}", token %></li>
       <% end %>
     </ul>
 <% else %>
