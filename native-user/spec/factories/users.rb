@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :user do
-    network User.networks.values.first
+    network User.networks[:native]
     sequence(:screen_name) { |n| "User_#{n}" }
     password 'secret'
     password_confirmation 'secret'
@@ -15,7 +15,7 @@ FactoryGirl.define do
 
     factory :administrator do
       after :create do |user|
-        user.add_role :administrator
+        create :user_role, user: user, role: :administrator
       end
     end
   end

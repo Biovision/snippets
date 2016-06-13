@@ -20,7 +20,7 @@ ru:
         user:
           attributes:
             email:
-              unreasonable: "не выглядит как e-mail"
+              unreasonable: "не выглядит как email"
             slug:
               invalid: "должен содержать от 1 до 20 английских букв, цифр или знаков подчёркивания"
     attributes:
@@ -29,6 +29,7 @@ ru:
         network: "Сеть"
         slug: "Идентификатор"
         gender: "Пол"
+        birthday: "Дата рождения"
         deleted: "Удалён"
         bot: "Это бот"
         allow_login: "Позволить вход"

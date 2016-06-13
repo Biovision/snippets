@@ -1,41 +1,46 @@
 require 'rails_helper'
 
 RSpec.describe UserRole, type: :model do
-  let(:model) { :user_role }
+  subject { build :user_role }
 
   it_behaves_like 'has_valid_factory'
   it_behaves_like 'required_user'
 
   describe 'validation' do
     it 'fails without role' do
-      entity = build model, role: nil
-      expect(entity).not_to be_valid
+      subject.role = nil
+      expect(subject).not_to be_valid
+      expect(subject.errors.messages).to have_key(:role)
     end
 
     it 'fails with non-unique pair' do
-      existing = create model
-      entity   = build model, user: existing.user
-      expect(entity).not_to be_valid
+      create :user_role, user: subject.user, role: subject.role
+      expect(subject).not_to be_valid
+      expect(subject.errors.messages).to have_key(:role)
     end
   end
 
-  describe '#user_has_role?' do
-    let(:user) { create :user }
+  describe '::user_has_role?' do
+    let!(:user) { subject.user }
 
     before :each do
-      create model, user: user, role: :administrator
+      subject.save!
+    end
+
+    it 'returns true for pair with valid role in set' do
+      expect(UserRole.user_has_role(user, :moderator, :administrator)).to be
     end
 
     it 'returns true for existing pair' do
-      expect(UserRole).to be_user_has_role(user, :administrator)
+      expect(UserRole.user_has_role(user, :administrator)).to be
     end
 
     it 'returns false for absent pair' do
-      expect(UserRole).not_to be_user_has_role(user, :moderator)
+      expect(UserRole.user_has_role(user, :moderator)).not_to be
     end
 
     it 'returns false for unknown role' do
-      expect(UserRole).not_to be_user_has_role(user, :non_existent)
+      expect(UserRole.user_has_role(user, :non_existent)).not_to be
     end
   end
 end

@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Code, type: :model do
-  let(:model) { :code }
+  subject { build :code }
 
   it_behaves_like 'has_valid_factory'
   it_behaves_like 'has_owner'
@@ -14,28 +14,31 @@ RSpec.describe Code, type: :model do
 
   describe 'validation' do
     it 'fails without body' do
-      entity = build model
-      entity.body = ' '
-      expect(entity).not_to be_valid
+      subject.body = ' '
+      expect(subject).not_to be_valid
+      expect(subject.errors.messages).to have_key(:body)
     end
 
     it 'fails for non-unique body' do
-      existing = create model
-      entity = build model
-      entity.body = existing.body
-      expect(entity).not_to be_valid
+      create :code, body: subject.body
+      expect(subject).not_to be_valid
+      expect(subject.errors.messages).to have_key(:body)
     end
   end
 
-  describe '#recovery_for_user' do
+  describe '::recovery_for_user' do
     let(:user) { create :unconfirmed_user }
     let(:action) { -> { Code.recovery_for_user user } }
 
     context 'when non-activated recovery exists' do
-      let!(:entity) { create :recovery_code, user: user }
+      before :each do
+        subject.category = Code.categories[:recovery]
+        subject.user     = user
+        subject.save!
+      end
 
       it 'returns existing code' do
-        expect(action.call).to eq(entity)
+        expect(action.call).to eq(subject)
       end
 
       it 'does not insert new code' do
@@ -62,15 +65,19 @@ RSpec.describe Code, type: :model do
     end
   end
 
-  describe '#confirmation_for_user' do
+  describe '::confirmation_for_user' do
     let(:user) { create :user }
     let(:action) { -> { Code.confirmation_for_user user } }
 
     context 'when non-activated confirmation exists' do
-      let!(:entity) { create :confirmation_code, user: user }
+      before :each do
+        subject.category = Code.categories[:confirmation]
+        subject.user     = user
+        subject.save!
+      end
 
       it 'returns existing code' do
-        expect(action.call).to eq(entity)
+        expect(action.call).to eq(subject)
       end
 
       it 'does not insert new code' do

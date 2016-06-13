@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Token, type: :model do
-  let(:model) { :token }
+  subject { build :token }
 
   it_behaves_like 'has_valid_factory'
   it_behaves_like 'has_owner'
@@ -9,13 +9,13 @@ RSpec.describe Token, type: :model do
 
   describe 'validation' do
     it 'fails with non-unique token' do
-      existing = create model
-      entity   = build model, token: existing.token
-      expect(entity).not_to be_valid
+      create :token, token: subject.token
+      expect(subject).not_to be_valid
+      expect(subject.errors.messages).to have_key(:token)
     end
   end
 
-  describe '#user_by_token' do
+  describe '::user_by_token' do
     let(:user) { create :user }
 
     it 'returns nil for empty input' do
@@ -27,18 +27,22 @@ RSpec.describe Token, type: :model do
     end
 
     it 'returns nil for mismatched pair' do
-      token = create model, user: user
-      expect(Token.user_by_token "#{user.id}0:#{token.token}").to be_nil
+      subject.user = user
+      subject.save!
+      expect(Token.user_by_token "#{user.id}0:#{subject.token}").to be_nil
     end
 
     it 'returns nil for inactive token' do
-      token = create model, user: user, active: false
-      expect(Token.user_by_token "#{user.id}:#{token.token}").to be_nil
+      subject.user = user
+      subject.active = false
+      subject.save!
+      expect(Token.user_by_token "#{user.id}:#{subject.token}").to be_nil
     end
 
     it 'returns user for valid pair' do
-      token = create model, user: user
-      expect(Token.user_by_token "#{user.id}:#{token.token}").to eq(user)
+      subject.user = user
+      subject.save!
+      expect(Token.user_by_token "#{user.id}:#{subject.token}").to eq(user)
     end
   end
 end

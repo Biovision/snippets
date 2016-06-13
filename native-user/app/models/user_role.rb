@@ -9,13 +9,12 @@ class UserRole < ActiveRecord::Base
   scope :for_user, ->(user) { where user: user }
 
   # @param [User] user
-  # @param [Symbol] role
-  def self.user_has_role?(user, role)
-    if self.role_exists? role
-      self.exists? user: user, role: self.roles[role]
-    else
-      false
-    end
+  # @param [Array] suitable_roles
+  def self.user_has_role?(user, *suitable_roles)
+    available_roles, result = [], false
+    suitable_roles.each { |role| available_roles << self.roles[role] if self.role_exists? role }
+    result = self.exists? user: user, role: available_roles if available_roles.any?
+    result
   end
 
   # @param [Symbol] role

@@ -1,6 +1,5 @@
 FactoryGirl.define do
   factory :code do
-    user
     category Code.categories.values.first
 
     factory :recovery_code do

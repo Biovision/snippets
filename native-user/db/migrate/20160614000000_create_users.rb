@@ -6,6 +6,7 @@ class CreateUsers < ActiveRecord::Migration
       t.integer :network, limit: 2, null: false
       t.string :slug, null: false
       t.integer :gender, limit: 2
+      t.date :birthday
       t.boolean :deleted, null: false, default: false
       t.boolean :bot, null: false, default: false
       t.boolean :allow_login, null: false, default: true

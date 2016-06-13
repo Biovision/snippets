@@ -1,6 +1,8 @@
 Пользователи с авторизацией через соцсети
 =========================================
 
+Версия 0.1.1 (160614)
+
 ToDo
 ----
 
@@ -8,7 +10,7 @@ ToDo
  * Список жетонов пользователя на его странице в админке
  * Список жетонов текущего пользователя (`/my/tokens`)
  * Стили по умолчанию (`assets/stylesheets/*`)
- * Переключатели состояния (`post /users/:id/toggle`)
+ * Переключатели состояния (`post /api/users/:id/toggle`, `post /api/tokens/:id/toggle`)
  * Разметка schema.org для профиля
  * Разметка opengraph для профиля
 
@@ -46,8 +48,8 @@ gem 'omniauth-vkontakte'
   end
 
   # @param [Symbol] role
-  def current_user_has_role?(role)
-    current_user.is_a?(User) && current_user.has_role?(role)
+  def current_user_has_role?(*role)
+    current_user.is_a?(User) && current_user.has_role?(*role)
   end
 
   protected
@@ -70,9 +72,9 @@ gem 'omniauth-vkontakte'
   # Анонимным посетителям предлагается выполнить вход.
   #
   # @param [Symbol] role
-  def require_role(role)
+  def require_role(*role)
     if current_user.is_a? User
-      redirect_to root_path, alert: t(:insufficient_role) unless current_user.has_role? role
+      redirect_to root_path, alert: t(:insufficient_role) unless current_user.has_role? *role
     else
       redirect_to login_path, alert: t(:please_log_in)
     end
@@ -174,4 +176,3 @@ gem 'omniauth-vkontakte'
   }
   config.action_mailer.default_url_options = { :host => '0.0.0.0:3000' }
 ```
-

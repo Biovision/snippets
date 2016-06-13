@@ -32,7 +32,8 @@ class User < ActiveRecord::Base
   # Параметры для администрирования
   def self.entity_parameters
     %i(
-      slug email screen_name name image gender bot allow_login password password_confirmation email_confirmed allow_mail
+      slug email screen_name name image gender birthday
+      bot allow_login password password_confirmation email_confirmed allow_mail
     )
   end
 
@@ -60,9 +61,9 @@ class User < ActiveRecord::Base
     name || profile_name
   end
 
-  # @param [Symbol] role
-  def has_role?(role)
-    UserRole.user_has_role? self, role
+  # @param [Array] suitable_roles
+  def has_role?(*suitable_roles)
+    UserRole.user_has_role? self, *suitable_roles
   end
 
   # @param [Symbol] role

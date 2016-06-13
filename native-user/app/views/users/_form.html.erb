@@ -47,6 +47,10 @@
       <%= f.select :gender, genders_for_select %>
     </div>
     <div>
+      <%= f.label :birthday %>
+      <%= f.date_field :birthday %>
+    </div>
+    <div>
       <%= f.check_box :bot %>
       <%= f.label :bot %>
     </div>
