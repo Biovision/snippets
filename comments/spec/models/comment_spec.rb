@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Comment, type: :model do
-  let(:model) { :comment }
+  subject { build :comment }
 
   it_behaves_like 'has_valid_factory'
   it_behaves_like 'has_owner'
@@ -9,63 +9,69 @@ RSpec.describe Comment, type: :model do
 
   describe 'validation' do
     it 'fails without commentable object' do
-      entity = build model, commentable: nil
-      expect(entity).not_to be_valid
+      subject.commentable = nil
+      expect(subject).not_to be_valid
+      expect(subject.errors.messages).to have_key(:commentable)
     end
 
     it 'fails without body' do
-      entity = build model, body: ' '
-      expect(entity).not_to be_valid
+      subject.body = ' '
+      expect(subject).not_to be_valid
+      expect(subject.errors.messages).to have_key(:body)
     end
 
     it 'fails with deleted commentable object' do
-      commentable = create :post, deleted: true
-      entity      = build model, commentable: commentable
-      expect(entity).not_to be_valid
+      subject.commentable = create :post, deleted: true
+      expect(subject).not_to be_valid
+      expect(subject.errors.messages).to have_key(:commentable)
     end
 
     it 'fails with invisible commentable object' do
-      commentable = create :post, visible: false
-      entity      = build model, commentable: commentable
-      expect(entity).not_to be_valid
+      subject.commentable = create :post, visible: false
+      expect(subject).not_to be_valid
+      expect(subject.errors.messages).to have_key(:commentable)
     end
   end
 
-  describe 'notify_entry_owner?' do
+  describe '#notify_entry_owner?' do
     let(:owner) { create :confirmed_user }
     let!(:commentable) { create :post, user: owner }
 
     context 'when entry owner is nil' do
-      let!(:entity) { create model, commentable: create(:post) }
-      
-      before(:each) do
+      before :each do
+        subject.commentable = create(:post)
         allow(commentable).to receive(:user).and_return(nil)
       end
 
       it 'returns false' do
-        expect(entity).not_to be_notify_entry_owner
+        expect(subject.notify_entry_owner?).not_to be
       end
     end
 
     context 'when entry owner is the same as comment owner' do
-      let!(:entity) { create model, commentable: commentable, user: owner }
+      before :each do
+        subject.commentable = commentable
+        subject.user = owner
+      end
 
       it 'returns false' do
-        expect(entity).not_to be_notify_entry_owner
+        expect(subject.notify_entry_owner).not_to be
       end
     end
 
     context 'when entry owner is other user' do
-      let!(:entity) { create model, commentable: commentable }
+      before :each do
+        subject.commentable = commentable
+      end
 
       it 'checks if entry owner can receive letters' do
         expect(owner).to receive(:can_receive_letters?)
-        entity.notify_entry_owner?
+        subject.notify_entry_owner?
       end
 
       it 'returns true if entry owner can receive letters' do
         expect(owner).to receive(:can_receive_letters?).and_return(true)
-        expect(entity).to be_notify_entry_owner
+        expect(subject.notify_entry_owner).to be
       end
     end
   end

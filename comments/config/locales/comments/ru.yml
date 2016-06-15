@@ -1,4 +1,11 @@
 ru:
+  comment:
+    zero: "комментариев нет"
+    one: "%{count} комментарий"
+    few: "%{count} комментария"
+    many: "%{count} комментариев"
+    other: "%{count} комментариев"
+    add: "Добавить комментарий"
   activerecord:
     errors:
       models:
@@ -16,13 +23,6 @@ ru:
         deleted: "Комментарий удалён"
         body: "Текст"
   comments_list: "Комментарии"
-  comment:
-    zero: "комментариев нет"
-    one: "%{count} комментарий"
-    few: "%{count} комментария"
-    many: "%{count} комментариев"
-    other: "%{count} комментариев"
-    add: "Добавить комментарий"
   comments:
     create:
       success: "Комментарий добавлен"

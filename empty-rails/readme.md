@@ -9,6 +9,9 @@ Empty rails
 Добавления в `Gemfile`
 
 ```ruby
+# Автоматическая расстановка префиксов в CSS
+gem 'autoprefixer-rails'
+
 gem 'kaminari'
 gem 'rails-i18n', '~> 4.0.0'
 gem 'puma'
