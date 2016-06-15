@@ -75,4 +75,70 @@ RSpec.describe Comment, type: :model do
       end
     end
   end
+
+  describe '#visible_to?' do
+    let(:commentable) { create :post }
+    let(:user) { create :user }
+    let(:administrator) { create :administrator }
+
+    before :each do
+      subject.commentable = commentable
+    end
+
+    context 'when commentable is visible to current user' do
+      before :each do
+        allow(commentable).to receive(:visible_to?).and_return(true)
+      end
+
+      context 'when comment is not deleted' do
+        it 'returns true for anonym' do
+          expect(subject).to be_visible_to(nil)
+        end
+
+        it 'returns true for user' do
+          expect(subject).to be_visible_to(user)
+        end
+
+        it 'returns true for administrator' do
+          expect(subject).to be_visible_to(administrator)
+        end
+      end
+
+      context 'when comment is deleted' do
+        before :each do
+          subject.deleted = true
+        end
+
+        it 'returns false for anonym' do
+          expect(subject).not_to be_visible_to(nil)
+        end
+
+        it 'returns false for user' do
+          expect(subject).not_to be_visible_to(user)
+        end
+
+        it 'returns true for administrator' do
+          expect(subject).to be_visible_to(administrator)
+        end
+      end
+    end
+
+    context 'when commentable is not visible to current user' do
+      before :each do
+        allow(commentable).to receive(:visible_to?).and_return(false)
+      end
+
+      it 'returns false for anonym' do
+        expect(subject).not_to be_visible_to(nil)
+      end
+
+      it 'returns false for user' do
+        expect(subject).not_to be_visible_to(user)
+      end
+
+      it 'returns false for administrator' do
+        expect(subject).not_to be_visible_to(administrator)
+      end
+    end
+  end
 end

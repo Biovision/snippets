@@ -29,6 +29,19 @@ class Comment < ActiveRecord::Base
     entity_parameters + %i(deleted)
   end
 
+  # @param [User] user
+  def visible_to?(user)
+    if self.commentable.respond_to? :visible_to?
+      if deleted?
+        UserRole.user_has_role?(user, :administrator) && commentable.visible_to?(user)
+      else
+        commentable.visible_to?(user)
+      end
+    else
+      !deleted?
+    end
+  end
+
   def notify_entry_owner?
     entry_owner = commentable.user
     if entry_owner.is_a?(User) && !owned_by?(entry_owner)
