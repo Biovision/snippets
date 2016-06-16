@@ -1,0 +1,33 @@
+ru:
+  post:
+    zero: "публикаций нет"
+    one: "%{count} публикация"
+    few: "%{count} публикации"
+    many: "%{count} публикаций"
+    other: "%{count} публикаций"
+  activerecord:
+    attributes:
+      post:
+        user_id: "Пользователь"
+        deleted: "Удалено"
+        locked: "Редактирование запрещено"
+        image: "Картинка"
+        title: "Название"
+        lead: "Аннотация"
+        body: "Текст"
+  posts:
+    update:
+      success: "Публикация успешно обновлена"
+    delete:
+      success: "Публикация успешно удалена"
+    index:
+      title: "Публикации, страница %{page}"
+      heading: "Публикации"
+    new:
+      title: "Добавить публикацию"
+    edit:
+      title: "Редактирование публикации"
+    form:
+      tags: "Метки"
+    preview:
+      read: "Читать полностью"

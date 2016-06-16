@@ -147,6 +147,8 @@ gem 'omniauth-vkontakte'
 Дополнения в `config/environments/production.rb`
 ------------------------------------------------
 
+Вариант для `gmail.com`
+
 ```ruby
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
@@ -156,6 +158,27 @@ gem 'omniauth-vkontakte'
       user_name: 'support@example.com',
       password: Rails.application.secrets.mail_password,
       authentication: :plain,
+      enable_starttls_auto: true
+  }
+  config.action_mailer.default_options = {
+      from: 'example.com <support@example.com>',
+      reply_to: 'support@example.com'
+  }
+  config.action_mailer.default_url_options = { host: 'example.com' }
+```
+
+Вариант для `mail.ru`
+
+```ruby
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+      address: 'smtp.mail.ru',
+      port: 465,
+      tls: true,
+      domain: 'example.com',
+      user_name: 'support@example.com',
+      password: Rails.application.secrets.mail_password,
+      authentication: :login,
       enable_starttls_auto: true
   }
   config.action_mailer.default_options = {
