@@ -53,13 +53,6 @@ gem 'omniauth-vkontakte'
   end
 
   protected
-  
-  # Обёртка для исключения «Запись не найдена»
-  #
-  # @return [ActiveRecord::RecordNotFound]
-  def record_not_found
-    ActiveRecord::RecordNotFound
-  end
 
   # Ограничить доступ для анонимных посетителей
   def restrict_anonymous_access
@@ -132,70 +125,15 @@ gem 'omniauth-vkontakte'
 Дополнения в `config/secrets.yml`
 ---------------------------------
 
-      mail_password: secret
-      vkontakte:
-        app_id: 
-        app_secret: 
-        redirect_uri: http://example.local:3000/auth/vkontakte/callback
-      twitter:
-        api_key: 
-        api_secret: 
-      facebook:
-        app_id: 
-        app_secret: 
-
-Дополнения в `config/environments/production.rb`
-------------------------------------------------
-
-Вариант для `gmail.com`
-
-```ruby
-  config.action_mailer.delivery_method = :smtp
-  config.action_mailer.smtp_settings = {
-      address: 'smtp.gmail.com',
-      port: 587,
-      domain: 'example.com',
-      user_name: 'support@example.com',
-      password: Rails.application.secrets.mail_password,
-      authentication: :plain,
-      enable_starttls_auto: true
-  }
-  config.action_mailer.default_options = {
-      from: 'example.com <support@example.com>',
-      reply_to: 'support@example.com'
-  }
-  config.action_mailer.default_url_options = { host: 'example.com' }
-```
-
-Вариант для `mail.ru`
-
-```ruby
-  config.action_mailer.delivery_method = :smtp
-  config.action_mailer.smtp_settings = {
-      address: 'smtp.mail.ru',
-      port: 465,
-      tls: true,
-      domain: 'example.com',
-      user_name: 'support@example.com',
-      password: Rails.application.secrets.mail_password,
-      authentication: :login,
-      enable_starttls_auto: true
-  }
-  config.action_mailer.default_options = {
-      from: 'example.com <support@example.com>',
-      reply_to: 'support@example.com'
-  }
-  config.action_mailer.default_url_options = { host: 'example.com' }
-```
-
-Дополнения в `config/environments/test.rb` и `config/environments/development.rb`
----------------------------------------------------------------------------------
-
-```ruby
-  config.action_mailer.delivery_method = :test
-  config.action_mailer.default_options = {
-      from: 'example.com <support@example.com>',
-      reply_to: 'support@example.com'
-  }
-  config.action_mailer.default_url_options = { :host => '0.0.0.0:3000' }
+```yaml
+  vkontakte:
+    app_id:
+    app_secret:
+    redirect_uri: http://example.local:3000/auth/vkontakte/callback
+  twitter:
+    api_key:
+    api_secret:
+  facebook:
+    app_id:
+    app_secret:
 ```

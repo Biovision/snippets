@@ -2,13 +2,13 @@ require 'pathname'
 
 environment 'production'
 
-app_root = File.realpath("#{File.dirname(Pathname.new(__FILE__))}/../")
-logs_dir = "#{app_root}/log"
-tmp_dir  = "#{app_root}/tmp"
-pids_dir = "#{tmp_dir}/pids"
+app_root = Pathname.new('../../').expand_path(__FILE__)
+logs_dir = app_root.join('log')
+tmp_dir  = app_root.join('tmp')
+pids_dir = tmp_dir.join('pids')
 
-pidfile "#{pids_dir}/puma.pid"
-state_path "#{tmp_dir}/puma.state"
+pidfile pids_dir.join('puma.pid').to_s
+state_path tmp_dir.join('puma.state').to_s
 
 bind "unix://#{tmp_dir}/puma.sock"
 
