@@ -1,7 +1,7 @@
 Пользователи с авторизацией через соцсети
 =========================================
 
-Версия 0.1.1 (160614)
+Версия 0.1.2 (160628)
 
 ToDo
 ----
@@ -13,6 +13,8 @@ ToDo
  * Переключатели состояния (`post /api/users/:id/toggle`, `post /api/tokens/:id/toggle`)
  * Разметка schema.org для профиля
  * Разметка opengraph для профиля
+ * Выбор пользователя для `owner_for_entity`
+ * Экспорт и импорт пользователей, жетонов и кодов
 
 Дополнения в `Gemfile`
 ----------------------
@@ -71,11 +73,6 @@ gem 'omniauth-vkontakte'
     else
       redirect_to login_path, alert: t(:please_log_in)
     end
-  end
-
-  # Информация об IP-адресе текущего посетителя для сущности
-  def tracking_for_entity
-    { ip: request.env['HTTP_X_REAL_IP'] || request.remote_ip }
   end
 
   # Информация о текущем пользователе для сущности

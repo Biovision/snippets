@@ -3,6 +3,7 @@ class CreateUsers < ActiveRecord::Migration
     create_table :users do |t|
       t.timestamps null: false
       t.inet :ip
+      t.references :agent, index: true, foreign_key: true
       t.integer :network, limit: 2, null: false
       t.string :slug, null: false
       t.integer :gender, limit: 2
