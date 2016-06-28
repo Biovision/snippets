@@ -10,7 +10,9 @@ ToDo
  * Список жетонов пользователя на его странице в админке
  * Список жетонов текущего пользователя (`/my/tokens`)
  * Стили по умолчанию (`assets/stylesheets/*`)
- * Переключатели состояния (`post /api/users/:id/toggle`, `post /api/tokens/:id/toggle`)
+ * Переключатели состояния (`post /api/tokens/:id/toggle`)
+ * Тесты для `Api::UsersController`
+ * Тесты для `Api::TokensController`
  * Разметка schema.org для профиля
  * Разметка opengraph для профиля
  * Выбор пользователя для `owner_for_entity`
@@ -111,6 +113,10 @@ gem 'omniauth-vkontakte'
     get '/' => 'index#index'
     
     resources :users, :tokens, :codes, only: [:index]
+  end
+
+  namespace :api do
+    resources :users, :tokens, concerns: [:toggleable]
   end
 
   # Публичный профиль пользователя

@@ -1,5 +1,8 @@
 form.filter fieldset {
   font-size: 0.75rem;
+  line-height: 1.5rem;
+  display: flex;
+  flex-wrap: wrap;
 
   > div {
     display: flex;
@@ -14,15 +17,19 @@ form.filter fieldset {
       }
     }
 
-    ul {
-      margin: 0;
-      padding: 0;
+    > ul {
       display: flex;
       flex-wrap: wrap;
+      margin: 0;
+      padding: 0;
 
       li {
         list-style: none;
         padding: 0 0.25rem;
+
+        label {
+          padding: 0 0.25rem;
+        }
 
         input[type=radio] {
           display: none;
@@ -37,5 +44,6 @@ form.filter fieldset {
 
   button {
     font-size: 0.75rem;
+    line-height: 1.5rem;
   }
 }
