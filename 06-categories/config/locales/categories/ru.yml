@@ -1,0 +1,28 @@
+ru:
+  activerecord:
+    attributes:
+      category:
+        parent_id: "Родительская категория"
+        priority: "Приоритет"
+        name: "Название"
+  admin:
+    categories:
+      index:
+        title: "Категории, страница %{page}"
+        heading: "Категории"
+  categories:
+    create:
+      success: "Категория успешно создана"
+    update:
+      success: "Категория успешно изменена"
+    delete:
+      success: "Категория успешно удалена"
+    edit:
+      title: "Редактирование категории"
+    new:
+      title: "Добавить категории"
+    index:
+      heading: "Категории"
+      title: "Категории, страница %{page}"
+    show:
+      title: "Категория «%{name}»"

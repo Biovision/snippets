@@ -28,7 +28,7 @@ class Agent < ActiveRecord::Base
 
   # @param [String] attribute
   def toggle_parameter(attribute)
-    if TOGGLEABLE.include? attribute
+    if TOGGLEABLE.include? attribute.to_sym
       toggle! attribute
       { attribute => self[attribute] }
     end
