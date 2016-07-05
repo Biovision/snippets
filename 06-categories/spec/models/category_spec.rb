@@ -79,6 +79,29 @@ RSpec.describe Category, type: :model do
     end
   end
 
+  describe '#parents' do
+    context 'when parents present' do
+      let!(:top_category) { create :category }
+      let!(:parent_category) { create :category, parent: top_category }
+
+      before :each do
+        parent_category.cache_parents!
+        subject.parent = parent_category
+        subject.cache_parents!
+      end
+
+      it 'returns list of parents' do
+        expect(subject.parents).to eq([top_category, parent_category])
+      end
+    end
+
+    context 'when no parents present' do
+      it 'returns empty array' do
+        expect(subject.parents).to eq([])
+      end
+    end
+  end
+
   describe 'before save' do
     before :each do
       subject.children_cache = [100, 100, 101, 101, 101, 102, 100, 102, 101]

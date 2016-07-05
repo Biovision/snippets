@@ -3,7 +3,6 @@ class Category < ActiveRecord::Base
 
   belongs_to :parent, class_name: Category.to_s
   has_many :children, class_name: Category.to_s, foreign_key: :parent_id
-  has_many :items, dependent: :nullify
 
   validates_presence_of :name, :priority
   validates_uniqueness_of :name, scope: [:parent_id]
@@ -26,6 +25,14 @@ class Category < ActiveRecord::Base
     entity_parameters + %i(parent_id)
   end
 
+  def parents
+    if parents_cache.blank?
+      []
+    else
+      Category.where(id: parents_cache.split(',').compact).order('id asc')
+    end
+  end
+
   def cache_parents!
     if parent.nil?
       self.parents_cache = ''
@@ -36,9 +43,9 @@ class Category < ActiveRecord::Base
   end
 
   def cache_children!
-    self.children.order('id asc').map { |child| self.children_cache += [child.id] + child.children_cache }
+    children.order('id asc').map { |child| self.children_cache += [child.id] + child.children_cache }
     save!
-    self.parent.cache_children! unless self.parent.nil?
+    parent.cache_children! unless parent.nil?
   end
 
   def can_be_deleted?
@@ -48,8 +55,8 @@ class Category < ActiveRecord::Base
   private
 
   def set_next_priority
-    if self.id.nil? && self.priority == 1
-      self.priority = Category.where(parent_id: self.parent_id).maximum(:priority).to_i + 1
+    if id.nil? && priority == 1
+      self.priority = Category.where(parent_id: parent_id).maximum(:priority).to_i + 1
     end
   end
 
