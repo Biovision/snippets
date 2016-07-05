@@ -1,0 +1,18 @@
+<%= render partial: 'shared/list_of_errors', locals: { entity: entity } %>
+
+<%= form_for entity do |f| %>
+    <div>
+      <%= f.label :priority %><br />
+      <%= f.number_field :priority, in: (1..10000), required: true %>
+    </div>
+    <div>
+      <%= f.label :name %><br />
+      <%= f.text_field :name, required: true %>
+    </div>
+    <div>
+      <% if entity.id.nil? %>
+          <%= f.hidden_field :parent_id %>
+      <% end %>
+      <%= f.button t(:submit), type: :submit %>
+    </div>
+<% end %>

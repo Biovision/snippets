@@ -1,0 +1,11 @@
+<% if collection.any? %>
+    <ul>
+      <% collection.each do |category| %>
+          <li>
+            <%= link_to category.name, category %>
+          </li>
+      <% end %>
+    </ul>
+<% else %>
+    <%= render 'shared/nothing_found' %>
+<% end %>
