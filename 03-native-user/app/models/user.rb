@@ -1,8 +1,8 @@
 class User < ActiveRecord::Base
   EMAIL_PATTERN = /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z0-9][-a-z0-9]+)\z/i
   SLUG_PATTERN  = /\A[a-z0-9_]{1,20}\z/
-
-  PER_PAGE = 25
+  TOGGLEABLE    = %i(email_confirmed allow_mail allow_login)
+  PER_PAGE      = 25
 
   has_many :user_roles, dependent: :destroy
   has_many :tokens, dependent: :destroy
@@ -24,9 +24,16 @@ class User < ActiveRecord::Base
 
   scope :bots, -> (flag) { where bot: flag.to_i > 0 unless flag.blank? }
   scope :network, -> (network) { where network: network unless network.blank? }
+  scope :name_like, -> (val) { where 'name ilike ?', "%#{val}%" unless val.blank? }
+  scope :email_like, -> (val) { where 'email ilike ?', "%#{val}%" unless val.blank? }
+  scope :screen_name_like, -> (val) { where 'screen_name ilike ?', "%#{val}%" unless val.blank? }
 
+  # @param [Integer] page
+  # @param [Hash] filter
   def self.page_for_administration(page, filter)
-    self.order('network asc, slug asc').bots(filter[:bots]).network(filter[:network]).page(page).per(PER_PAGE)
+    self.order('network asc, slug asc').bots(filter[:bots]).network(filter[:network]).
+        name_like(filter[:name]).email_like(filter[:email]).screen_name_like(filter[:screen_name]).
+        page(page).per(PER_PAGE)
   end
 
   # Параметры для администрирования
@@ -45,6 +52,14 @@ class User < ActiveRecord::Base
       find_by(network: networks[code], slug: parts.join('-')) if networks.has_key?(code)
     else
       find_by slug: long_slug
+    end
+  end
+
+  # @param [String] attribute
+  def toggle_parameter(attribute)
+    if TOGGLEABLE.include? attribute.to_sym
+      toggle! attribute
+      { attribute => self[attribute] }
     end
   end
 
