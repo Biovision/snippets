@@ -1,7 +1,7 @@
 Пользователи с авторизацией через соцсети
 =========================================
 
-Версия 0.1.2 (160628)
+Версия 0.1.3 (160706)
 
 ToDo
 ----
@@ -16,7 +16,6 @@ ToDo
  * Разметка schema.org для профиля
  * Разметка opengraph для профиля
  * Выбор пользователя для `owner_for_entity`
- * Экспорт и импорт пользователей, жетонов и кодов
 
 Дополнения в `Gemfile`
 ----------------------
@@ -132,7 +131,6 @@ gem 'omniauth-vkontakte'
   vkontakte:
     app_id:
     app_secret:
-    redirect_uri: http://example.local:3000/auth/vkontakte/callback
   twitter:
     api_key:
     api_secret:

@@ -11,7 +11,7 @@ namespace :categories do
           category = Category.new id: id
           category.assign_attributes data
           category.save!
-          print "\r#{id}"
+          print "\r#{id}    "
         end
         puts
       end
@@ -25,13 +25,16 @@ namespace :categories do
   desc 'Export categories to YAML'
   task export: :environment do
     file_path = "#{Rails.root}/tmp/export/categories.yml"
+    ignored   = %w(id items_count)
     File.open file_path, 'w' do |file|
       Category.order('id asc').each do |category|
+        print "\r#{category.id}    "
         file.puts "#{category.id}:"
-        category.attributes.except(:id).each do |attribute, value|
+        category.attributes.reject { |attribute| ignored.include? attribute }.each do |attribute, value|
           file.puts "  #{attribute}: #{value.inspect}"
         end
       end
+      puts
     end
   end
 end
