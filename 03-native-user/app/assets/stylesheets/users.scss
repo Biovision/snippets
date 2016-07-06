@@ -34,7 +34,7 @@ article.user {
     tr {
       th {
         text-align: left;
-        border-bottom: solid #f7f7f7 1px;
+        border-bottom: solid #f7f7f7 0.0625rem;
         vertical-align: top;
 
         &:first-letter {
@@ -44,7 +44,7 @@ article.user {
 
       td {
         vertical-align: top;
-        border-bottom: solid #f7f7f7 1px;
+        border-bottom: solid #f7f7f7 0.0625rem;
       }
     }
   }
@@ -71,9 +71,9 @@ article.user {
       color: #ffffff;
       width: 100%;
       text-align: center;
-      font-size: 1.1rem;
+      font-size: $increased_size;
       font-weight: bold;
-      line-height: 1.4rem;
+      line-height: 1.5rem;
     }
   }
 
@@ -91,13 +91,13 @@ article.profile {
     margin: 1em;
 
     figcaption {
-      font-size: 0.9em;
+      font-size: $decreased_size;
       color: #777777;
     }
 
     img {
-      max-width: 200px;
-      max-height: 200px;
+      max-width: 12.5rem;
+      max-height: 12.5rem;
     }
   }
 }
@@ -106,7 +106,7 @@ article.recovery {
   form {
     label {
       display: inline-block;
-      min-width: 200px;
+      min-width: 12.5rem;
     }
   }
 }
@@ -116,10 +116,21 @@ article.edit-user {
     figure {
       margin: 0;
       padding: 0;
+      position: relative;
 
       img {
         max-width: 20rem;
         max-height: 20rem;
+      }
+
+      figcaption {
+        position: absolute;
+        left: 0;
+        bottom: 2rem;
+        background: rgba(127, 127, 127, 0.5);
+        color: #ffffff;
+        padding: 0.5rem 1rem;
+        font-size: $decreased_size;
       }
     }
 
@@ -144,12 +155,12 @@ ul.users-list {
     list-style: none;
     margin: 0;
     padding: 0.5rem;
-    background: #fafafa;
+    background: $row_background_odd;
     display: flex;
     align-items: flex-start;
 
     &:nth-of-type(even) {
-      background: #f7f7f7;
+      background: $row_background_even;
     }
 
     .image {
@@ -160,6 +171,14 @@ ul.users-list {
       img {
         max-width: 4rem;
         max-height: 4rem;
+      }
+    }
+
+    .times {
+      font-size: $small_size;
+
+      time {
+        font-style: italic;
       }
     }
   }

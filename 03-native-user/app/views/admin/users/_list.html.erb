@@ -10,7 +10,18 @@
                 </div>
                 <div class="info">
                   <div><%= link_to "#{user.screen_name} (#{user.profile_name})", user %></div>
-                  <div><%= time_tag user.created_at %></div>
+                  <div class="times">
+                    <div>
+                      <span><%= t(:created_at) %></span>:
+                      <%= time_tag user.created_at %>
+                    </div>
+                    <% unless user.last_seen.nil? %>
+                        <div>
+                          <span><%= t('activerecord.attributes.user.last_seen') %></span>:
+                          <%= time_tag user.last_seen %>
+                        </div>
+                    <% end %>
+                  </div>
                   <%= render partial: 'toggleable', locals: { user: user } %>
                 </div>
               </li>
