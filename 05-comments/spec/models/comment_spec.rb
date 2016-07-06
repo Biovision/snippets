@@ -55,7 +55,7 @@ RSpec.describe Comment, type: :model do
       end
 
       it 'returns false' do
-        expect(subject.notify_entry_owner).not_to be
+        expect(subject.notify_entry_owner?).not_to be
       end
     end
 
@@ -71,7 +71,7 @@ RSpec.describe Comment, type: :model do
 
       it 'returns true if entry owner can receive letters' do
         expect(owner).to receive(:can_receive_letters?).and_return(true)
-        expect(subject.notify_entry_owner).to be
+        expect(subject.notify_entry_owner?).to be
       end
     end
   end

@@ -5,7 +5,8 @@ ru:
     few: "%{count} комментария"
     many: "%{count} комментариев"
     other: "%{count} комментариев"
-    add: "Добавить комментарий"
+  add_comment: "Добавить комментарий"
+  comments_list: "Комментарии"
   activerecord:
     errors:
       models:
@@ -19,10 +20,18 @@ ru:
         commentable_id: "Комментируемый объект"
         commentable_type: "Тип комментируемого объекта"
         user_id: "Автор"
-        ip: "IP-адрес комментатора"
         deleted: "Комментарий удалён"
         body: "Текст"
-  comments_list: "Комментарии"
+  admin:
+    comments:
+      index:
+        heading: "Комментарии"
+        title: "Комментарии, страница %{page}"
+  my:
+    comments:
+      index:
+        heading: "Мои комментарии"
+        title: "Мои комментарии, страница %{page}"
   comments:
     create:
       success: "Комментарий добавлен"
@@ -30,14 +39,11 @@ ru:
       success: "Комментарий изменён"
     destroy:
       success: "Комментарий удалён"
-    entry_reply:
-      subject: "Новый ответ на вашу запись"
     new:
       title: "Добавление комментария"
-    index:
-      header: "Комментарии"
-      title: "Комментарии, страница %{page}"
     edit:
       title: "Редактирование комментария"
     show:
       title: "Комментарий №%{id}"
+    entry_reply:
+      subject: "Новый комментарий к вашей записи"

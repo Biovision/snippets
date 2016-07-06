@@ -1,0 +1,17 @@
+<% content_for :meta_title, t('.title', id: @entity.id) %>
+<% content_for :options do %>
+      <ul>
+        <li><%= link_to t(:list), admin_comments_path %></li>
+        <li><%= link_to t(:edit), edit_comment_path(@entity) %></li>
+      </ul>
+<% end %>
+
+<article class="comment">
+  <h1><%= t('.title', id: @entity.id) %></h1>
+  
+  <div class="header">
+    <p><%= link_to "#{@entity.commentable.class} «#{@entity.commentable.title}»", @entity.commentable %></p>
+    <p><%= user_link @entity.user %></p>
+  </div>
+  <div class="body"><%= simple_format @entity.body %></div>
+</article>

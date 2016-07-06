@@ -38,7 +38,7 @@ class Comment < ActiveRecord::Base
         commentable.visible_to?(user)
       end
     else
-      !deleted?
+      !deleted? || UserRole.user_has_role?(user, :administrator)
     end
   end
 

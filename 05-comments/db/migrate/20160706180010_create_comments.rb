@@ -1,8 +1,9 @@
 class CreateComments < ActiveRecord::Migration
   def change
-    create_table :'05-comments' do |t|
+    create_table :comments do |t|
       t.timestamps null: false
       t.references :user, index: true, foreign_key: true
+      t.references :agent, index: true, foreign_key: true
       t.inet :ip
       t.boolean :deleted, null: false, default: false
       t.integer :commentable_id, null: false
@@ -10,6 +11,6 @@ class CreateComments < ActiveRecord::Migration
       t.text :body, null: false
     end
 
-    add_index :'05-comments', [:commentable_id, :commentable_type]
+    add_index :comments, [:commentable_id, :commentable_type]
   end
 end

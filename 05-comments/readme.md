@@ -1,26 +1,30 @@
 Комментарии к комментируемому
 =============================
 
-В процессе.
+Версия 0.1.0 (160707)
 
 ToDo
 ----
 
- * контроллер для добавления
- * контроллер в админке
+ * CSS и вёрстка по умолчанию
  * API-часть (скрытие/отображение)
+ * Отправка уведомлений в рамках сайта
 
 Дополнения к `config/routes.rb`
 ------------------------
 
 ```ruby
-  resources :comments, except: [:index]
+  resources :comments, except: [:index, :new]
 
   namespace :admin do
     resources :comments, only: [:index]
   end
 
-  namespace :api do
-    resources :comments
+  namespace :api, defaults: { format: :json } do
+    resources :comments, except: [:new, :edit]
+  end
+  
+  namespace :my do
+    resources :comments, only: [:index]
   end
 ```
