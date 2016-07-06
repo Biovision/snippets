@@ -3,6 +3,8 @@ class Code < ActiveRecord::Base
 
   PER_PAGE = 25
 
+  belongs_to :user
+
   enum category: [:confirmation, :recovery, :invitation]
 
   validates_presence_of :body

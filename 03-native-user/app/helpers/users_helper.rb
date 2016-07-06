@@ -9,7 +9,7 @@ module UsersHelper
   end
 
   def user_roles(user)
-    UserRole.for_user(user).map { |role| I18n.t("activerecord.attributes.user_role.roles.#{role.role}") }
+    UserRole.owned_by(user).map { |role| I18n.t("activerecord.attributes.user_role.roles.#{role.role}") }
   end
 
   def user_link(user)

@@ -2,8 +2,6 @@ module HasOwner
   extend ActiveSupport::Concern
 
   included do
-    belongs_to :user
-
     scope :owned_by, ->(user) { where user: user }
   end
 

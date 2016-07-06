@@ -4,6 +4,7 @@ RSpec.describe UserRole, type: :model do
   subject { build :user_role }
 
   it_behaves_like 'has_valid_factory'
+  it_behaves_like 'has_owner'
   it_behaves_like 'required_user'
 
   describe 'validation' do

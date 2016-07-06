@@ -1,12 +1,12 @@
 class UserRole < ActiveRecord::Base
+  include HasOwner
+
   belongs_to :user
 
   enum role: [:administrator, :moderator]
 
   validates_presence_of :user_id, :role
   validates_uniqueness_of :role, scope: [:user_id]
-
-  scope :for_user, ->(user) { where user: user }
 
   # @param [User] user
   # @param [Array] suitable_roles

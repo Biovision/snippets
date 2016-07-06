@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe ProfilesController, type: :controller do
-
   before :each do
     allow(User).to receive(:with_long_slug).and_return(entity)
   end
