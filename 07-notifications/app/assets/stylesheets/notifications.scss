@@ -1,30 +1,18 @@
 ul.notifications-list {
-  margin: 1rem 0;
-  padding: 0;
+  @include striped-list;
+}
 
-  > li {
-    list-style: none;
-    margin: 0;
-    padding: 0.5rem;
-    background: $row_background_odd;
+div.notification {
+  > .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 0 1rem 0;
+    padding: 0 0 0.25rem;
+    border-bottom: solid #777777 0.0625rem;
 
-    &:nth-of-type(even) {
-      background: $row_background_even;
-    }
-
-    > div.notification {
-      > .header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin: 0 0 1rem 0;
-        padding: 0 0 0.25rem;
-        border-bottom: solid #777777 0.0625rem;
-
-        .category {
-          font-size: $increased_size;
-        }
-      }
+    .category {
+      font-size: $increased_size;
     }
   }
 }

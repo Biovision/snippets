@@ -1,5 +1,15 @@
 <div class="comment">
-  <%= user_link comment.user %>
-  <%= comment.commentable.class %>
-  <%= link_to comment.commentable.title, comment.commentable %>
+  <div class="title">
+    <%= comment.commentable.model_name.human %>
+    <%= link_to comment.commentable.title, comment.commentable %>
+  </div>
+
+  <div class="body">
+    <%= simple_format comment.body %>
+  </div>
+
+  <div class="author">
+    <%= user_link comment.user %>
+    <%= time_tag comment.created_at %>
+  </div>
 </div>

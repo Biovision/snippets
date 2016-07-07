@@ -1,0 +1,39 @@
+ul.comments-list {
+  @include striped-list;
+}
+
+div.comment {
+  .title {
+    padding: 0 0 0.25rem 0;
+    border-bottom: dotted 0.0625rem;
+    margin: 0.5rem 0;
+
+    a {
+      &:before {
+        content: open-quote;
+      }
+
+      &:after {
+        content: close-quote;
+      }
+    }
+  }
+
+  .body {
+    margin: 0.5rem;
+    padding: 0.5rem;
+    background: #ffffff;
+  }
+
+  .author {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 0.5rem;
+
+    time {
+      font-size: $decreased_size;
+      font-style: italic;
+    }
+  }
+}
