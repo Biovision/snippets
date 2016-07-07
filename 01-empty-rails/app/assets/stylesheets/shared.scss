@@ -13,6 +13,52 @@ $tiny_size: 0.5rem;        // 8px
 $row_background_even: #f7f7f7;
 $row_background_odd: #fafafa;
 
+@mixin entity-table {
+  margin: 1rem;
+  border-spacing: 0;
+
+  tbody {
+    tr:nth-of-type(even) {
+      background: $row_background_even;
+    }
+
+    tr:nth-of-type(odd) {
+      background: $row_background_odd;
+    }
+
+    th {
+      text-align: right;
+      padding: 0.25rem 0.5rem;
+    }
+
+    td {
+      padding: 0.25rem 0.5rem;
+
+      &[colspan]:first-letter {
+        text-transform: capitalize;
+      }
+    }
+  }
+}
+
+@mixin entity-form-table {
+  th {
+    font-weight: normal;
+    text-align: right;
+    vertical-align: top;
+    line-height: 1.75rem;
+  }
+
+  tfoot {
+    tr {
+      td {
+        padding: 0.5rem 0;
+        text-align: center;
+      }
+    }
+  }
+}
+
 @mixin striped-list {
   margin: 1rem 0;
   padding: 0;

@@ -113,25 +113,8 @@ article.recovery {
 
 article.edit-user {
   form {
-    figure {
-      margin: 0;
-      padding: 0;
-      position: relative;
-
-      img {
-        max-width: 20rem;
-        max-height: 20rem;
-      }
-
-      figcaption {
-        position: absolute;
-        left: 0;
-        bottom: 2rem;
-        background: rgba(127, 127, 127, 0.5);
-        color: #ffffff;
-        padding: 0.5rem 1rem;
-        font-size: $decreased_size;
-      }
+    table {
+      @include entity-form-table;
     }
 
     ul {
@@ -148,20 +131,12 @@ article.edit-user {
 }
 
 ul.users-list {
-  margin: 0;
-  padding: 0;
+  @include striped-list;
 
   li {
-    list-style: none;
-    margin: 0;
-    padding: 0.5rem;
-    background: $row_background_odd;
     display: flex;
     align-items: flex-start;
-
-    &:nth-of-type(even) {
-      background: $row_background_even;
-    }
+    flex-wrap: wrap;
 
     .image {
       width: 4rem;
