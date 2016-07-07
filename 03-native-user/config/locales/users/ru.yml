@@ -136,10 +136,9 @@ ru:
     user:
       account_data: "Данные аккаунта"
   profiles:
-    show:
+    profile:
       user_info: "Информация о пользователе"
       registration_date: "Дата регистрации"
-      it_is_you: "Это вы"
   tokens:
     update:
       success: "Жетон успешно обновлён"
