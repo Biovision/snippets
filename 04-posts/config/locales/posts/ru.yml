@@ -6,6 +6,8 @@ ru:
     many: "%{count} публикаций"
     other: "%{count} публикаций"
   activerecord:
+    models:
+      post: "Публикация"
     attributes:
       post:
         user_id: "Пользователь"
@@ -18,7 +20,7 @@ ru:
   posts:
     update:
       success: "Публикация успешно обновлена"
-    delete:
+    destroy:
       success: "Публикация успешно удалена"
     index:
       title: "Публикации, страница %{page}"

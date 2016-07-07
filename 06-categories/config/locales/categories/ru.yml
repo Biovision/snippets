@@ -1,5 +1,7 @@
 ru:
   activerecord:
+    models:
+      category: "Категория"
     attributes:
       category:
         parent_id: "Родительская категория"

@@ -6,6 +6,8 @@ ru:
     many: "%{count} уведомлений"
     other: "%{count} уведомлений"
   activerecord:
+    models:
+      notification: "Уведомление"
     attributes:
       notification:
         user_id: "Пользователь"
