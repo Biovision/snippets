@@ -1,0 +1,21 @@
+ru:
+  notification:
+    zero: "уведомлений нет"
+    one: "%{count} уведомление"
+    few: "%{count} уведомления"
+    many: "%{count} уведомлений"
+    other: "%{count} уведомлений"
+  activerecord:
+    attributes:
+      notification:
+        user_id: "Пользователь"
+        category: "Категория"
+        payload: "Полезная нагрузка"
+        was_read: "Прочитано"
+        categories:
+          entry_reply: "Ответ на запись"
+  my:
+    notifications:
+      index:
+        title: "Мои уведомления, страница %{page}"
+        heading: "Мои уведомления"

@@ -54,7 +54,21 @@ $(function () {
                 handle_ajax_failure(response);
             });
         }
-    })
+    });
+
+    $('div[data-destroy-url] button.destroy').on('click', function() {
+        var $button = $(this);
+        var $container = $(this).closest('div[data-destroy-url]');
+
+        $button.attr('disabled', true);
+
+        $.ajax($container.data('destroy-url'), {
+            method: 'delete',
+            success: function(response) {
+                $container.remove();
+            }
+        }).fail(handle_ajax_failure);
+    });
 });
 
 function handle_ajax_failure(response) {

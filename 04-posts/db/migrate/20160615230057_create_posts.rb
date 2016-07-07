@@ -3,6 +3,7 @@ class CreatePosts < ActiveRecord::Migration
     create_table :posts do |t|
       t.timestamps null: false
       t.inet :ip
+      t.references :agent, index: true, foreign_key: true
       t.references :user, index: true, foreign_key: true
       t.boolean :deleted, null: false, default: false
       t.boolean :locked, null: false, default: false

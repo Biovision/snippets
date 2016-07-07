@@ -31,3 +31,10 @@ $toggleable_unknown: #f0f0f0;
     background: $toggleable_unknown;
   }
 }
+
+button.destroy {
+  font-size: $small_size;
+  line-height: 1rem;
+  background: #fff7f7;
+  border: solid #800000 0.0625rem;
+}

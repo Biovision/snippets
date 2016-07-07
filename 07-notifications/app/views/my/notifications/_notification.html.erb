@@ -1,0 +1,9 @@
+<% payload_object = notification.payload_object %>
+<% notification.update was_read: true unless notification.was_read? %>
+<div class="notification" data-destroy-url="<%= api_notification_path(notification) %>">
+  <div class="header">
+    <span class="category"><%= t("activerecord.attributes.notification.categories.#{notification.category}") %></span>
+    <button class="destroy"><%= t(:delete) %></button>
+  </div>
+  <%= render payload_object unless payload_object.nil? %>
+</div>
