@@ -31,73 +31,14 @@ article.user {
   }
 
   table {
-    tr {
-      th {
-        text-align: left;
-        border-bottom: solid #f7f7f7 0.0625rem;
-        vertical-align: top;
-
-        &:first-letter {
-          text-transform: uppercase;
-        }
-      }
-
-      td {
-        vertical-align: top;
-        border-bottom: solid #f7f7f7 0.0625rem;
-      }
-    }
-  }
-}
-
-.user-profile {
-  min-height: 20rem;
-
-  figure {
-    float: left;
-    position: relative;
-    margin: 1rem;
-
-    img {
-      max-width: 12rem;
-      max-height: 12rem;
-    }
-
-    figcaption {
-      position: absolute;
-      bottom: 1rem;
-      left: 0;
-      background: rgba(127, 127, 127, 0.6);
-      color: #ffffff;
-      width: 100%;
-      text-align: center;
-      font-size: $increased_size;
-      font-weight: bold;
-      line-height: 1.5rem;
-    }
-  }
-
-  table {
-    margin: 0 1rem;
-
-    th {
-      text-align: left;
-    }
+    @include entity-table;
   }
 }
 
 article.profile {
-  figure {
-    margin: 1em;
-
-    figcaption {
-      font-size: $decreased_size;
-      color: #777777;
-    }
-
-    img {
-      max-width: 12.5rem;
-      max-height: 12.5rem;
+  form {
+    table {
+      @include entity-form-table;
     }
   }
 }

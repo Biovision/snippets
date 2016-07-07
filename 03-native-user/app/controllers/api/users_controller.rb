@@ -10,7 +10,7 @@ class Api::UsersController < ApplicationController
   private
 
   def set_entity
-    @entity = User.find params[:id]
+    @entity = User.find_by! id: params[:id], deleted: false
   end
 
   def restrict_access

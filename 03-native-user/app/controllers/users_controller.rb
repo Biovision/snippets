@@ -41,7 +41,7 @@ class UsersController < ApplicationController
     if @entity.update(deleted: true)
       flash[:notice] = t('users.destroy.success')
     end
-    redirect_to users_path
+    redirect_to admin_users_path
   end
 
   protected

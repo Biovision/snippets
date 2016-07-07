@@ -13,6 +13,8 @@ $tiny_size: 0.5rem;        // 8px
 $row_background_even: #f7f7f7;
 $row_background_odd: #fafafa;
 
+$secondary_text_color: #777777;
+
 @mixin entity-table {
   margin: 1rem;
   border-spacing: 0;
@@ -47,6 +49,13 @@ $row_background_odd: #fafafa;
     text-align: right;
     vertical-align: top;
     line-height: 1.75rem;
+
+    &[colspan] {
+      text-align: center;
+      font-weight: bold;
+      border-top: solid #777777 0.0625rem;
+      padding-top: 1rem;
+    }
   }
 
   tfoot {
@@ -55,6 +64,17 @@ $row_background_odd: #fafafa;
         padding: 0.5rem 0;
         text-align: center;
       }
+    }
+  }
+
+  p.notice {
+    margin: 0;
+    color: $secondary_text_color;
+    font-size: $decreased_size;
+
+    &:before {
+      content: '\261E';
+      margin-right: 0.25rem;
     }
   }
 }

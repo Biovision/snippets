@@ -60,12 +60,14 @@
       <td><%= user_roles(user).join(', ') %></td>
     </tr>
     </tbody>
-    <tfoot>
-    <tr>
-      <td colspan="2">
-        <%= render partial: 'admin/users/toggleable', locals: { user: user } %>
-      </td>
-    </tr>
-    </tfoot>
+    <% unless user.deleted? %>
+        <tfoot>
+        <tr>
+          <td colspan="2">
+            <%= render partial: 'admin/users/toggleable', locals: { user: user } %>
+          </td>
+        </tr>
+        </tfoot>
+    <% end %>
   </table>
 </article>

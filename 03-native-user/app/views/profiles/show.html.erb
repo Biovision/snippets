@@ -1,5 +1,5 @@
 <% content_for :meta_title, @entity.profile_name %>
-<% content_for :meta_image, (request.protocol + request.host_with_port + @entity.image.url) if @entity.image.url %>
+<% content_for :meta_image, (request.protocol + request.host_with_port + @entity.image.url) unless @entity.image.blank? %>
 <% content_for :options do %>
     <% if current_user_has_role? :administrator %>
         <ul>
@@ -7,40 +7,6 @@
           <li><%= link_to t(:edit), edit_user_path(@entity) %></li>
         </ul>
     <% end %>
-    <% if current_user == @entity %>
-        <div>
-          <p><%= t('.it_is_you') %></p>
-          <p><%= link_to t(:edit), edit_my_profile_path %></p>
-        </div>
-    <% end %>
 <% end %>
 
-<article class="user-profile">
-  <h1><%= @entity.profile_name %></h1>
-  <figure>
-    <%= raw profile_avatar(@entity) %>
-    <figcaption><%= @entity.profile_name %></figcaption>
-  </figure>
-
-  <table>
-    <caption><%= t('.user_info') %></caption>
-    <tbody>
-    <tr>
-      <th><%= t('.registration_date') %></th>
-      <td><%= time_tag @entity.created_at %></td>
-    </tr>
-    <tr>
-      <th><%= t('activerecord.attributes.user.last_seen') %></th>
-      <td><%= time_tag @entity.last_seen %></td>
-    </tr>
-    <tr>
-      <th><%= t('activerecord.attributes.user.name') %></th>
-      <td><%= @entity.name.blank? ? t(:not_set) : @entity.name %></td>
-    </tr>
-    <tr>
-      <th><%= t('activerecord.attributes.user.gender') %></th>
-      <td><%= @entity.gender.blank? ? t(:not_selected) : t("activerecord.attributes.user.genders.#{@entity.gender}") %></td>
-    </tr>
-    </tbody>
-  </table>
-</article>
+<%= render partial: 'profile', locals: { user: @entity } %>
