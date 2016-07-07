@@ -1,6 +1,6 @@
 namespace :tokens do
-  desc 'Import tokens from YAML with deleting old data'
-  task import: :environment do
+  desc 'Load tokens from YAML with deleting old data'
+  task load: :environment do
     file_path = "#{Rails.root}/tmp/import/tokens.yml"
     if File.exists? file_path
       puts 'Deleting old tokens...'
@@ -22,8 +22,8 @@ namespace :tokens do
     end
   end
 
-  desc 'Export tokens to YAML'
-  task export: :environment do
+  desc 'Dump tokens to YAML'
+  task dump: :environment do
     file_path = "#{Rails.root}/tmp/export/tokens.yml"
     ignored   = %w(id ip)
     File.open file_path, 'w' do |file|
@@ -31,7 +31,7 @@ namespace :tokens do
         print "\r#{token.id}    "
         file.puts "#{token.id}:"
         token.attributes.reject { |attribute| ignored.include? attribute }.each do |attribute, value|
-          file.puts "  #{attribute}: #{value.inspect}"
+          file.puts "  #{attribute}: #{value.nil? ? '-' : value.inspect}"
         end
         file.puts "  ip: #{token.ip}" unless token.ip.blank?
       end

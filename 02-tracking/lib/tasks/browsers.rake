@@ -1,6 +1,6 @@
 namespace :browsers do
-  desc 'Import browsers from YAML with deleting old data'
-  task import: :environment do
+  desc 'Load browsers from YAML with deleting old data'
+  task load: :environment do
     file_path = "#{Rails.root}/tmp/import/browsers.yml"
     if File.exists? file_path
       puts 'Deleting old browsers...'
@@ -22,14 +22,15 @@ namespace :browsers do
     end
   end
 
-  desc 'Export browsers to YAML'
-  task export: :environment do
+  desc 'Dump browsers to YAML'
+  task dump: :environment do
     file_path = "#{Rails.root}/tmp/export/browsers.yml"
+    ignored   = %w(id)
     File.open file_path, 'w' do |file|
       Browser.order('id asc').each do |browser|
         file.puts "#{browser.id}:"
-        browser.attributes.except(:id).each do |attribute, value|
-          file.puts "  #{attribute}: #{value.inspect}"
+        browser.attributes.reject { |attribute| ignored.include? attribute }.each do |attribute, value|
+          file.puts "  #{attribute}: #{value.nil? ? '-' : value.inspect}"
         end
       end
     end

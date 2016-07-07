@@ -1,6 +1,6 @@
 namespace :comments do
-  desc 'Import comments from YAML with deleting old data'
-  task import: :environment do
+  desc 'Load comments from YAML with deleting old data'
+  task load: :environment do
     file_path = "#{Rails.root}/tmp/import/comments.yml"
     if File.exists? file_path
       puts 'Deleting old comments...'
@@ -22,8 +22,8 @@ namespace :comments do
     end
   end
 
-  desc 'Export comments to YAML'
-  task export: :environment do
+  desc 'Dump comments to YAML'
+  task dump: :environment do
     file_path = "#{Rails.root}/tmp/export/comments.yml"
     ignored   = %w(id ip)
     File.open file_path, 'w' do |file|
@@ -31,7 +31,7 @@ namespace :comments do
         print "\r#{comment.id}    "
         file.puts "#{comment.id}:"
         comment.attributes.reject { |attribute| ignored.include? attribute }.each do |attribute, value|
-          file.puts "  #{attribute}: #{value.inspect}"
+          file.puts "  #{attribute}: #{value.nil? ? '-' : value.inspect}"
         end
         file.puts "  ip: #{comment.ip}" unless comment.ip.blank?
       end

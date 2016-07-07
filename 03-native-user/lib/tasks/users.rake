@@ -1,8 +1,8 @@
 require 'fileutils'
 
 namespace :users do
-  desc 'Import users from YAML with deleting old data'
-  task import: :environment do
+  desc 'Load users from YAML with deleting old data'
+  task load: :environment do
     file_path = "#{Rails.root}/tmp/import/users.yml"
     image_dir = "#{Rails.root}/tmp/import/users"
     if File.exists? file_path
@@ -34,8 +34,8 @@ namespace :users do
     end
   end
 
-  desc 'Export users to YAML'
-  task export: :environment do
+  desc 'Dump users to YAML'
+  task dump: :environment do
     file_path = "#{Rails.root}/tmp/export/users.yml"
     image_dir = "#{Rails.root}/tmp/export/users"
     ignored   = %w(id image ip)
@@ -45,7 +45,7 @@ namespace :users do
         print "\r#{user.id}    "
         file.puts "#{user.id}:"
         user.attributes.reject { |attribute| ignored.include? attribute }.each do |attribute, value|
-          file.puts "  #{attribute}: #{value.inspect}"
+          file.puts "  #{attribute}: #{value.nil? ? '-' : value.inspect}"
         end
         file.puts "  ip: #{user.ip}" unless user.ip.blank?
         unless user.image.blank?

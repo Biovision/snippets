@@ -1,6 +1,6 @@
 namespace :codes do
-  desc 'Import codes from YAML with deleting old data'
-  task import: :environment do
+  desc 'Load codes from YAML with deleting old data'
+  task load: :environment do
     file_path = "#{Rails.root}/tmp/import/codes.yml"
     if File.exists? file_path
       puts 'Deleting old codes...'
@@ -22,8 +22,8 @@ namespace :codes do
     end
   end
 
-  desc 'Export codes to YAML'
-  task export: :environment do
+  desc 'Dump codes to YAML'
+  task dump: :environment do
     file_path = "#{Rails.root}/tmp/export/codes.yml"
     ignored   = %w(id ip)
     File.open file_path, 'w' do |file|
@@ -31,7 +31,7 @@ namespace :codes do
         print "\r#{code.id}    "
         file.puts "#{code.id}:"
         code.attributes.reject { |attribute| ignored.include? attribute }.each do |attribute, value|
-          file.puts "  #{attribute}: #{value.inspect}"
+          file.puts "  #{attribute}: #{value.nil? ? '-' : value.inspect}"
         end
         file.puts "  ip: #{code.ip}" unless code.ip.blank?
       end

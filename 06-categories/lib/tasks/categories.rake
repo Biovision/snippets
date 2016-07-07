@@ -1,6 +1,6 @@
 namespace :categories do
-  desc 'Import categories from YAML with deleting old data'
-  task import: :environment do
+  desc 'Load categories from YAML with deleting old data'
+  task load: :environment do
     file_path = "#{Rails.root}/tmp/import/categories.yml"
     if File.exists? file_path
       puts 'Deleting old categories...'
@@ -22,8 +22,8 @@ namespace :categories do
     end
   end
 
-  desc 'Export categories to YAML'
-  task export: :environment do
+  desc 'Dump categories to YAML'
+  task dump: :environment do
     file_path = "#{Rails.root}/tmp/export/categories.yml"
     ignored   = %w(id items_count)
     File.open file_path, 'w' do |file|
@@ -31,7 +31,7 @@ namespace :categories do
         print "\r#{category.id}    "
         file.puts "#{category.id}:"
         category.attributes.reject { |attribute| ignored.include? attribute }.each do |attribute, value|
-          file.puts "  #{attribute}: #{value.inspect}"
+          file.puts "  #{attribute}: #{value.nil? ? '-' : value.inspect}"
         end
       end
       puts

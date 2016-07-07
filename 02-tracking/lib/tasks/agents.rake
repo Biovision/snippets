@@ -1,6 +1,6 @@
 namespace :agents do
-  desc 'Import agents from YAML with deleting old data'
-  task import: :environment do
+  desc 'Load agents from YAML with deleting old data'
+  task load: :environment do
     file_path = "#{Rails.root}/tmp/import/agents.yml"
     if File.exists? file_path
       puts 'Deleting old agents...'
@@ -22,14 +22,15 @@ namespace :agents do
     end
   end
 
-  desc 'Export agents to YAML'
-  task export: :environment do
+  desc 'Dump agents to YAML'
+  task dump: :environment do
     file_path = "#{Rails.root}/tmp/export/agents.yml"
+    ignored = %w(id)
     File.open file_path, 'w' do |file|
       Agent.order('id asc').each do |agent|
         file.puts "#{agent.id}:"
-        agent.attributes.except(:id).each do |attribute, value|
-          file.puts "  #{attribute}: #{value.inspect}"
+        agent.attributes.reject { |attribute| ignored.include? attribute }.each do |attribute, value|
+          file.puts "  #{attribute}: #{value.nil? ? '-' : value.inspect}"
         end
       end
     end
