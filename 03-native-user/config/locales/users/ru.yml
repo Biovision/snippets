@@ -15,6 +15,11 @@ ru:
   anonymous: "Анонимно"
   view_as_administrator: "Посмотреть в админке"
   activerecord:
+    models:
+      user: "Пользователь"
+      user_role: "Роль пользователя"
+      code: "Код"
+      token: "Жетон доступа"
     errors:
       models:
         user:
@@ -163,6 +168,9 @@ ru:
     password:
       subject: "Сброс пароля"
   my:
+    index:
+      index:
+        title: "Личный кабинет"
     recoveries:
       create:
         impossible: "Сброс пароля для этого пользователя недоступен"
@@ -213,6 +221,3 @@ ru:
         leave_blank_if_necessary: "Если не будете менять пароль, оставьте эти поля пустыми."
         new_password: "Новый пароль"
         update: "Обновить данные"
-    index:
-      index:
-        title: "Личный кабинет"
