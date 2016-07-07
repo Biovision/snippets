@@ -8,7 +8,7 @@ div.comment {
     border-bottom: dotted 0.0625rem;
     margin: 0.5rem 0;
 
-    a {
+    cite {
       &:before {
         content: open-quote;
       }

@@ -1,7 +1,7 @@
 <div class="comment">
   <div class="title">
     <%= comment.commentable.model_name.human %>
-    <%= link_to comment.commentable.title, comment.commentable %>
+    <cite><%= link_to comment.commentable.title, comment.commentable %></cite>
   </div>
 
   <div class="body">
