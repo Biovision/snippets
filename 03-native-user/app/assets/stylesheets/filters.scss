@@ -1,12 +1,14 @@
 form.filter fieldset {
-  font-size: 0.75rem;
+  font-size: $small_size;
   line-height: 1.5rem;
-  display: flex;
-  flex-wrap: wrap;
 
   > div {
     display: flex;
     flex-wrap: wrap;
+
+    input {
+      font-size: $small_size;
+    }
 
     > div {
       font-weight: bold;
@@ -43,7 +45,7 @@ form.filter fieldset {
   }
 
   button {
-    font-size: 0.75rem;
-    line-height: 1.5rem;
+    margin: 0.5rem 0 0 0;
+    font-size: $small_size;
   }
 }
