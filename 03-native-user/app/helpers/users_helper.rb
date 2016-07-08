@@ -29,7 +29,7 @@ module UsersHelper
     if user.is_a?(User) && !user.image.blank? && !user.deleted?
       image_tag user.image.profile.url
     else
-      image_tag 'fallback/avatar/default.png'
+      image_tag 'fallback/avatar/profile_default.png'
     end
   end
 end
