@@ -13,6 +13,7 @@ class CreatePosts < ActiveRecord::Migration
       t.integer :downvote_count, null: false, default: 0
       t.string :image
       t.string :title
+      t.string :slug
       t.text :lead
       t.text :body, null: false
       t.string :tags_cache, array: true, null: false, default: []

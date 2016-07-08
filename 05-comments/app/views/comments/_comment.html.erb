@@ -1,13 +1,13 @@
 <div id="comment-<%= comment.id %>" itemscope itemtype="http://schema.org/Comment" class="comment">
   <meta itemprop="url" content="<%= comment_url comment %>"/>
-  <div class="header">
-    <div class="user" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <div class="author">
+    <span itemprop="author" itemscope itemtype="http://schema.org/Person">
       <span itemprop="name"><%= user_link comment.user %></span>
-    </div>
+    </span>
     <%= time_tag comment.created_at %>
   </div>
 
   <div class="body" itemprop="about">
-    <%= simple_format comment.body %>
+    <%= prepare_comment_text(comment) %>
   </div>
 </div>

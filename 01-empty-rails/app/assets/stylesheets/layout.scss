@@ -28,3 +28,18 @@ html {
     }
   }
 }
+
+.hidden {
+  display: none !important;
+}
+
+span.not-found {
+  color: #ffaaaa;
+  cursor: default;
+
+  &:before {
+    content: '\26A0';
+    color: #ff0000;
+    margin-right: 0.25rem;
+  }
+}

@@ -5,11 +5,18 @@
   </div>
 
   <div class="author">
-    <span></span>
+    <%= user_link comment.user %>
     <%= time_tag comment.created_at %>
   </div>
 
   <div class="body">
     <%= prepare_comment_text(comment) %>
+  </div>
+
+  <div class="footer">
+    <ul>
+      <li><%= link_to t(:view), comment %></li>
+      <li><%= link_to t(:edit), edit_comment_path(comment) %></li>
+    </ul>
   </div>
 </div>

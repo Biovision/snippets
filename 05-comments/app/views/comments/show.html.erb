@@ -8,10 +8,20 @@
 
 <article class="comment">
   <h1><%= t('.title', id: @entity.id) %></h1>
-  
-  <div class="header">
-    <p><%= link_to "#{@entity.commentable.class} «#{@entity.commentable.title}»", @entity.commentable %></p>
-    <p><%= user_link @entity.user %></p>
+
+  <div class="comment">
+    <div class="title">
+      <%= @entity.commentable.model_name.human %>
+      <cite><%= link_to @entity.commentable.title, @entity.commentable %></cite>
+    </div>
+
+    <div class="author">
+      <%= user_link @entity.user %>
+      <%= time_tag @entity.created_at %>
+    </div>
+
+    <div class="body">
+      <%= prepare_comment_text(@entity) %>
+    </div>
   </div>
-  <div class="body"><%= simple_format @entity.body %></div>
 </article>

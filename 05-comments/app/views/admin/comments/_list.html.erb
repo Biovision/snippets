@@ -2,9 +2,7 @@
     <ul class="comments-list">
       <% collection.each do |comment| %>
           <li>
-            <%= user_link comment.user %>
-            <%= comment.commentable.class %>
-            <%= link_to comment.commentable.title, comment %>
+            <%= render comment %>
           </li>
       <% end %>
     </ul>
