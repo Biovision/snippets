@@ -5,7 +5,7 @@ namespace :categories do
     if File.exists? file_path
       puts 'Deleting old categories...'
       Category.destroy_all
-      puts 'Done. Importing...'
+      puts 'Done. Loading...'
       File.open file_path, 'r' do |file|
         YAML.load(file).each do |id, data|
           category = Category.new id: id
@@ -27,11 +27,11 @@ namespace :categories do
     file_path = "#{Rails.root}/tmp/export/categories.yml"
     ignored   = %w(id items_count)
     File.open file_path, 'w' do |file|
-      Category.order('id asc').each do |category|
-        print "\r#{category.id}    "
-        file.puts "#{category.id}:"
-        category.attributes.reject { |attribute| ignored.include? attribute }.each do |attribute, value|
-          file.puts "  #{attribute}: #{value.nil? ? '-' : value.inspect}"
+      Category.order('id asc').each do |entity|
+        print "\r#{entity.id}    "
+        file.puts "#{entity.id}:"
+        entity.attributes.reject { |a, v| ignored.include?(a) || v.nil? }.each do |attribute, value|
+          file.puts "  #{attribute}: #{value.inspect}"
         end
       end
       puts

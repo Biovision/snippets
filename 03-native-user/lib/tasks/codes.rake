@@ -27,13 +27,13 @@ namespace :codes do
     file_path = "#{Rails.root}/tmp/export/codes.yml"
     ignored   = %w(id ip)
     File.open file_path, 'w' do |file|
-      Code.order('id asc').each do |code|
-        print "\r#{code.id}    "
-        file.puts "#{code.id}:"
-        code.attributes.reject { |attribute| ignored.include? attribute }.each do |attribute, value|
-          file.puts "  #{attribute}: #{value.nil? ? '-' : value.inspect}"
+      Code.order('id asc').each do |entity|
+        print "\r#{entity.id}    "
+        file.puts "#{entity.id}:"
+        entity.attributes.reject { |a, v| ignored.include?(a) || v.nil? }.each do |attribute, value|
+          file.puts "  #{attribute}: #{value.inspect}"
         end
-        file.puts "  ip: #{code.ip}" unless code.ip.blank?
+        file.puts "  ip: #{entity.ip}" unless entity.ip.blank?
       end
       puts
     end

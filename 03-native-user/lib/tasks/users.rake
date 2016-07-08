@@ -15,7 +15,7 @@ namespace :users do
           user       = User.new id: id
           user.assign_attributes attributes
           if data.has_key? 'image'
-            image_file = "#{image_dir}/#{data['image']}"
+            image_file = "#{image_dir}/#{id}/#{data['image']}"
             user.image = Pathname.new(image_file).open if File.exists?(image_file)
           end
           user.save!
@@ -41,20 +41,21 @@ namespace :users do
     ignored   = %w(id image ip)
     Dir.mkdir image_dir unless Dir.exists? image_dir
     File.open file_path, 'w' do |file|
-      User.order('id asc').each do |user|
-        print "\r#{user.id}    "
-        file.puts "#{user.id}:"
-        user.attributes.reject { |attribute| ignored.include? attribute }.each do |attribute, value|
-          file.puts "  #{attribute}: #{value.nil? ? '-' : value.inspect}"
+      User.order('id asc').each do |entity|
+        print "\r#{entity.id}    "
+        file.puts "#{entity.id}:"
+        entity.attributes.reject { |a, v| ignored.include?(a) || v.nil? }.each do |attribute, value|
+          file.puts "  #{attribute}: #{value.inspect}"
         end
-        file.puts "  ip: #{user.ip}" unless user.ip.blank?
-        unless user.image.blank?
-          image_name = File.basename(user.image.path)
-          FileUtils.copy user.image.path, "#{image_dir}/#{image_name}"
+        file.puts "  ip: #{entity.ip}" unless entity.ip.blank?
+        unless entity.image.blank?
+          image_name = File.basename(entity.image.path)
+          Dir.mkdir "#{image_dir}/#{entity.id}" unless Dir.exists? "#{image_dir}/#{entity.id}"
+          FileUtils.copy entity.image.path, "#{image_dir}/#{entity.id}/#{image_name}"
           file.puts "  image: #{image_name.inspect}"
         end
-        if user.user_roles.any?
-          roles = user.user_roles.map { |link| link.role }
+        if entity.user_roles.any?
+          roles = entity.user_roles.map { |link| link.role }
           file.puts "  roles: #{roles.inspect}"
         end
       end

@@ -27,13 +27,13 @@ namespace :tokens do
     file_path = "#{Rails.root}/tmp/export/tokens.yml"
     ignored   = %w(id ip)
     File.open file_path, 'w' do |file|
-      Token.order('id asc').each do |token|
-        print "\r#{token.id}    "
-        file.puts "#{token.id}:"
-        token.attributes.reject { |attribute| ignored.include? attribute }.each do |attribute, value|
-          file.puts "  #{attribute}: #{value.nil? ? '-' : value.inspect}"
+      Token.order('id asc').each do |entity|
+        print "\r#{entity.id}    "
+        file.puts "#{entity.id}:"
+        entity.attributes.reject { |a, v| ignored.include?(a) || v.nil? }.each do |attribute, value|
+          file.puts "  #{attribute}: #{value.inspect}"
         end
-        file.puts "  ip: #{token.ip}" unless token.ip.blank?
+        file.puts "  ip: #{entity.ip}" unless entity.ip.blank?
       end
       puts
     end

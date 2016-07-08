@@ -27,13 +27,13 @@ namespace :comments do
     file_path = "#{Rails.root}/tmp/export/comments.yml"
     ignored   = %w(id ip)
     File.open file_path, 'w' do |file|
-      Comment.order('id asc').each do |comment|
-        print "\r#{comment.id}    "
-        file.puts "#{comment.id}:"
-        comment.attributes.reject { |attribute| ignored.include? attribute }.each do |attribute, value|
-          file.puts "  #{attribute}: #{value.nil? ? '-' : value.inspect}"
+      Comment.order('id asc').each do |entity|
+        print "\r#{entity.id}    "
+        file.puts "#{entity.id}:"
+        entity.attributes.reject { |a, v| ignored.include?(a) || v.nil? }.each do |attribute, value|
+          file.puts "  #{attribute}: #{value.inspect}"
         end
-        file.puts "  ip: #{comment.ip}" unless comment.ip.blank?
+        file.puts "  ip: #{entity.ip}" unless entity.ip.blank?
       end
       puts
     end

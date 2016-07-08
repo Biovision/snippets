@@ -11,7 +11,7 @@ namespace :agents do
           agent = Agent.new id: id
           agent.assign_attributes data
           agent.save!
-          print "\r#{id}"
+          print "\r#{id}    "
         end
         puts
       end
@@ -27,10 +27,10 @@ namespace :agents do
     file_path = "#{Rails.root}/tmp/export/agents.yml"
     ignored = %w(id)
     File.open file_path, 'w' do |file|
-      Agent.order('id asc').each do |agent|
-        file.puts "#{agent.id}:"
-        agent.attributes.reject { |attribute| ignored.include? attribute }.each do |attribute, value|
-          file.puts "  #{attribute}: #{value.nil? ? '-' : value.inspect}"
+      Agent.order('id asc').each do |entity|
+        file.puts "#{entity.id}:"
+        entity.attributes.reject { |a, v| ignored.include?(a) || v.nil? }.each do |attribute, value|
+          file.puts "  #{attribute}: #{value.inspect}"
         end
       end
     end

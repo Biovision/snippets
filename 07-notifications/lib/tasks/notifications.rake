@@ -27,11 +27,11 @@ namespace :notifications do
     file_path = "#{Rails.root}/tmp/export/notifications.yml"
     ignored   = %w(id)
     File.open file_path, 'w' do |file|
-      Notification.order('id asc').each do |notification|
-        print "\r#{notification.id}    "
-        file.puts "#{notification.id}:"
-        notification.attributes.reject { |attribute| ignored.include? attribute }.each do |attribute, value|
-          file.puts "  #{attribute}: #{value.nil? ? '-' : value.inspect}"
+      Notification.order('id asc').each do |entity|
+        print "\r#{entity.id}    "
+        file.puts "#{entity.id}:"
+        entity.attributes.reject { |a, v| ignored.include?(a) || v.nil? }.each do |attribute, value|
+          file.puts "  #{attribute}: #{value.inspect}"
         end
       end
       puts

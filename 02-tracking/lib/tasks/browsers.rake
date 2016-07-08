@@ -11,7 +11,7 @@ namespace :browsers do
           browser = Browser.new id: id
           browser.assign_attributes data
           browser.save!
-          print "\r#{id}"
+          print "\r#{id}    "
         end
         puts
       end
@@ -27,10 +27,10 @@ namespace :browsers do
     file_path = "#{Rails.root}/tmp/export/browsers.yml"
     ignored   = %w(id)
     File.open file_path, 'w' do |file|
-      Browser.order('id asc').each do |browser|
-        file.puts "#{browser.id}:"
-        browser.attributes.reject { |attribute| ignored.include? attribute }.each do |attribute, value|
-          file.puts "  #{attribute}: #{value.nil? ? '-' : value.inspect}"
+      Browser.order('id asc').each do |entity|
+        file.puts "#{entity.id}:"
+        entity.attributes.reject { |a, v| ignored.include?(a) || v.nil? }.each do |attribute, value|
+          file.puts "  #{attribute}: #{value.inspect}"
         end
       end
     end
