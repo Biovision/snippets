@@ -1,7 +1,19 @@
 Empty rails
 ===========
 
-Локализация и настройки пумы и почты для нового rails-приложения
+Локализация, CSS, JS и настройки пумы и почты для нового rails-приложения
+
+Добавления в `.gitignore`
+-------------------------
+
+```
+/config/database.yml
+/config/secrets.yml
+
+/public/uploads
+
+/spec/examples.txt
+```
 
 Добавления в `Gemfile`
 ----------------------
@@ -11,8 +23,7 @@ Empty rails
 gem 'autoprefixer-rails'
 
 gem 'kaminari'
-gem 'rails-i18n', '~> 4.0.0'
-gem 'puma'
+gem 'rails-i18n', '~> 5.0.0'
 
 group :development, :test do
   gem 'rspec-rails'
@@ -38,13 +49,6 @@ config.i18n.default_locale = :ru
 %w(app/services lib).each do |path|
   config.autoload_paths << config.root.join(path).to_s
 end
-
-config.action_dispatch.rescue_responses.merge!(
-    {
-        :'ApplicationController::UnauthorizedException' => :unauthorized,
-        :'ApplicationController::ForbiddenException' => :forbidden,
-    }
-)
 ```
 
 Добавления в `spec/rails_helper.rb` (`$ rails generate rspec:install`)
@@ -58,12 +62,6 @@ config.include FactoryGirl::Syntax::Methods
 --------------------------------------------------------
 
 ```ruby
-    class UnauthorizedException < Exception
-    end
-    
-    class ForbiddenException < Exception
-    end
-    
     helper_method :current_page, :param_from_request
     
     # Получить текущую страницу из запроса

@@ -20,9 +20,6 @@ ToDo
 ----------------------
 
 ```ruby    
-# Backport from rails 5
-gem 'has_secure_token'
-
 # Processing images
 gem 'mini_magick'
 
