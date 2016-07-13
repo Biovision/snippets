@@ -1,4 +1,5 @@
-class Browser < ActiveRecord::Base
+class Browser < ApplicationRecord
+  include Toggleable
   include RequiredUniqueName
 
   PER_PAGE   = 20
@@ -13,13 +14,5 @@ class Browser < ActiveRecord::Base
 
   def self.entity_parameters
     %i(name mobile bot active)
-  end
-
-  # @param [String] attribute
-  def toggle_parameter(attribute)
-    if TOGGLEABLE.include? attribute.to_sym
-      toggle! attribute
-      { attribute => self[attribute] }
-    end
   end
 end
