@@ -1,9 +1,9 @@
-class Code < ActiveRecord::Base
+class Code < ApplicationRecord
   include HasOwner
 
   PER_PAGE = 25
 
-  belongs_to :user
+  belongs_to :user, optional: true
 
   enum category: [:confirmation, :recovery, :invitation]
 

@@ -57,19 +57,19 @@ ru:
           female: "Женский"
           male: "Мужской"
       user_role:
-        user_id: "Пользователь"
+        user: "Пользователь"
         role: "Роль"
         roles:
           administrator: "Администратор"
           moderator: "Модератор"
       token:
-        user_id: "Пользователь"
+        user: "Пользователь"
         ip: "IP-адрес"
         last_used: "Последнее использование"
         active: "Активен"
         token: "Жетон"
       code:
-        user_id: "Пользователь"
+        user: "Пользователь"
         category: "Категория"
         body: "Код"
         payload: "Полезная нагрузка"

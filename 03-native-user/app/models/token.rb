@@ -1,4 +1,4 @@
-class Token < ActiveRecord::Base
+class Token < ApplicationRecord
   include HasOwner
 
   PER_PAGE = 25
@@ -7,7 +7,6 @@ class Token < ActiveRecord::Base
 
   belongs_to :user
 
-  validates_presence_of :user_id
   validates_uniqueness_of :token
 
   scope :recent, -> { order 'id desc' }

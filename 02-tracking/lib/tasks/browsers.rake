@@ -25,7 +25,7 @@ namespace :browsers do
   desc 'Dump browsers to YAML'
   task dump: :environment do
     file_path = "#{Rails.root}/tmp/export/browsers.yml"
-    ignored   = %w(id)
+    ignored   = %w(id agents_count)
     File.open file_path, 'w' do |file|
       Browser.order('id asc').each do |entity|
         file.puts "#{entity.id}:"

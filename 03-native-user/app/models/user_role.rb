@@ -1,11 +1,11 @@
-class UserRole < ActiveRecord::Base
+class UserRole < ApplicationRecord
   include HasOwner
 
   belongs_to :user
 
   enum role: [:administrator, :moderator]
 
-  validates_presence_of :user_id, :role
+  validates_presence_of :role
   validates_uniqueness_of :role, scope: [:user_id]
 
   # @param [User] user
