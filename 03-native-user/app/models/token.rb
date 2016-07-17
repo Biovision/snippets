@@ -1,7 +1,9 @@
 class Token < ApplicationRecord
   include HasOwner
+  include Toggleable
 
-  PER_PAGE = 25
+  PER_PAGE   = 25
+  TOGGLEABLE = %i(active)
 
   has_secure_token
 

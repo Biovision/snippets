@@ -4,6 +4,7 @@ class Code < ApplicationRecord
   PER_PAGE = 25
 
   belongs_to :user, optional: true
+  belongs_to :agent, optional: true
 
   enum category: [:confirmation, :recovery, :invitation]
 
@@ -14,6 +15,8 @@ class Code < ApplicationRecord
 
   scope :recent, -> { order 'id desc' }
   scope :active, -> { where 'quantity > 0' }
+  scope :confirmations, -> { where category: Code.categories[:confirmation] }
+  scope :recoveries, -> { where category: Code.categories[:recovery] }
   scope :invitations, -> { where category: Code.categories[:invitation] }
 
   def self.page_for_administration(current_page)
@@ -35,6 +38,14 @@ class Code < ApplicationRecord
   def self.confirmation_for_user(user)
     parameters = { user: user, category: categories[:confirmation] }
     self.active.find_by(parameters) || self.create(parameters.merge(payload: user.email))
+  end
+
+  def self.entity_parameters
+    %i(body payload quantity)
+  end
+
+  def self.creation_parameters
+    entity_parameters + %i(user_id category)
   end
 
   def activated?

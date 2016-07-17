@@ -1,9 +1,12 @@
 class User < ApplicationRecord
+  include Toggleable
+
   EMAIL_PATTERN = /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z0-9][-a-z0-9]+)\z/i
   SLUG_PATTERN  = /\A[a-z0-9_]{1,20}\z/
   TOGGLEABLE    = %i(email_confirmed allow_mail allow_login)
   PER_PAGE      = 25
 
+  belongs_to :agent, optional: true
   has_many :user_roles, dependent: :destroy
   has_many :tokens, dependent: :destroy
   has_many :codes, dependent: :destroy
@@ -44,6 +47,10 @@ class User < ApplicationRecord
     )
   end
 
+  def self.creation_parameters
+    entity_parameters + %i(network)
+  end
+
   # @param [String] long_slug
   def self.with_long_slug(long_slug)
     parts = long_slug.split('-')
@@ -52,14 +59,6 @@ class User < ApplicationRecord
       find_by(network: networks[code], slug: parts.join('-')) if networks.has_key?(code)
     else
       find_by slug: long_slug
-    end
-  end
-
-  # @param [String] attribute
-  def toggle_parameter(attribute)
-    if TOGGLEABLE.include? attribute.to_sym
-      toggle! attribute
-      { attribute => self[attribute] }
     end
   end
 
@@ -111,8 +110,10 @@ class User < ApplicationRecord
   end
 
   def email_should_be_reasonable
-    unless email.nil? || email =~ EMAIL_PATTERN
-      errors.add(:email, I18n.t('activerecord.errors.models.user.attributes.email.unreasonable'))
+    if email.blank?
+      self.email = nil
+    else
+      errors.add(:email, I18n.t('activerecord.errors.models.user.attributes.email.unreasonable')) unless email =~ EMAIL_PATTERN
     end
   end
 

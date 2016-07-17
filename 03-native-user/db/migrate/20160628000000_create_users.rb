@@ -2,9 +2,10 @@ class CreateUsers < ActiveRecord::Migration
   def change
     create_table :users do |t|
       t.timestamps null: false
-      t.inet :ip
       t.references :agent, index: true, foreign_key: true
+      t.inet :ip
       t.integer :network, limit: 2, null: false
+      t.integer :native_id
       t.string :slug, null: false
       t.integer :gender, limit: 2
       t.date :birthday

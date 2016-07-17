@@ -1,7 +1,7 @@
 Пользователи с авторизацией через соцсети
 =========================================
 
-Версия 0.1.4 (160708)
+Версия 0.2.0 (160717)
 
 ToDo
 ----
@@ -31,6 +31,15 @@ gem 'carrierwave-bombshelter'
 gem 'omniauth-twitter'
 gem 'omniauth-facebook'
 gem 'omniauth-vkontakte'
+```
+
+Дополнения в `app/models/agent.rb`
+----------------------------------
+
+```ruby
+  has_many :users, dependent: :nullify
+  has_many :tokens, dependent: :nullify
+  has_many :codes, dependent: :nullify
 ```
 
 Дополнения в `app/controllers/application_controller.rb`
