@@ -8,16 +8,26 @@ ru:
   activerecord:
     models:
       post: "Публикация"
+      tag: "Метка"
     attributes:
       post:
-        user_id: "Пользователь"
+        user: "Пользователь"
         deleted: "Удалено"
         locked: "Редактирование запрещено"
+        visible: "Показывать"
         image: "Картинка"
         title: "Название"
         slug: "Идентификатор"
         lead: "Аннотация"
         body: "Текст"
+      tag:
+        name: "Название"
+        slug: "Идентификатор"
+        deleted: "Удалено"
+        locked: "Редактирование запрещено"
+      post_tag:
+        post: "Публикация"
+        tag: "Метка"
   posts:
     update:
       success: "Публикация успешно обновлена"
@@ -34,3 +44,15 @@ ru:
       tags: "Метки"
     preview:
       read: "Читать полностью"
+  tags:
+    update:
+      success: "Метка успешно обновлена"
+    destroy:
+      success: "Метка успешно удалена"
+    index:
+      title: "Метки, страница %{page}"
+      heading: "Метки"
+    new:
+      title: "Добавить метку"
+    edit:
+      title: "Редактирование метки"

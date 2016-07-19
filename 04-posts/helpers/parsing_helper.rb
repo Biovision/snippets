@@ -23,7 +23,7 @@ module ParsingHelper
     pattern = /\[post (?<id>\d{1,7})\](?:\((?<text>[^)]{1,64})\))?/
     string.gsub pattern do |chunk|
       match = pattern.match chunk
-      post  = Post.find_by id: match[:id]
+      post  = Post.visible.find_by id: match[:id]
       if post.is_a? Post
         link_text = match[:text].blank? ? post.title : match[:text]
         link_tag  = link_to(link_text, post, title: post.title)
