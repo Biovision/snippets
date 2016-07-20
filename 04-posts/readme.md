@@ -6,16 +6,43 @@
 ToDo
 ----
 
+ * `PostsController`
+ * `TagsController`
+ * Управление иллюстрациями
+ * Представления для публикаций, меток и иллюстраций
+ * Стили по умолчанию
  * Разбор текста публикации
  * Предварительный просмотр текста публикации
+ * API для управления публикациями и метками
 
 Добавления в `config/routes.rb`
 -------------------------------
 
 ```ruby
+  # Collections that have tags and archive (e.g. posts and dreams)
+  concern :tagged_archive do
+    collection do
+      get 'tagged/:tag_name' => :tagged, as: :tagged
+      get 'archive/(:year)/(:month)' => :archive, as: :archive, constraints: { year: /\d{4}/, month: /(\d|1[0-2])/ }
+    end
+  end
+
+  namespace :admin do
+    resources :posts, :tags, only: [:index]
+  end
+
+  namespace :api, defaults: { format: :json } do
+    resources :posts, except: [:new, :edit], concerns: [:toggleable, :lockable]
+  end
+
+  namespace :my do
+    resources :posts, only: [:index]
+  end
+
+  resources :posts, except: [:index], concerns: [:tagged_archive]
 ```
 
-Добавиления в `app/helpers/application_helper.rb`
+Добавления в `app/helpers/application_helper.rb`
 -------------------------------------------------
 
 ```ruby
@@ -56,4 +83,20 @@ editor: "Редактор"
         create :user_role, user: user, role: :editor
       end
     end
+```
+
+Добавления в модели
+-------------------
+
+### `app/models/agent.rb`
+
+
+```ruby
+has_many :posts, dependent: :nullify
+```
+
+### `app/models/users.rb`
+
+```ruby
+has_many :posts, dependent: :destroy
 ```
