@@ -36,6 +36,12 @@ class Post < ApplicationRecord
     visible.recent.page(page).per(PER_PAGE)
   end
 
+  # @param [User] user
+  # @param [Integer] page
+  def self.page_for_owner(user, page)
+    owned_by(user).where(deleted: false).recent.page(page).per(PER_PAGE)
+  end
+
   def self.entity_parameters
     %i(image title lead body)
   end

@@ -37,8 +37,8 @@ ToDo
 
   concern :lockable do
     member do
-      put 'lock', as: :lock
-      delete 'lock', as: :unlock
+      put 'lock'
+      delete 'lock', action: :unlock
     end
   end
 
@@ -47,7 +47,7 @@ ToDo
   end
 
   namespace :api, defaults: { format: :json } do
-    resources :browsers, :agents, concerns: [:toggleable, :lockable]
+    resources :browsers, :agents, except: [:new, :edit], concerns: [:toggleable, :lockable]
   end
 
   resources :browsers, except: [:index] do

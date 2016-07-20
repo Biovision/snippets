@@ -19,7 +19,7 @@ module Toggleable
 
     def toggleable(*attributes)
       cattr_accessor :toggleable_attributes
-      self.toggleable_attributes = attributes
+      self.toggleable_attributes = attributes.flatten
     end
   end
 end

@@ -116,7 +116,7 @@ gem 'omniauth-vkontakte'
   end
 
   namespace :api, defaults: { format: :json } do
-    resources :users, :tokens, concerns: [:toggleable]
+    resources :users, :tokens, except: [:new, :edit], concerns: [:toggleable]
   end
 
   scope 'u/:slug', controller: :profiles do

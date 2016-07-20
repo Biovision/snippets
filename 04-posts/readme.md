@@ -33,11 +33,27 @@ ToDo
   end
 ```
 
-
 Добавленные роли
 ----------------
 
 ```yaml
 chief_editor: "Главный редактор"
 editor: "Редактор"
+```
+
+Добавления в `spec/factories/users.rb`
+--------------------------------------
+
+```ruby
+    factory :chief_editor do
+      after :create do |user|
+        create :user_role, user: user, role: :chief_editor
+      end
+    end
+
+    factory :editor do
+      after :create do |user|
+        create :user_role, user: user, role: :editor
+      end
+    end
 ```
