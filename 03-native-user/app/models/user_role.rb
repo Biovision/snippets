@@ -9,7 +9,7 @@ class UserRole < ApplicationRecord
   validates_uniqueness_of :role, scope: [:user_id]
 
   # @param [User] user
-  # @param [Array] suitable_roles
+  # @param [Symbol] suitable_roles
   def self.user_has_role?(user, *suitable_roles)
     available_roles, result = [], false
     suitable_roles.each { |role| available_roles << self.roles[role] if self.role_exists? role }

@@ -3,8 +3,9 @@ class User < ApplicationRecord
 
   EMAIL_PATTERN = /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z0-9][-a-z0-9]+)\z/i
   SLUG_PATTERN  = /\A[a-z0-9_]{1,20}\z/
-  TOGGLEABLE    = %i(email_confirmed allow_mail allow_login)
   PER_PAGE      = 25
+
+  toggleable :email_confirmed, :allow_mail, :allow_login
 
   belongs_to :agent, optional: true
   has_many :user_roles, dependent: :destroy

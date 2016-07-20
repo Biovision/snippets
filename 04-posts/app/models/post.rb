@@ -5,7 +5,8 @@ class Post < ApplicationRecord
   PER_PAGE    = 5
   TITLE_LIMIT = 200
   LEAD_LIMIT  = 500
-  TOGGLEABLE  = %i(visible)
+
+  toggleable :visible
 
   belongs_to :user
   belongs_to :agent, optional: true

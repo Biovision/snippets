@@ -6,7 +6,9 @@ ru:
       category:
         parent_id: "Родительская категория"
         priority: "Приоритет"
+        visible: "Показывать"
         name: "Название"
+        slug: "Идентификатор"
   admin:
     categories:
       index:

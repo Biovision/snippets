@@ -2,8 +2,9 @@ class Token < ApplicationRecord
   include HasOwner
   include Toggleable
 
-  PER_PAGE   = 25
-  TOGGLEABLE = %i(active)
+  PER_PAGE = 25
+
+  toggleable :active
 
   has_secure_token
 

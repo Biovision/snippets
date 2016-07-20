@@ -1,5 +1,9 @@
 class Category < ActiveRecord::Base
+  include Toggleable
+
   PER_PAGE = 20
+
+  toggleable :visible
 
   belongs_to :parent, class_name: Category.to_s
   has_many :children, class_name: Category.to_s, foreign_key: :parent_id
@@ -11,6 +15,8 @@ class Category < ActiveRecord::Base
   before_save :compact_children_cache
 
   scope :ordered_by_priority, -> { order 'priority asc, name asc' }
+  scope :visible, -> { where visible: true }
+  scope :for_tree, -> (parent_id = nil) { where(parent_id: parent_id).ordered_by_priority }
 
   # @param [Integer] page
   def self.page_for_administration(page)
