@@ -18,7 +18,7 @@ ToDo
     resources :categories, only: :index
   end
   
-  namespace :api, default: { format: :json } do
+  namespace :api, defaults: { format: :json } do
     resources :categories, except: [:new, :edit], concerns: [:toggleable]
   end
 ```

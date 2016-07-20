@@ -91,11 +91,9 @@ gem 'omniauth-vkontakte'
 -------------------------------
 
 ```ruby
-  # Модуль пользователя
   resources :users, except: [:index]
   resources :tokens, :codes, except: [:index]
 
-  # Аутентификация
   controller :authentication do
     get 'login' => :new
     post 'login' => :create
@@ -104,7 +102,6 @@ gem 'omniauth-vkontakte'
     get 'auth/:provider/callback' => :callback, as: :auth_callback
   end
 
-  # Личный кабинет пользователя
   namespace :my do
     resource :profile, except: [:destroy]
     resource :confirmation, :recovery, only: [:show, :create, :update]
@@ -112,18 +109,16 @@ gem 'omniauth-vkontakte'
     get '/' => 'index#index'
   end
 
-  # Администрирование
   namespace :admin do
     get '/' => 'index#index'
     
     resources :users, :tokens, :codes, only: [:index]
   end
 
-  namespace :api do
+  namespace :api, defaults: { format: :json } do
     resources :users, :tokens, concerns: [:toggleable]
   end
 
-  # Публичный профиль пользователя
   scope 'u/:slug', controller: :profiles do
     get '/' => :show, as: :user_profile
   end
