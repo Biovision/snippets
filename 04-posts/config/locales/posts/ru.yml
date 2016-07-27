@@ -30,6 +30,20 @@ ru:
       post_tag:
         post: "Публикация"
         tag: "Метка"
+  admin:
+    posts:
+      index:
+        title: "Публикации, страница %{page}"
+        heading: "Публикации"
+    tags:
+      index:
+        title: "Метки, страница %{page}"
+        heading: "Метки"
+  my:
+    posts:
+      index:
+        title: "Мои, страница %{page}"
+        heading: "Мои публикации"
   posts:
     update:
       success: "Публикация успешно обновлена"

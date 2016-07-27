@@ -13,6 +13,7 @@ Empty rails
 /public/uploads
 
 /spec/examples.txt
+/spec/support/uploads/*
 ```
 
 Добавления в `Gemfile`
@@ -20,7 +21,7 @@ Empty rails
 
 ```ruby
 # Автоматическая расстановка префиксов в CSS
-gem 'autoprefixer-rails'
+gem 'autoprefixer-rails', group: :production
 
 gem 'kaminari'
 gem 'rails-i18n', '~> 5.0.0'
@@ -56,6 +57,17 @@ end
 
 ```ruby
 config.include FactoryGirl::Syntax::Methods
+```
+
+Добавления в `spec/spec_helper.rb`
+----------------------------------
+
+```ruby
+  config.after(:all) do
+    if Rails.env.test?
+      FileUtils.rm_rf(Dir["#{Rails.root}/spec/support/uploads"])
+    end
+  end
 ```
 
 Добавления в `app/controllers/application_controller.rb`

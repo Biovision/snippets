@@ -40,6 +40,8 @@ ToDo
   end
 
   resources :posts, except: [:index], concerns: [:tagged_archive]
+  resources :figures, only: [:show, :edit, :update, :destroy]
+  resources :tags
 ```
 
 Добавления в `app/helpers/application_helper.rb`

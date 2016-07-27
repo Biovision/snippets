@@ -10,6 +10,7 @@ class Post < ApplicationRecord
 
   belongs_to :user
   belongs_to :agent, optional: true
+  has_many :figures, dependent: :destroy
   has_many :post_tags, dependent: :destroy
   has_many :tags, through: :post_tags
 
@@ -46,6 +47,10 @@ class Post < ApplicationRecord
     %i(image title lead body)
   end
 
+  def tags_string
+    tags.ordered_by_slug.map { |tag| tag.name }.join(', ')
+  end
+
   # @param [String] tags_string
   def tags_string=(tags_string)
     list_of_tags = []
@@ -56,12 +61,12 @@ class Post < ApplicationRecord
   end
 
   def cache_tags!
-    update! tags_cache: tags.order('slug asc').map { |tag| tag.name }
+    update! tags_cache: tags.ordered_by_slug.map { |tag| tag.name }
   end
 
   # @param [User] user
   def editable_by?(user)
-    owned_by?(user) || UserRole.user_has_role?(user, :chief_editor)
+    !deleted? && !locked? && (owned_by?(user) || UserRole.user_has_role?(user, :chief_editor))
   end
 
   # @param [User] user
