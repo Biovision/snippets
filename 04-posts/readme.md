@@ -6,14 +6,12 @@
 ToDo
 ----
 
- * `PostsController`
  * `TagsController`
  * Управление иллюстрациями
  * Представления для публикаций, меток и иллюстраций
  * Стили по умолчанию
  * Разбор текста публикации
  * Предварительный просмотр текста публикации
- * API для управления публикациями и метками
 
 Добавления в `config/routes.rb`
 -------------------------------
@@ -39,7 +37,7 @@ ToDo
     resources :posts, only: [:index]
   end
 
-  resources :posts, except: [:index], concerns: [:tagged_archive]
+  resources :posts, concerns: [:tagged_archive]
   resources :figures, only: [:show, :edit, :update, :destroy]
   resources :tags
 ```

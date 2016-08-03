@@ -61,7 +61,7 @@ class Post < ApplicationRecord
   end
 
   def cache_tags!
-    update! tags_cache: tags.ordered_by_slug.map { |tag| tag.name }
+    update! tags_cache: tags.order('slug asc').map { |tag| tag.name }
   end
 
   # @param [User] user
@@ -72,6 +72,11 @@ class Post < ApplicationRecord
   # @param [User] user
   def commentable_by?(user)
     user.is_a? User
+  end
+
+  # @param [User] user
+  def visible_to?(user)
+    visible? || editable_by?(user)
   end
 
   private
