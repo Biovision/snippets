@@ -1,0 +1,33 @@
+article.edit-post, article.edit-figure {
+  form {
+    table {
+      @include entity-form-table;
+    }
+  }
+}
+
+ul.list-of-posts, ul.list-of-figures {
+  @include striped-list;
+
+  li {
+    @include list-item-with-image;
+  }
+}
+
+ul.list-of-posts {
+  li {
+    .tags {
+      font-size: $small_size;
+      padding-left: 1rem;
+      background: image_url('icons/tag.png') no-repeat center left / 0.75rem 0.75rem;
+    }
+  }
+}
+
+ul.list-of-figures {
+  li {
+    input[type=text] {
+      width: auto;
+    }
+  }
+}
