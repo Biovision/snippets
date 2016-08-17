@@ -5,7 +5,7 @@ class User < ApplicationRecord
   SLUG_PATTERN  = /\A[a-z0-9_]{1,20}\z/
   PER_PAGE      = 25
 
-  toggleable :email_confirmed, :allow_mail, :allow_login
+  toggleable %i(email_confirmed allow_mail allow_login bot)
 
   belongs_to :agent, optional: true
   has_many :user_roles, dependent: :destroy
@@ -90,7 +90,7 @@ class User < ApplicationRecord
 
   # @param [Symbol] role
   def remove_role(role)
-    UserRole.destroy_all(user: self, role: UserRole.roles[role]) if UserRole.role_exists? role
+    UserRole.where(user: self, role: UserRole.roles[role]).destroy_all if UserRole.role_exists? role
   end
 
   # @param [Hash] roles

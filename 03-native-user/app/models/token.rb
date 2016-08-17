@@ -2,13 +2,14 @@ class Token < ApplicationRecord
   include HasOwner
   include Toggleable
 
-  PER_PAGE = 25
+  PER_PAGE   = 25
 
   toggleable :active
 
   has_secure_token
 
   belongs_to :user
+  belongs_to :agent, optional: true
 
   validates_uniqueness_of :token
 
@@ -20,7 +21,11 @@ class Token < ApplicationRecord
   end
 
   def self.entity_parameters
-    %i(user_id)
+    %i(active)
+  end
+
+  def self.creation_parameters
+    entity_parameters + %i(user_id)
   end
 
   # @param [String] input

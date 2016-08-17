@@ -67,11 +67,6 @@ gem 'omniauth-vkontakte'
     redirect_to login_path, alert: t(:please_log_in) unless current_user.is_a? User
   end
 
-  # Для доступа необходимо наличие роли у пользователя
-  #
-  # Неавторизованных пользователей перенаправляет на главную страницу.
-  # Анонимным посетителям предлагается выполнить вход.
-  #
   # @param [Symbol] role
   def require_role(*role)
     if current_user.is_a? User

@@ -14,12 +14,16 @@ Empty rails
 
 /spec/examples.txt
 /spec/support/uploads/*
+
+.env
 ```
 
 Добавления в `Gemfile`
 ----------------------
 
 ```ruby
+gem 'dotenv-rails'
+
 # Автоматическая расстановка префиксов в CSS
 gem 'autoprefixer-rails', group: :production
 
