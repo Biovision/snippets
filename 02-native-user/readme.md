@@ -74,7 +74,7 @@ gem 'omniauth-vkontakte'
   end
 
   def agent
-    @agent ||= Agent.for_string(request.user_agent || 'n/a')
+    @agent ||= Agent.named(request.user_agent || 'n/a')
   end
 
   def tracking_for_entity

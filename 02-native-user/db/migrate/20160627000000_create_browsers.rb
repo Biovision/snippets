@@ -1,4 +1,4 @@
-class CreateBrowsers < ActiveRecord::Migration
+class CreateBrowsers < ActiveRecord::Migration[5.0]
   def change
     create_table :browsers do |t|
       t.timestamps null: false

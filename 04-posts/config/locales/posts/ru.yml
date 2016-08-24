@@ -11,6 +11,17 @@ ru:
     models:
       post: "Публикация"
       tag: "Метка"
+      figure: "Иллюстрация"
+    errors:
+      models:
+        figure:
+          attributes:
+            slug:
+              invalid: "должен содержать от 1 до 30 английских букв, цифр или знаков подчёркивания"
+        post:
+          attributes:
+            user:
+              required: "не может быть пустым"
     attributes:
       post:
         user: "Пользователь"
@@ -30,6 +41,12 @@ ru:
       post_tag:
         post: "Публикация"
         tag: "Метка"
+      figure:
+        post: "Публикация"
+        image: "Картинка"
+        slug: "Идентификатор"
+        caption: "Заголовок"
+        alt_text: "Текст атрибута alt"
   admin:
     posts:
       index:
@@ -58,8 +75,16 @@ ru:
       title: "Редактирование публикации"
     form:
       tags: "Метки"
+      figures: "Иллюстрации"
+      add_figure: "Добавить иллюстрацию"
     preview:
       read: "Читать полностью"
+    tagged:
+      title: "Публикации с меткой «%{tag}», страница %{page}"
+      heading: "Публикации с меткой «%{tag}»"
+    archive:
+      title: "Архив публикаций"
+      year: "За %{year} год"
   tags:
     update:
       success: "Метка успешно обновлена"
@@ -72,3 +97,8 @@ ru:
       title: "Добавить метку"
     edit:
       title: "Редактирование метки"
+  figures:
+    show:
+      title: "Иллюстрация «%{figure}» к публикации «%{post}»"
+    edit:
+      title: "Редактирование иллюстрации"
