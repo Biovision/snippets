@@ -1,15 +1,19 @@
-class Comment < ActiveRecord::Base
+class Comment < ApplicationRecord
   include HasOwner
+  include Toggleable
 
   PER_PAGE = 20
 
+  toggleable :visible
+
+  belongs_to :user, optional: true
   belongs_to :commentable, polymorphic: true, counter_cache: true, touch: false
 
-  validates_presence_of :user_id, :commentable, :body
-  validate :commentable_is_visible
+  validates_presence_of :body
+  validate :commentable_is_commentable
 
   scope :recent, -> { order 'id desc' }
-  scope :visible, -> { where deleted: false }
+  scope :visible, -> { where(deleted: false, visible: true) }
 
   # @param [Integer] page
   def self.page_for_administration(page)
@@ -19,6 +23,12 @@ class Comment < ActiveRecord::Base
   # @param [Integer] page
   def self.page_for_visitor(page)
     recent.visible.page(page).per(PER_PAGE)
+  end
+
+  # @param [User] user
+  # @param [Integer] page
+  def self.page_for_owner(user, page)
+    owned_by(user).where(deleted: false).recent.page(page).per(PER_PAGE)
   end
 
   def self.entity_parameters
@@ -53,9 +63,9 @@ class Comment < ActiveRecord::Base
 
   private
 
-  def commentable_is_visible
-    if self.commentable.respond_to? :visible_to?
-      unless self.commentable.visible_to? self.user
+  def commentable_is_commentable
+    if self.commentable.respond_to? :commentable_by?
+      unless self.commentable.commentable_by? self.user
         errors.add(:commentable, I18n.t('activerecord.errors.models.comment.attributes.commentable.not_commentable'))
       end
     end

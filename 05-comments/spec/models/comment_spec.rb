@@ -5,7 +5,6 @@ RSpec.describe Comment, type: :model do
 
   it_behaves_like 'has_valid_factory'
   it_behaves_like 'has_owner'
-  it_behaves_like 'required_user'
 
   describe 'validation' do
     it 'fails without commentable object' do
@@ -20,14 +19,10 @@ RSpec.describe Comment, type: :model do
       expect(subject.errors.messages).to have_key(:body)
     end
 
-    it 'fails with deleted commentable object' do
-      subject.commentable = create :post, deleted: true
-      expect(subject).not_to be_valid
-      expect(subject.errors.messages).to have_key(:commentable)
-    end
-
-    it 'fails with invisible commentable object' do
-      subject.commentable = create :post, visible: false
+    it 'fails with non-commentable commentable object' do
+      commentable = create :post
+      allow(commentable).to receive(:commentable_by?).and_return false
+      subject.commentable = commentable
       expect(subject).not_to be_valid
       expect(subject.errors.messages).to have_key(:commentable)
     end

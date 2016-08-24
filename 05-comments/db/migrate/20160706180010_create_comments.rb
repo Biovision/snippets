@@ -5,7 +5,9 @@ class CreateComments < ActiveRecord::Migration[5.0]
       t.references :user, index: true, foreign_key: true
       t.references :agent, index: true, foreign_key: true
       t.inet :ip
+      t.boolean :visible, null: false, default: true
       t.boolean :deleted, null: false, default: false
+      t.boolean :locked, null: false, default: false
       t.integer :commentable_id, null: false
       t.string :commentable_type, null: false
       t.text :body, null: false

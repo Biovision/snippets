@@ -1,7 +1,7 @@
 Комментарии к комментируемому
 =============================
 
-Версия 0.1.0 (160707)
+Версия 0.1.1 (160825)
 
 ToDo
 ----
@@ -24,7 +24,7 @@ ToDo
   end
 
   namespace :api, defaults: { format: :json } do
-    resources :comments, except: [:new, :edit]
+    resources :comments, except: [:new, :edit], concerns: [:toggleable, :lockable]
   end
   
   namespace :my do

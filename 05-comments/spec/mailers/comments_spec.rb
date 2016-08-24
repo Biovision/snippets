@@ -2,8 +2,10 @@ require "rails_helper"
 
 RSpec.describe Comments, type: :mailer do
   describe 'entry_reply' do
-    
-    let!(:entity) { create :comment }
+    let!(:user) { create :confirmed_user }
+    let!(:post) { create :post, user: user }
+    let!(:entity) { create :comment, commentable: post }
+
     let(:mail) { Comments.entry_reply(entity) }
 
     it 'has appropriate subject' do
@@ -15,7 +17,7 @@ RSpec.describe Comments, type: :mailer do
     end
 
     it 'sends to comment owner' do
-      expect(mail.to).to eq([entity.commentable.user.email])
+      expect(mail.to).to eq([user.email])
     end
 
     it 'includes comment in letter body' do

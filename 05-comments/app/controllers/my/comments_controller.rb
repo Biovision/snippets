@@ -3,6 +3,6 @@ class My::CommentsController < ApplicationController
 
   # get /my/comments
   def index
-    @collection = Comment.owned_by(current_user).page_for_visitor current_page
+    @collection = Comment.page_for_owner current_user, current_page
   end
 end
