@@ -56,10 +56,10 @@ $(function () {
         }
     });
 
-    $(document).on('click', 'span.lock > a', function () {
-        var $span = $(this).closest('span');
-        var $edit = $span.parent().find('.edit');
-        var url = $span.data('url');
+    $(document).on('click', 'li.lock > a', function () {
+        var $container = $(this).closest('li');
+        var $edit = $container.parent().find('.lockable');
+        var url = $container.data('url');
 
         if (url.length > 1) {
             $.ajax(url, {
@@ -70,7 +70,7 @@ $(function () {
 
                         locked ? $edit.addClass('hidden') : $edit.removeClass('hidden');
 
-                        $span.find('a').each(function () {
+                        $container.find('a').each(function () {
                             if ($(this).hasClass('lock')) {
                                 locked ? $(this).addClass('hidden') : $(this).removeClass('hidden');
                             } else {

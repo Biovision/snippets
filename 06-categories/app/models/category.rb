@@ -1,4 +1,4 @@
-class Category < ActiveRecord::Base
+class Category < ApplicationRecord
   include Toggleable
 
   PER_PAGE = 20

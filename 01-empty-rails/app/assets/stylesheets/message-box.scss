@@ -40,7 +40,7 @@ section.errors {
   > h2 {
     color: #400000;
     background: #ffeeee image_url('icons/message-box/alert.png') no-repeat center left 1rem / 1rem 1rem;
-    font-size: 1.25rem;
+    font-size: $large_font_size;
     padding: 1rem 1rem 1rem 3rem;
   }
 

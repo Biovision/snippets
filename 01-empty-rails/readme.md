@@ -24,7 +24,6 @@ Empty rails
 ```ruby
 gem 'dotenv-rails'
 
-# Автоматическая расстановка префиксов в CSS
 gem 'autoprefixer-rails', group: :production
 
 gem 'kaminari'
@@ -105,15 +104,6 @@ config.include FactoryGirl::Syntax::Methods
     def record_not_found
       ActiveRecord::RecordNotFound
     end
-```
-
-Добавления в `app/helpers/application_helper.rb`
-------------------------------------------------
-
-```ruby
-def link_to_delete(entity)
-  link_to t(:delete), entity, method: :delete, data: { confirm: t(:are_you_sure) }
-end
 ```
 
 Добавления в `config/secrets.yml`
