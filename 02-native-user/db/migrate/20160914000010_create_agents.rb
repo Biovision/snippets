@@ -1,8 +1,7 @@
 class CreateAgents < ActiveRecord::Migration[5.0]
   def change
     create_table :agents do |t|
-      t.timestamps null: false
-      t.references :browser, index: true, foreign_key: true
+      t.references :browser, foreign_key: true
       t.boolean :bot, null: false, default: false
       t.boolean :mobile, null: false, default: false
       t.boolean :active, null: false, default: true

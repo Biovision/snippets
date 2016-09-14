@@ -24,6 +24,6 @@ class UserRole < ApplicationRecord
 
   # @param [User] user
   def self.has_any_role?(user)
-    self.exists? user: user, role: UserRole.roles.values
+    self.exists? user: user
   end
 end

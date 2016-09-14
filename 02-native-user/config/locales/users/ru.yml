@@ -1,6 +1,6 @@
 ru:
   user:
-    zero: "нет пользователей"
+    zero: "пользователей нет"
     one: "%{count} пользователь"
     few: "%{count} пользователя"
     many: "%{count} пользователей"
@@ -14,6 +14,7 @@ ru:
   email_already_confirmed: "Электронная почта уже подтверждена"
   anonymous: "Анонимно"
   view_as_administrator: "Посмотреть в админке"
+  view_as_visitor: "Посмотреть как посетитель"
   activerecord:
     models:
       user: "Пользователь"
@@ -36,17 +37,21 @@ ru:
         slug: "Идентификатор"
         gender: "Пол"
         birthday: "Дата рождения"
-        deleted: "Удалён"
         bot: "Это бот"
         allow_login: "Позволить вход"
         email_confirmed: "Email подтверждён"
+        phone_confirmed: "Телефон подтверждён"
         allow_mail: "Разрешить email-уведомления"
         last_seen: "Последняя активность"
         password: "Пароль"
         password_confirmation: "Подтверждение пароля"
         email: "Email"
+        phone: "Телефон"
         screen_name: "Логин"
         name: "Имя"
+        patronymic: "Отчество"
+        surname: "Фамилия"
+        notice: "Заметка"
         image: "Картинка"
         networks:
           native: "Регистрация"
@@ -92,32 +97,14 @@ ru:
         title: "Коды, страница %{page}"
         heading: "Коды"
   authentication:
-    new:
-      title: "Вход на сайт"
-    form:
-      join: "Присоединиться"
-      reset_password: "Сброс пароля"
-      sign_in: "Вход"
     info:
       logout: "Выйти"
     new:
       title: "Вход"
-    external_login:
-      vkontakte: "Войти через VK"
-      twitter: "Войти через Twitter"
-      facebook: "Войти через Facebook"
-    options:
-      native:
-        header: "Если у вас есть логин и пароль"
-      social:
-        header: "Если у вас есть аккаунт в социальных сетях"
-        use_your_existing_account: "Используйте существующий аккаунт, нажав на соответствующую картинку сети."
-      other:
-        header: "Не получается войти?"
-        join: "присоединиться"
-        reset_password: "сбросить пароль"
-        if_you_are_not_member: "Если вы ещё не являетесь пользователем сайта, самое время"
-        if_you_cannot_sign_in: "Если не получается войти с использованием логина и пароля, попробуйте"
+      external:
+        vkontakte: "Войти через VK"
+        twitter: "Войти через Twitter"
+        facebook: "Войти через Facebook"
   users:
     create:
       success: "Пользователь успешно создан"
@@ -198,25 +185,24 @@ ru:
     profiles:
       new:
         title: "Присоединиться"
+        form:
+          i_am_bot: "Я — бот и не собираюсь пользоваться сайтом"
+          registration_form: "Форма регистрации"
+          you_accept_terms_of_service: "Регистрируясь на сайте, вы принимаете пользовательское соглашение."
       create:
         success: "Вы зарегистрировались и вошли"
       update:
         success: "Профиль успешно изменён"
-      advantages:
-        advantages: "Преимущества зарегистрированных пользователей"
-      form:
-        i_am_bot: "Я — бот и не собираюсь пользоваться сайтом"
-        registration_form: "Форма регистрации"
-        you_accept_terms_of_service: "Регистрируясь на сайте, вы принимаете пользовательское соглашение."
       show:
         title: "Мой профиль"
       edit:
         title: "Редактирование профиля"
-        common_parameters: "Общие параметры"
-        update_image: "Загрузить новую картинку"
-        sensitive_parameters: "Связанные с безопасностью параметры"
-        sensitive_parameters_notice: "Для изменения этих данных нужно ввести текущий пароль."
-        current_password: "Текущий пароль"
-        leave_blank_if_necessary: "Если не будете менять пароль, оставьте эти поля пустыми."
-        new_password: "Новый пароль"
-        update: "Обновить данные"
+        form:
+          common_parameters: "Общие параметры"
+          update_image: "Загрузить новую картинку"
+          sensitive_parameters: "Связанные с безопасностью параметры"
+          sensitive_parameters_notice: "Для изменения этих данных нужно ввести текущий пароль."
+          current_password: "Текущий пароль"
+          leave_blank_if_necessary: "Если не будете менять пароль, оставьте эти поля пустыми."
+          new_password: "Новый пароль"
+          update: "Обновить данные"

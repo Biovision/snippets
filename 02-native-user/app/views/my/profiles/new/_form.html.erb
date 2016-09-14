@@ -1,12 +1,12 @@
 <section class="form">
   <h2><%= t('.registration_form') %></h2>
 
-  <%= render partial: 'shared/list_of_errors', locals: { entity: @user } %>
+  <%= render partial: 'shared/list_of_errors', locals: { entity: entity } %>
 
   <%= form_tag my_profile_path do %>
       <div>
         <div><%= label_tag :user_screen_name, t('activerecord.attributes.user.screen_name') %></div>
-        <%= text_field_tag 'user[screen_name]', @user.screen_name, required: true, size: 30, maxlength: 30 %>
+        <%= text_field_tag 'user[screen_name]', entity.screen_name, required: true, size: 30, maxlength: 30 %>
       </div>
       <div>
         <div><%= label_tag :user_password, t('activerecord.attributes.user.password') %></div>
@@ -18,7 +18,7 @@
       </div>
       <div>
         <div><%= label_tag :user_email, t('activerecord.attributes.user.email') %></div>
-        <%= email_field_tag 'user[email]', @user.email, size: 50 %>
+        <%= email_field_tag 'user[email]', entity.email, size: 50 %>
       </div>
       <div>
         <%= check_box_tag :agree %>

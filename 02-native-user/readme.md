@@ -1,7 +1,7 @@
 Пользователи с авторизацией через соцсети и отслеживание
 ========================================================
 
-Версия 0.3.0 (160820)
+Версия 0.3.1 (160914)
 
 ToDo
 ----
@@ -42,7 +42,7 @@ gem 'omniauth-vkontakte'
 
   # @param [Symbol] role
   def current_user_has_role?(*role)
-    current_user.is_a?(User) && current_user.has_role?(*role)
+    UserRole.user_has_role? current_user, *role
   end
 
   protected

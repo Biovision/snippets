@@ -107,14 +107,6 @@ config.include FactoryGirl::Syntax::Methods
     end
 ```
 
-Добавления в `config/secrets.yml`
----------------------------------
-
-```yaml
-  mail_password: secret
-```
-
-
 Дополнения в `config/environments/production.rb`
 ------------------------------------------------
 
@@ -127,7 +119,7 @@ config.include FactoryGirl::Syntax::Methods
       port: 587,
       domain: 'example.com',
       user_name: 'support@example.com',
-      password: Rails.application.secrets.mail_password,
+      password: ENV['MAIL_PASSWORD'],
       authentication: :plain,
       enable_starttls_auto: true
   }
@@ -148,7 +140,7 @@ config.include FactoryGirl::Syntax::Methods
       tls: true,
       domain: 'example.com',
       user_name: 'support@example.com',
-      password: Rails.application.secrets.mail_password,
+      password: ENV['MAIL_PASSWORD'],
       authentication: :login,
       enable_starttls_auto: true
   }
