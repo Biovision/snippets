@@ -11,7 +11,7 @@ RSpec.describe My::RecoveriesController, type: :controller do
   describe 'get show' do
     before(:each) { get :show }
 
-    it_behaves_like 'successful_response'
+    it_behaves_like 'http_success'
   end
 
   describe 'post create' do

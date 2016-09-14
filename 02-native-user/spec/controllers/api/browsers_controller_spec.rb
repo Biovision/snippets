@@ -16,7 +16,7 @@ RSpec.describe Api::BrowsersController, type: :controller do
       let(:entity) { create :browser }
 
       it_behaves_like 'page_for_administrator'
-      it_behaves_like 'successful_response'
+      it_behaves_like 'http_success'
 
       it 'toggles parameters' do
         entity.reload

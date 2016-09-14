@@ -8,7 +8,7 @@ module ApplicationHelper
     link_to image_tag('icons/create.png', alt: title), path, default.merge(options)
   end
 
-  def back_icon(path, title = t(:list), options = {})
+  def back_icon(path, title = t(:back), options = {})
     default = { data: { tootik: title } }
     link_to image_tag('icons/previous.png', alt: title), path, default.merge(options)
   end

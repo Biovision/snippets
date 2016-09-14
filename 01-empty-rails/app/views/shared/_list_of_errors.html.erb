@@ -2,10 +2,10 @@
     <section class="errors">
       <h2><%= t(:error, count: entity.errors.count) %></h2>
 
-      <ul>
+      <ol>
         <% entity.errors.full_messages.each do |message| %>
             <li><%= message %></li>
         <% end %>
-      </ul>
+      </ol>
     </section>
 <% end %>

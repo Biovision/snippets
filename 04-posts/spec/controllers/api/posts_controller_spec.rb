@@ -16,7 +16,7 @@ RSpec.describe Api::PostsController, type: :controller do
       let(:entity) { create :post }
 
       it_behaves_like 'page_for_editors'
-      it_behaves_like 'successful_response'
+      it_behaves_like 'http_success'
 
       it 'toggles parameters' do
         entity.reload

@@ -23,7 +23,7 @@ RSpec.describe FiguresController, type: :controller do
     end
 
     it_behaves_like 'page_for_editors'
-    it_behaves_like 'successful_response'
+    it_behaves_like 'http_success'
     it_behaves_like 'entity_finder'
   end
 
@@ -34,7 +34,7 @@ RSpec.describe FiguresController, type: :controller do
 
     it_behaves_like 'page_for_editors'
     it_behaves_like 'restricted_editing'
-    it_behaves_like 'successful_response'
+    it_behaves_like 'http_success'
     it_behaves_like 'entity_finder'
   end
 

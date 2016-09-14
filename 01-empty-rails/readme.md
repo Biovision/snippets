@@ -7,9 +7,6 @@ Empty rails
 -------------------------
 
 ```
-/config/database.yml
-/config/secrets.yml
-
 /public/uploads
 
 /spec/examples.txt
@@ -28,6 +25,10 @@ gem 'autoprefixer-rails', group: :production
 
 gem 'kaminari'
 gem 'rails-i18n', '~> 5.0.0'
+
+gem 'mini_magick'
+gem 'carrierwave', git: 'https://github.com/carrierwaveuploader/carrierwave'
+gem 'carrierwave-bombshelter'
 
 group :development, :test do
   gem 'rspec-rails'

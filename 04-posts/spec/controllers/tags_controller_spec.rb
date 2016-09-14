@@ -16,7 +16,7 @@ RSpec.describe TagsController, type: :controller do
       get :index
     end
 
-    it_behaves_like 'successful_response'
+    it_behaves_like 'http_success'
 
     it 'receives list of tags for visitors' do
       expect(Tag).to have_received(:page_for_visitors)

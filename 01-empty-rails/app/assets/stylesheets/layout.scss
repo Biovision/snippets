@@ -1,45 +1,17 @@
 html {
   margin: 0;
   padding: 0;
-  font-size: 16px;
+  font-size: 10px;
+  -webkit-text-size-adjust: none;
+  -moz-text-size-adjust: none;
+  -ms-text-size-adjust: none;
 }
 
-#main {
-  > div.options {
-    > ul {
-      margin: 1rem 0;
-      padding: 0;
-      font-size: $decreased_size;
-      line-height: 2rem;
-
-      > li {
-        list-style: none;
-        display: inline-block;
-        margin: 0 0.5rem;
-
-        &:before {
-          content: '[';
-        }
-
-        &:after {
-          content: ']';
-        }
-      }
-    }
-  }
+body {
+  font-size: $normal_font_size;
+  color: $primary_text_color;
 }
 
 .hidden {
   display: none !important;
-}
-
-span.not-found {
-  color: #ffaaaa;
-  cursor: default;
-
-  &:before {
-    content: '\26A0';
-    color: #ff0000;
-    margin-right: 0.25rem;
-  }
 }
