@@ -40,6 +40,7 @@ ru:
   "no": "Нет"
   page: "Страница"
   current_image: "Текущая картинка"
+  deleted_entity: "Удалённый объект"
   views:
     pagination:
       first: "⇤"

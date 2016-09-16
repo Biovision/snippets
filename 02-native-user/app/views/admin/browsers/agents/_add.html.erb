@@ -1,9 +1,9 @@
 <section>
-  <h2><%= t('.heading') %></h2>
+  <h2><%= t('agents.new.title') %></h2>
 
-  <%= render partial: 'browsers/agents/filter', locals: { filter: Hash.new } %>
+  <%= render partial: 'api/agents/filter', locals: { filter: Hash.new } %>
 
-  <ul id="found-agents" class="list-of-agents dynamic" data-browser-id="<%= browser.id %>">
+  <ul id="found-agents" class="list-of-entities dynamic" data-browser-id="<%= browser.id %>">
 
   </ul>
 </section>
@@ -29,16 +29,16 @@ $(function () {
 
   function add_agent(agent) {
     var $section = $('#browser-agents');
-    var $notice = $section.find('div.notice');
+    var $notice = $section.find('div.warning');
     var $container;
     var $li = $('<li>');
 
     if ($notice.hasOwnProperty(0)) {
       $notice.remove();
-      $container = $('<ul class="list-of-agents">');
+      $container = $('<ul class="list-of-entities">');
       $section.append($container);
     } else {
-      $container = $section.find('ul.list-of-agents');
+      $container = $section.find('ul.list-of-entities');
     }
 
     $li.html(agent['html']);

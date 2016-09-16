@@ -6,7 +6,6 @@ RSpec.describe Api::BrowsersController, type: :controller do
   before :each do
     allow(subject).to receive(:require_role)
     allow(subject).to receive(:current_user).and_return(user)
-    allow(Browser).to receive(:page_for_administration)
   end
 
   describe 'post toggle' do

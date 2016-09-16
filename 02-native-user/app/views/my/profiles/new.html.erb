@@ -3,5 +3,5 @@
 <article class="new-profile">
   <h1><%= t('.title') %></h1>
 
-  <%= render 'my/profiles/new/form' %>
+  <%= render partial: 'my/profiles/new/form', locals: { entity: @user } %>
 </article>

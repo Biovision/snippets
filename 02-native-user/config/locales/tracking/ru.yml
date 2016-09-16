@@ -1,45 +1,49 @@
 ru:
   agent:
-    zero: "нет агентов пользователя"
+    zero: "агентов пользователя нет"
     one: "%{count} агент пользователя"
     few: "%{count} агента пользователя"
     many: "%{count} агентов пользователя"
     other: "%{count} агентов пользователя"
   activerecord:
+    models:
+      browser: "Браузер"
+      agent: "Агент пользователя"
     attributes:
       browser:
         mobile: "Мобильный"
         bot: "Бот"
         active: "Активный"
-        locked: "Запрет изменений"
-        deleted: "Удалён"
         name: "Название"
       agent:
         browser_id: "Браузер"
         mobile: "Мобильный"
         bot: "Бот"
         active: "Активный"
-        locked: "Запрет изменений"
-        deleted: "Удалён"
         name: "Название"
   admin:
     browsers:
       index:
-        index: "Браузеры, страница %{page}"
+        title: "Браузеры, страница %{page}"
         heading: "Браузеры"
+      show:
+        title: "Браузер «%{name}»"
+      agents:
+        title: "Агенты пользователя для браузера %{name}, страница %{page}"
     agents:
       index:
-        index: "Агенты пользователя, страница %{page}"
+        title: "Агенты пользователя, страница %{page}"
         heading: "Агенты пользователя"
+      show:
+        title: "Агент пользователя «%{name}»"
   browsers:
     new:
       title: "Создание браузера"
     create:
       success: "Браузер успешно создан"
-    show:
-      index: "Браузер «%{name}»"
     edit:
       title: "Редактирование браузера"
+      forbidden: "Редактирование этого браузера запрещено"
     update:
       success: "Браузер успешно изменён"
     destroy:
@@ -49,10 +53,9 @@ ru:
       title: "Создание агента пользователя"
     create:
       success: "Агент пользователя успешно создан"
-    show:
-      index: "Агент пользователя «%{name}»"
     edit:
       title: "Редактирование агента пользователя"
+      forbidden: "Редактирование этого агента пользователя запрещено"
     update:
       success: "Агент пользователя успешно изменён"
     destroy:

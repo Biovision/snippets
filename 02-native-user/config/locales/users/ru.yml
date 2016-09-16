@@ -5,6 +5,12 @@ ru:
     few: "%{count} пользователя"
     many: "%{count} пользователей"
     other: "%{count} пользователей"
+  code_activation:
+    zero: "активаций нет"
+    one: "%{count} активация"
+    few: "%{count} активации"
+    many: "%{count} активаций"
+    other: "%{count} активаций"
   invalid_code: "Недействительный код"
   insufficient_role: "Ваша роль не подходит для доступа к странице"
   insufficient_rights: "Не хватает прав для доступа"
@@ -69,12 +75,13 @@ ru:
           moderator: "Модератор"
       token:
         user: "Пользователь"
-        ip: "IP-адрес"
+        user_id: "Пользователь"
         last_used: "Последнее использование"
         active: "Активен"
         token: "Жетон"
       code:
         user: "Пользователь"
+        user_id: "Пользователь"
         category: "Категория"
         body: "Код"
         payload: "Полезная нагрузка"
@@ -88,14 +95,24 @@ ru:
       index:
         title: "Пользователи, страница %{page}"
         heading: "Пользователи"
+      show:
+        title: "Пользователь %{name}"
+      tokens:
+        title: "Жетоны пользователя %{user], страница %{page}"
+      codes:
+        title: "Коды пользователя %{user}, страница %{page}"
     tokens:
       index:
         title: "Жетоны, страница %{page}"
         heading: "Жетоны"
+      show:
+        title: "Жетон №%{id}"
     codes:
       index:
         title: "Коды, страница %{page}"
         heading: "Коды"
+      show:
+        title: "Код «%{body}»"
   authentication:
     info:
       logout: "Выйти"
@@ -118,8 +135,6 @@ ru:
       title: "Добавить пользователя"
     form:
       roles: "Роли"
-    show:
-      title: "Пользователь %{name}"
     user:
       account_data: "Данные аккаунта"
   profiles:
@@ -131,8 +146,6 @@ ru:
       success: "Жетон успешно обновлён"
     destroy:
       success: "Жетон успешно удалён"
-    show:
-      title: "Жетон №%{id}"
     new:
       title: "Добавить жетон"
     edit:
@@ -146,8 +159,6 @@ ru:
       title: "Редактирование кода"
     new:
       title: "Новый код"
-    show:
-      title: "Код «%{body}»"
   code_sender:
     email:
       subject: "Подтверждение адреса электронной почты"
