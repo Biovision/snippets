@@ -4,10 +4,10 @@
           <% if category.deleted? %>
               <li data-number="0"><%= t(:deleted_entity) %> id: <%= category.id %></li>
           <% else %>
+              <li data-number="<%= category.priority %>">
+                <%= render partial: 'admin/categories/entity/in_list', locals: { category: category } %>
+              </li>
           <% end %>
-          <li data-number="<%= category.priority %>">
-            <%= render partial: 'admin/categories/entity/in_list', locals: { category: category } %>
-          </li>
       <% end %>
     </ol>
 <% else %>
