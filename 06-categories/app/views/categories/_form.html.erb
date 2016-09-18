@@ -1,18 +1,41 @@
 <%= render partial: 'shared/list_of_errors', locals: { entity: entity } %>
 
 <%= form_for entity do |f| %>
-    <div>
-      <%= f.label :priority %><br />
-      <%= f.number_field :priority, in: (1..10000), required: true %>
-    </div>
-    <div>
-      <%= f.label :name %><br />
-      <%= f.text_field :name, required: true %>
-    </div>
-    <div>
-      <% if entity.id.nil? %>
-          <%= f.hidden_field :parent_id %>
+    <table>
+      <tbody>
+      <% unless entity.id.nil? && entity.parent_id.nil? %>
+          <tr>
+            <th><%= t('activerecord.attributes.category.parent_id') %></th>
+            <td><%= link_to entity.parent.name, admin_category_path(entity.parent) %></td>
+          </tr>
       <% end %>
-      <%= f.button t(:submit), type: :submit %>
-    </div>
+      <tr>
+        <th><%= f.label :priority %></th>
+        <td><%= f.number_field :priority, in: (1..10000), required: true %></td>
+      </tr>
+      <tr>
+        <th><%= f.label :name %></th>
+        <td><%= f.text_field :name, required: true %></td>
+      </tr>
+      <% unless entity.id.nil? %>
+          <tr>
+            <th><%= f.label :slug %></th>
+            <td><%= f.text_field :slug, required: true %></td>
+          </tr>
+      <% end %>
+      <tr>
+        <td colspan="2" class="flags">
+          <ul>
+            <li><%= f.check_box :visible %><%= f.label :visible %></li>
+          </ul>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <%= f.hidden_field :parent_id if entity.id.nil? %>
+          <%= f.button t(:save), type: :submit %>
+        </td>
+      </tr>
+      </tbody>
+    </table>
 <% end %>

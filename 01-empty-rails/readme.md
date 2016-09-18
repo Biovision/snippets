@@ -109,6 +109,31 @@ config.include FactoryGirl::Syntax::Methods
     end
 ```
 
+Добавления в `config/routes.rb`
+-------------------------------
+
+```ruby
+  concern :toggleable do
+    post 'toggle', on: :member
+  end
+
+  concern :lockable do
+    member do
+      put 'lock'
+      delete 'lock', action: :unlock
+    end
+  end
+
+  concern :changeable_priority do
+    member do
+      post 'priority'
+    end
+  end
+
+  root 'index#index'
+```
+
+
 Дополнения в `config/environments/production.rb`
 ------------------------------------------------
 

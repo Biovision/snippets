@@ -6,17 +6,56 @@ RSpec.describe Category, type: :model do
   it_behaves_like 'has_valid_factory'
   it_behaves_like 'required_name'
 
+  describe 'after initialize' do
+    it 'sets next priority' do
+      subject.save!
+      entity = Category.new(parent_id: subject.parent_id)
+      expect(entity.priority).to eq(subject.priority + 1)
+    end
+  end
+
+  describe 'before validation' do
+    it 'generates slug as transliterated name' do
+      subject.name = '  Категория в тестах!  '
+      subject.valid?
+      expect(subject.slug).to eq("kategoriya-v-testakh")
+    end
+  end
+
+  describe 'before save' do
+    before :each do
+      subject.children_cache = [100, 100, 101, 101, 101, 102, 100, 102, 101]
+    end
+
+    it 'makes children cache unique' do
+      subject.save!
+      expect(subject.children_cache).to eq([100, 101, 102])
+    end
+  end
+
   describe 'validation' do
-    it 'fails with non-unique name for parent' do
+    it 'fails with non-unique name for same parent' do
       create :category, parent_id: subject.parent_id, name: subject.name
       expect(subject).not_to be_valid
       expect(subject.errors.messages).to have_key(:name)
+    end
+
+    it 'passes with non-unique name for other parent' do
+      create :category, name: subject.name, slug: 'another_category', parent: subject
+      expect(subject).to be_valid
     end
 
     it 'fails without priority' do
       subject.priority = nil
       expect(subject).not_to be_valid
       expect(subject.errors.messages).to have_key(:priority)
+    end
+
+    it 'fails with non-unique slug' do
+      subject.valid?
+      create :category, slug: subject.slug
+      expect(subject).not_to be_valid
+      expect(subject.errors.messages).to have_key(:slug)
     end
   end
 
@@ -99,17 +138,6 @@ RSpec.describe Category, type: :model do
       it 'returns empty array' do
         expect(subject.parents).to eq([])
       end
-    end
-  end
-
-  describe 'before save' do
-    before :each do
-      subject.children_cache = [100, 100, 101, 101, 101, 102, 100, 102, 101]
-    end
-
-    it 'makes children cache unique' do
-      subject.save!
-      expect(subject.children_cache).to eq([100, 101, 102])
     end
   end
 end

@@ -1,34 +1,37 @@
 class Category < ApplicationRecord
   include Toggleable
 
-  PER_PAGE = 20
-
   toggleable :visible
 
-  belongs_to :parent, class_name: Category.to_s
+  belongs_to :parent, class_name: Category.to_s, optional: true
   has_many :children, class_name: Category.to_s, foreign_key: :parent_id
 
   validates_presence_of :name, :priority
   validates_uniqueness_of :name, scope: [:parent_id]
+  validates_uniqueness_of :slug
 
   after_initialize :set_next_priority
+  before_validation :generate_slug
   before_save :compact_children_cache
 
   scope :ordered_by_priority, -> { order 'priority asc, name asc' }
-  scope :visible, -> { where visible: true }
+  scope :visible, -> { where visible: true, deleted: false }
   scope :for_tree, -> (parent_id = nil) { where(parent_id: parent_id).ordered_by_priority }
 
-  # @param [Integer] page
-  def self.page_for_administration(page)
-    ordered_by_priority.page(page).per(PER_PAGE)
-  end
-
   def self.entity_parameters
-    %i(name priority)
+    %i(name priority slug)
   end
 
   def self.creation_parameters
     entity_parameters + %i(parent_id)
+  end
+
+  def full_title
+    (parents.map { |parent| parent.name } + [name]).join ' / '
+  end
+
+  def ids
+    [id] + children_cache
   end
 
   def parents
@@ -55,7 +58,7 @@ class Category < ApplicationRecord
   end
 
   def can_be_deleted?
-    children.count < 1
+    !locked? && children.count < 1
   end
 
   private
@@ -63,6 +66,12 @@ class Category < ApplicationRecord
   def set_next_priority
     if id.nil? && priority == 1
       self.priority = Category.where(parent_id: parent_id).maximum(:priority).to_i + 1
+    end
+  end
+
+  def generate_slug
+    if slug.blank?
+      self.slug = Canonizer.transliterate name.to_s
     end
   end
 

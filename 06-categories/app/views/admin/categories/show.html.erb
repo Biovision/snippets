@@ -1,0 +1,60 @@
+<% content_for :meta_title, t('.title', name: @entity.name) %>
+
+<article class="entity-page">
+  <h1><%= @entity.name %></h1>
+  <ul class="actions">
+    <li><%= create_icon new_category_path %></li>
+    <li><%= list_icon admin_categories_path %></li>
+    <% unless @entity.locked? %>
+        <li><%= edit_icon edit_category_path(@entity) %></li>
+        <% if @entity.can_be_deleted? %>
+            <li class="danger"><%= destroy_icon @entity %></li>
+        <% end %>
+    <% end %>
+  </ul>
+
+  <table>
+    <tbody>
+    <tr>
+      <th><%= t('activerecord.attributes.category.slug') %></th>
+      <td><%= @entity.slug %></td>
+    </tr>
+    <tr>
+      <th><%= t(:created_at) %></th>
+      <td><%= time_tag @entity.created_at %></td>
+    </tr>
+    <tr>
+      <th><%= t(:updated_at) %></th>
+      <td><%= time_tag @entity.updated_at %></td>
+    </tr>
+    <% unless @entity.parent.nil? %>
+        <tr>
+          <th><%= t('activerecord.attributes.category.parent_id') %></th>
+          <td><%= link_to @entity.parent.name, admin_category_path(@entity.parent) %></td>
+        </tr>
+    <% end %>
+    <% if @entity.children.any? %>
+        <tr>
+          <th><%= t('.children') %></th>
+          <td><%= render partial: 'admin/categories/list', locals: { collection: Category.for_tree(@entity.id) } %></td>
+        </tr>
+    <% end %>
+    </tbody>
+    <tfoot>
+    <tr>
+      <th><%= t('activerecord.attributes.category.parents_cache') %></th>
+      <td><%= @entity.parents_cache %></td>
+    </tr>
+    <tr>
+      <th><%= t('activerecord.attributes.category.children_cache') %></th>
+      <td><%= @entity.children_cache %></td>
+    </tr>
+    </tfoot>
+  </table>
+
+  <section>
+    <h2><%= t('.add_subcategory') %></h2>
+
+    <%= render partial: 'categories/form', locals: { entity: Category.new(parent: @entity) } %>
+  </section>
+</article>

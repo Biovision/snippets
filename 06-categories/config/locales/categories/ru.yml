@@ -9,21 +9,24 @@ ru:
         visible: "Показывать"
         name: "Название"
         slug: "Идентификатор"
+        parents_cache: "Кеш родителей"
+        children_cache: "Кеш дочек"
   admin:
     categories:
       index:
-        title: "Категории, страница %{page}"
+        title: "Категории"
         heading: "Категории"
+      show:
+        title: "Категория «%{name}»"
+        children: "Подкатегории"
+        add_subcategory: "Добавить подкатегорию"
   categories:
-    create:
-      success: "Категория успешно создана"
     update:
       success: "Категория успешно изменена"
     destroy:
       success: "Категория успешно удалена"
     edit:
       title: "Редактирование категории"
+      forbidden: "Редактирование этой категории запрещено"
     new:
       title: "Добавить категорию"
-    show:
-      title: "Категория «%{name}»"

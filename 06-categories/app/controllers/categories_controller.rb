@@ -1,6 +1,7 @@
 class CategoriesController < ApplicationController
   before_action :restrict_access
-  before_action :set_entity, only: [:show, :edit, :update, :destroy]
+  before_action :set_entity, only: [:edit, :update, :destroy]
+  before_action :restrict_editing, only: [:edit, :update, :destroy]
 
   # get /categories/new
   def new
@@ -12,14 +13,10 @@ class CategoriesController < ApplicationController
     @entity = Category.new creation_parameters
     if @entity.save
       cache_relatives
-      redirect_to @entity
+      redirect_to admin_category_path(@entity)
     else
-      render :new
+      render :new, status: :bad_request
     end
-  end
-
-  # get /categories/:id
-  def show
   end
 
   # get /categories/:id/edit
@@ -30,9 +27,9 @@ class CategoriesController < ApplicationController
   def update
     if @entity.update entity_parameters
       cache_relatives
-      redirect_to @entity, notice: t('categories.update.success')
+      redirect_to admin_category_path(@entity), notice: t('categories.update.success')
     else
-      render :edit
+      render :edit, status: :bad_request
     end
   end
 
@@ -52,6 +49,13 @@ class CategoriesController < ApplicationController
 
   def set_entity
     @entity = Category.find params[:id]
+    raise record_not_found if @entity.deleted?
+  end
+
+  def restrict_editing
+    if @entity.locked?
+      redirect_to admin_category_path(@entity), alert: t('categories.edit.forbidden')
+    end
   end
 
   def entity_parameters

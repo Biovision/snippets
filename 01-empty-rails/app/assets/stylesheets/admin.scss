@@ -196,7 +196,7 @@ ul.actions {
   margin: 0;
   padding: 0;
   top: 0.4rem;
-  right: 1rem;
+  right: 0.4rem;
   box-shadow: 0 0 0.2rem 0.2rem rgba(0, 0, 0, 0.25);
   display: flex;
   justify-content: flex-end;
@@ -291,6 +291,27 @@ ul.actions {
 
       .secondary {
         color: $secondary_text_color;
+      }
+
+      .truncate {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .compact {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+
+        .toggleable, > span {
+          margin: 0 0.8rem;
+        }
+      }
+
+      .children {
+        margin-left: 1.6rem;
+        border-left: dotted 0.1rem;
       }
     }
   }

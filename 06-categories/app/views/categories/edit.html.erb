@@ -1,17 +1,16 @@
 <% content_for :meta_title, t('.title') %>
-<% content_for :options do %>
-  <ul>
-    <li><%= link_to t(:list), admin_categories_path %></li>
-    <li><%= link_to t(:view), @entity %></li>
-    <li><%= link_to t(:create), new_category_path %></li>
+
+<article class="entity-page">
+  <h1><%= t('.title') %></h1>
+
+  <ul class="actions">
+    <li><%= create_icon new_category_path %></li>
+    <li><%= list_icon admin_categories_path %></li>
+    <li><%= detail_icon admin_category_path(@entity) %></li>
     <% if @entity.can_be_deleted? %>
-        <li><%= link_to_delete @entity %></li>
+        <li class="danger"><%= destroy_icon @entity %></li>
     <% end %>
   </ul>
-<% end %>
-
-<article class="edit-category">
-  <h1><%= t('.title') %></h1>
 
   <%= render partial: 'form', locals: { entity: @entity } %>
 </article>
