@@ -1,0 +1,11 @@
+<% if collection.any? %>
+    <ul class="list-of-entities">
+      <% collection.each do |item_type| %>
+          <li>
+            <%= render partial: 'admin/item_types/entity/in_list', locals: { item_type: item_type } %>
+          </li>
+      <% end %>
+    </ul>
+<% else %>
+    <%= render 'shared/nothing_found' %>
+<% end %>

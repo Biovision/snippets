@@ -1,0 +1,19 @@
+<div class="image">
+  <%= image_tag item.image.small.url, alt: item.name %>
+</div>
+<div class="data">
+  <div><%= link_to item.name, admin_item_path(item) %></div>
+  <div class="info">
+    <div><%= link_to item.item_type.name, admin_item_type_path(item.item_type) %></div>
+    <div><%= link_to item.category.full_title, admin_category_path(item.category) %></div>
+  </div>
+  <%= render partial: 'admin/items/toggleable', locals: { item: item } %>
+
+  <ul class="actions">
+    <li class="lockable <%= item.locked? ? 'hidden' : '' %>">
+      <%= edit_icon edit_item_path(item) %>
+    </li>
+    <%= render partial: 'shared/actions/priority_changer', locals: { path: priority_api_item_path(item) } %>
+    <%= render partial: 'shared/actions/locks', locals: { entity: item, path: lock_api_item_path(item) } %>
+  </ul>
+</div>

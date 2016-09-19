@@ -1,0 +1,82 @@
+<% content_for :meta_title, t('.title', name: @entity.name) %>
+
+<article class="entity-page">
+  <h1><%= @entity.name %></h1>
+  <ul class="actions">
+    <li><%= create_icon new_item_path %></li>
+    <li><%= list_icon admin_items_path %></li>
+    <% unless @entity.locked? %>
+        <li><%= edit_icon edit_item_path(@entity) %></li>
+        <li class="danger"><%= destroy_icon @entity %></li>
+    <% end %>
+  </ul>
+
+  <table>
+    <tbody>
+    <tr>
+      <td colspan="2">
+        <figure><%= image_tag @entity.image.large.url, alt: @entity.name %></figure>
+      </td>
+    </tr>
+    <tr>
+      <th><%= t('activerecord.attributes.item.slug') %></th>
+      <td><%= @entity.slug %></td>
+    </tr>
+    <% unless @entity.article.blank? %>
+        <tr>
+          <th><%= t('activerecord.attributes.item.article') %></th>
+          <td><%= @entity.article %></td>
+        </tr>
+    <% end %>
+    <tr>
+      <th><%= t(:created_at) %></th>
+      <td><%= time_tag @entity.created_at %></td>
+    </tr>
+    <tr>
+      <th><%= t(:updated_at) %></th>
+      <td><%= time_tag @entity.updated_at %></td>
+    </tr>
+    <tr>
+      <th><%= t('activerecord.attributes.item.item_type') %></th>
+      <td><%= link_to @entity.item_type.name, admin_item_type_path(@entity.item_type) %></td>
+    </tr>
+    <tr>
+      <th><%= t('activerecord.attributes.item.category') %></th>
+      <td><%= link_to @entity.category.full_title, admin_category_path(@entity.category) %></td>
+    </tr>
+    <% unless @entity.brand.nil? %>
+        <tr>
+          <th><%= t('activerecord.attributes.item.brand_id') %></th>
+          <td><%= link_to @entity.brand.name, admin_brand_path(@entity.brand) %></td>
+        </tr>
+    <% end %>
+    <tr>
+      <th><%= t('activerecord.attributes.item.status') %></th>
+      <td><%= t("activerecord.attributes.item.statuses.#{@entity.status}") %></td>
+    </tr>
+    <% unless @entity.price.nil? %>
+        <tr>
+          <th><%= t('activerecord.attributes.item.price') %></th>
+          <td><%= @entity.price %></td>
+        </tr>
+    <% end %>
+    <% unless @entity.old_price.nil? %>
+        <tr>
+          <th><%= t('activerecord.attributes.item.old_price') %></th>
+          <td><%= @entity.old_price %></td>
+        </tr>
+    <% end %>
+    <% unless @entity.description.blank? %>
+        <tr>
+          <th><%= t('activerecord.attributes.item.description') %></th>
+          <td><%= simple_format @entity.description %></td>
+        </tr>
+    <% end %>
+    <tr>
+      <td colspan="2">
+        <%= render partial: 'admin/items/toggleable', locals: { item: @entity } %>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</article>

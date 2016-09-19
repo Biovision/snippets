@@ -1,0 +1,57 @@
+<% content_for :meta_title, t('.title', name: @entity.name) %>
+
+<article class="entity-page">
+  <h1><%= @entity.name %></h1>
+  <ul class="actions">
+    <li><%= create_icon new_brand_path %></li>
+    <li><%= list_icon admin_brands_path %></li>
+    <% unless @entity.locked? %>
+        <li><%= edit_icon edit_brand_path(@entity) %></li>
+        <li class="danger"><%= destroy_icon @entity %></li>
+    <% end %>
+  </ul>
+
+  <table>
+    <tbody>
+    <% unless @entity.image.blank? %>
+        <tr>
+          <td colspan="2">
+            <figure><%= image_tag @entity.image.large.url, alt: @entity.name %></figure>
+          </td>
+        </tr>
+    <% end %>
+    <tr>
+      <th><%= t('activerecord.attributes.brand.slug') %></th>
+      <td><%= @entity.slug %></td>
+    </tr>
+    <tr>
+      <th><%= t(:created_at) %></th>
+      <td><%= time_tag @entity.created_at %></td>
+    </tr>
+    <tr>
+      <th><%= t(:updated_at) %></th>
+      <td><%= time_tag @entity.updated_at %></td>
+    </tr>
+    <tr>
+      <th><%= t('activerecord.attributes.brand.description') %></th>
+      <td><%= simple_format @entity.description %></td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <%= render partial: 'admin/brands/toggleable', locals: { brand: @entity } %>
+      </td>
+    </tr>
+    </tbody>
+    <tfoot>
+    <tr>
+      <td colspan="2">
+        <nav>
+          <ul>
+            <li><%= link_to t(:item, count: @entity.items_count), items_admin_brand_path(@entity) %></li>
+          </ul>
+        </nav>
+      </td>
+    </tr>
+    </tfoot>
+  </table>
+</article>

@@ -177,6 +177,30 @@ article.entity-page {
         }
       }
 
+      .tree {
+        text-align: left;
+
+        > ul {
+          margin: 0;
+          padding: 0;
+
+          li {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+
+            label {
+              font-weight: normal;
+            }
+
+            ul {
+              margin: 0 0 0 2rem;
+              padding: 0;
+            }
+          }
+        }
+      }
+
       p.notice {
         margin: 0;
         color: $secondary_text_color;

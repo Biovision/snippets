@@ -41,6 +41,8 @@ ru:
   page: "Страница"
   current_image: "Текущая картинка"
   deleted_entity: "Удалённый объект"
+  locked: "Редактирование зарещено"
+  unlocked: "Редактирование разрешено"
   views:
     pagination:
       first: "⇤"

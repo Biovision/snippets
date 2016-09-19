@@ -1,0 +1,105 @@
+ru:
+  item:
+    zero: "%{count} товаров"
+    one: "%{count} товар"
+    few: "%{count} товара"
+    many: "%{count} товаров"
+    other: "%{count} товаров"
+  activerecord:
+    models:
+      brand: "Производитель"
+      item_type: "Тип товара"
+      item: "Товар"
+    errors:
+      models:
+        item:
+          attributes:
+            category:
+              required: "должна быть указана"
+            item_type:
+              required: "должен быть указан"
+    attributes:
+      brand:
+        name: "Название"
+        slug: "Идентификатор"
+        priority: "Порядок сортировки"
+        visible: "Показывать"
+        image: "Картинка"
+        description: "Описание"
+      item_type:
+        name: "Название"
+      item:
+        brand_id: "Производитель"
+        category: "Категория"
+        category_id: "Категория"
+        item_type: "Тип товара"
+        item_type_id: "Тип товара"
+        name: "Название"
+        slug: "Идентификатор"
+        article: "Артикул"
+        priority: "Порядок сортировки"
+        visible: "Показывать"
+        new_arrival: "Новинка"
+        sale: "Скидка"
+        exclusive: "Эксклюзив"
+        image: "Картинка"
+        description: "Описание"
+        price: "Цена"
+        old_price: "Старая цена"
+        status: "Статус"
+        statuses:
+          available: "В наличии"
+          to_order: "Под заказ"
+  admin:
+    item_types:
+      index:
+        title: "Типы товара"
+        heading: "Типы товара"
+      show:
+        title: "Тип товара «%{name}»"
+      items:
+        title: "Товары с типом «%{name}», страница %{page}"
+    brands:
+      index:
+        title: "Производители, страница %{page}"
+        heading: "Производители"
+      show:
+        title: "Производитель «%{name}»"
+      items:
+        title: "Товары производителя «%{name}», страница %{page}"
+    items:
+      index:
+        title: "Товары, страница %{page}"
+        heading: "Товары"
+      show:
+        title: "Товар «%{name}»"
+  item_types:
+    update:
+      success: "Тип товара успешно изменён"
+    destroy:
+      success: "Тип товара успешно удалён"
+    edit:
+      title: "Редактирование типа товара"
+      forbidden: "Редактирование этого типа товара запрещено"
+    new:
+      title: "Добавить тип товара"
+  brands:
+    update:
+      success: "Производитель успешно изменён"
+    destroy:
+      success: "Производитель успешно удалён"
+    edit:
+      title: "Редактирование производителя"
+      forbidden: "Редактирование этого производителя запрещено"
+    new:
+      title: "Добавить производителя"
+  items:
+    update:
+      success: "Товар успешно изменён"
+    destroy:
+      success: "Товар успешно удалён"
+    edit:
+      title: "Редактирование товара"
+      forbidden: "Редактирование этого товара запрещено"
+    new:
+      title: "Добавить товар"

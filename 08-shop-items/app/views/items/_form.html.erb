@@ -1,0 +1,116 @@
+<%= render partial: 'shared/list_of_errors', locals: { entity: entity } %>
+
+<%= form_for entity do |f| %>
+    <table>
+      <tbody>
+      <tr>
+        <td colspan="2">
+          <figure class="preview" id="item-image">
+            <%= image_tag entity.image.large.url, alt: t(:current_image) %>
+            <figcaption>
+              <%= f.label :image %>
+              <%= f.file_field :image, accept: 'image/jpeg,image/png', data: { image: 'item-image' } %>
+            </figcaption>
+          </figure>
+        </td>
+      </tr>
+      <tr>
+        <th><%= f.label :priority %></th>
+        <td><%= f.number_field :priority, in: (1..10000), required: true %></td>
+      </tr>
+      <tr>
+        <th><%= f.label :name %></th>
+        <td><%= f.text_field :name, required: true %></td>
+      </tr>
+      <% unless entity.id.nil? %>
+          <tr>
+            <th><%= f.label :slug %></th>
+            <td><%= f.text_field :slug, required: true %></td>
+          </tr>
+      <% end %>
+      <tr>
+        <th><%= f.label :article %></th>
+        <td><%= f.text_field :article %></td>
+      </tr>
+      <tr>
+        <th><%= f.label :item_type_id %></th>
+        <td class="flags">
+          <ul>
+            <% ItemType.page_for_administration.each do |item_type| %>
+            <li>
+              <% input_id = "item_item_type_#{item_type.id}" %>
+              <%= radio_button_tag 'item[item_type_id]', item_type.id, entity.item_type == item_type, id: input_id %>
+              <%= label_tag input_id, item_type.name %>
+            </li>
+            <% end %>
+          </ul>
+        </td>
+      </tr>
+      <tr>
+        <th><%= f.label :category_id %></th>
+        <td class="tree">
+          <%= render partial: 'items/form/category_id', locals: { entity: entity, categories: Category.for_tree } %>
+        </td>
+      </tr>
+      <tr>
+        <th><%= f.label :brand_id %></th>
+        <td class="flags">
+          <ul>
+            <li>
+              <%= radio_button_tag 'item[brand_id]', '', entity.brand_id.nil?, id: 'item_brand_id_0' %>
+              <%= label_tag 'item_brand_id_0', t(:not_selected) %>
+            </li>
+            <% Brand.ordered_by_priority.each do |brand| %>
+                <li>
+                  <% input_id = "item_brand_#{brand.id}" %>
+                  <%= radio_button_tag 'item[brand_id]', brand.id, entity.brand == brand, id: input_id %>
+                  <%= label_tag input_id, brand.name %>
+                </li>
+            <% end %>
+          </ul>
+        </td>
+      </tr>
+      <tr>
+        <th><%= f.label :price %></th>
+        <td><%= f.number_field :price, min: 0 %></td>
+      </tr>
+      <tr>
+        <th><%= f.label :old_price %></th>
+        <td><%= f.number_field :old_price, min: 0 %></td>
+      </tr>
+      <tr>
+        <th><%= f.label :status %></th>
+        <td class="flags">
+          <ul>
+            <% Item.statuses.keys.each do |status| %>
+            <li>
+              <% input_id = "item_status_#{status}" %>
+              <%= radio_button_tag 'item[status]', status, entity.status == status, id: input_id %>
+              <%= label_tag input_id, t("activerecord.attributes.item.statuses.#{status}") %>
+            </li>
+            <% end %>
+          </ul>
+        </td>
+      </tr>
+      <tr>
+        <th><%= f.label :description %></th>
+        <td><%= f.text_area :description, cols: 50, rows: 10 %></td>
+      </tr>
+      <tr>
+        <td colspan="2" class="flags">
+          <ul>
+            <li><%= f.check_box :visible %><%= f.label :visible %></li>
+            <li><%= f.check_box :new_arrival %><%= f.label :new_arrival %></li>
+            <li><%= f.check_box :sale %><%= f.label :sale %></li>
+            <li><%= f.check_box :exclusive %><%= f.label :exclusive %></li>
+          </ul>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <%= f.button t(:save), type: :submit %>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+<% end %>

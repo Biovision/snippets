@@ -1,0 +1,12 @@
+<% if categories.any? %>
+    <ul>
+      <% categories.each do |category| %>
+          <li>
+            <% input_id = "item_category_id_#{category.id}" %>
+            <%= radio_button_tag 'item[category_id]', category.id, entity.category == category, id: input_id %>
+            <%= label_tag input_id, category.name %>
+            <%= render partial: 'items/form/category_id', locals: { entity: entity, categories: Category.for_tree(category.id) } %>
+          </li>
+      <% end %>
+    </ul>
+<% end %>

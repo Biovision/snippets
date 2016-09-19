@@ -1,0 +1,13 @@
+<div class="data">
+  <div><%= link_to item_type.name, admin_item_type_path(item_type) %></div>
+  <div class="info">
+    <%= link_to t(:item, count: item_type.items_count), items_admin_item_type_path(item_type) %>
+  </div>
+
+  <ul class="actions">
+    <li class="lockable <%= item_type.locked? ? 'hidden' : '' %>">
+      <%= edit_icon edit_item_type_path(item_type) %>
+    </li>
+    <%= render partial: 'shared/actions/locks', locals: { entity: item_type, path: lock_api_item_type_path(item_type) } %>
+  </ul>
+</div>

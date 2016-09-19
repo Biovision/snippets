@@ -1,0 +1,49 @@
+<%= render partial: 'shared/list_of_errors', locals: { entity: entity } %>
+
+<%= form_for entity do |f| %>
+    <table>
+      <tbody>
+      <tr>
+        <td colspan="2">
+          <figure class="preview" id="brand-image">
+            <%= image_tag entity.image.large.url, alt: t(:current_image) %>
+            <figcaption>
+              <%= f.label :image %>
+              <%= f.file_field :image, accept: 'image/jpeg,image/png', data: { image: 'brand-image' } %>
+            </figcaption>
+          </figure>
+        </td>
+      </tr>
+      <tr>
+        <th><%= f.label :priority %></th>
+        <td><%= f.number_field :priority, in: (1..10000), required: true %></td>
+      </tr>
+      <tr>
+        <th><%= f.label :name %></th>
+        <td><%= f.text_field :name, required: true %></td>
+      </tr>
+      <% unless entity.id.nil? %>
+          <tr>
+            <th><%= f.label :slug %></th>
+            <td><%= f.text_field :slug, required: true %></td>
+          </tr>
+      <% end %>
+      <tr>
+        <th><%= f.label :description %></th>
+        <td><%= f.text_area :description, cols: 50, rows: 10 %></td>
+      </tr>
+      <tr>
+        <td colspan="2" class="flags">
+          <ul>
+            <li><%= f.check_box :visible %><%= f.label :visible %></li>
+          </ul>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <%= f.button t(:save), type: :submit %>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+<% end %>

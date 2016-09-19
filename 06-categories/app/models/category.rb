@@ -4,7 +4,7 @@ class Category < ApplicationRecord
   toggleable :visible
 
   belongs_to :parent, class_name: Category.to_s, optional: true
-  has_many :children, class_name: Category.to_s, foreign_key: :parent_id
+  has_many :children, class_name: Category.to_s, foreign_key: :parent_id, dependent: :destroy
 
   validates_presence_of :name, :priority
   validates_uniqueness_of :name, scope: [:parent_id]
