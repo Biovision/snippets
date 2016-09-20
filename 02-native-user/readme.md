@@ -1,7 +1,7 @@
 Пользователи с авторизацией через соцсети и отслеживание
 ========================================================
 
-Версия 0.4.0 (160916)
+Версия 0.4.0 (160920)
 
 ToDo
 ----
@@ -87,15 +87,10 @@ gem 'omniauth-vkontakte'
     end
   end
 
-  resources :users, except: [:index]
-  resources :tokens, :codes, except: [:index]
-
-  resources :browsers, except: [:index] do
-    member do
-      get 'agents'
-    end
-  end
-  resources :agents, except: [:index]
+  resources :browsers, :agents, except: [:index, :show]
+  
+  resources :users, except: [:index, :show]
+  resources :tokens, :codes, except: [:index, :show]
 
   controller :authentication do
     get 'login' => :new
@@ -115,8 +110,20 @@ gem 'omniauth-vkontakte'
   namespace :admin do
     get '/' => 'index#index'
     
-    resources :users, :tokens, :codes, only: [:index]
-    resources :browsers, :agents, only: :index
+    resources :browsers, only: [:index, :show] do
+      member do
+        get 'agents'
+      end
+    end
+    resources :agents, only: [:index, :show]
+
+    resources :users, only: [:index, :show] do
+      member do
+        get 'tokens'
+        get 'codes'
+      end
+    end
+    resources :tokens, :codes, only: [:index, :show]
   end
 
   namespace :api, defaults: { format: :json } do
