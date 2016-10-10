@@ -3,6 +3,8 @@ class Code < ApplicationRecord
 
   PER_PAGE = 25
 
+  METRIC_COUNT = 'codes.count'
+
   belongs_to :user, optional: true
   belongs_to :agent, optional: true
 

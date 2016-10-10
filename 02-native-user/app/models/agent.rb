@@ -4,6 +4,8 @@ class Agent < ApplicationRecord
 
   PER_PAGE = 20
 
+  METRIC_COUNT = 'agents.count'
+
   toggleable :mobile, :bot, :active
 
   belongs_to :browser, optional: true, counter_cache: true

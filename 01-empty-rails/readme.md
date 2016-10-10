@@ -47,66 +47,72 @@ end
 ------------------------------------
 
 ```ruby
-config.time_zone = 'Moscow'
+  class Application < Rails::Application
+    config.time_zone = 'Moscow'
 
-config.i18n.enforce_available_locales = true
-config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}')]
-config.i18n.default_locale = :ru
+    config.i18n.enforce_available_locales = true
+    config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}')]
+    config.i18n.default_locale = :ru
 
-%w(app/services lib).each do |path|
-  config.autoload_paths << config.root.join(path).to_s
-end
+    %w(app/services lib).each do |path|
+      config.autoload_paths << config.root.join(path).to_s
+    end
+  end
 ```
 
 Добавления в `spec/rails_helper.rb` (`$ rails generate rspec:install`)
 ----------------------------------------------------------------------
 
 ```ruby
-config.include FactoryGirl::Syntax::Methods
+RSpec.configure do |config|
+  config.include FactoryGirl::Syntax::Methods
+end
 ```
 
 Добавления в `spec/spec_helper.rb`
 ----------------------------------
 
 ```ruby
+RSpec.configure do |config|
   config.after(:all) do
     if Rails.env.test?
       FileUtils.rm_rf(Dir["#{Rails.root}/spec/support/uploads"])
     end
   end
+end
 ```
 
 Добавления в `app/controllers/application_controller.rb`
 --------------------------------------------------------
 
 ```ruby
-    helper_method :current_page, :param_from_request
+  helper_method :current_page, :param_from_request
     
-    # Получить текущую страницу из запроса
-    #
-    # @return [Integer]
-    def current_page
-      @current_page ||= (params[:page] || 1).to_s.to_i.abs
-    end
+  # Получить текущую страницу из запроса
+  #
+  # @return [Integer]
+  def current_page
+    @current_page ||= (params[:page] || 1).to_s.to_i.abs
+  end
     
-    # Получить параметр из запроса и нормализовать его
-    #
-    # Приводит параметр к строке в UTF-8 и удаляет недействительные в UTF-8 символы
-    #
-    # @param [Symbol] parameter
-    # @return [String]
-    def param_from_request(parameter)
-      params[parameter].to_s.encode('UTF-8', 'UTF-8', invalid: :replace, replace: '')
-    end
+  # Получить параметр из запроса и нормализовать его
+  #
+  # Приводит параметр к строке в UTF-8 и удаляет недействительные символы
+  #
+  # @param [Symbol] param
+  # @return [String]
+  def param_from_request(param)
+    params[param].to_s.encode('UTF-8', 'UTF-8', invalid: :replace, replace: '')
+  end
 
-    protected
+  protected
 
-    # Обёртка для исключения «Запись не найдена»
-    #
-    # @return [ActiveRecord::RecordNotFound]
-    def record_not_found
-      ActiveRecord::RecordNotFound
-    end
+  # Обёртка для исключения «Запись не найдена»
+  #
+  # @return [ActiveRecord::RecordNotFound]
+  def record_not_found
+    ActiveRecord::RecordNotFound
+  end
 ```
 
 Добавления в `config/routes.rb`

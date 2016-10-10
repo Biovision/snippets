@@ -2,7 +2,9 @@ class Browser < ApplicationRecord
   include Toggleable
   include RequiredUniqueName
 
-  PER_PAGE   = 20
+  PER_PAGE = 20
+
+  METRIC_COUNT = 'browsers.count'
 
   toggleable :mobile, :bot, :active
 

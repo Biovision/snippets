@@ -2,7 +2,9 @@ class Token < ApplicationRecord
   include HasOwner
   include Toggleable
 
-  PER_PAGE   = 25
+  PER_PAGE = 25
+
+  METRIC_COUNT = 'tokens.count'
 
   toggleable :active
 

@@ -1,15 +1,15 @@
 html {
+  font-size: 10px;
   margin: 0;
   padding: 0;
-  font-size: 10px;
   -webkit-text-size-adjust: none;
   -moz-text-size-adjust: none;
   -ms-text-size-adjust: none;
 }
 
 body {
-  font-size: $normal_font_size;
   color: $primary_text_color;
+  font-size: $normal_font_size;
 }
 
 .hidden {
