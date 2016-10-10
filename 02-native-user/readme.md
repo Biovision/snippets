@@ -110,10 +110,10 @@ gem 'omniauth-vkontakte'
   namespace :admin do
     get '/' => 'index#index'
     
+    resources :metrics, only: [:index, :show]
+
     resources :browsers, only: [:index, :show] do
-      member do
-        get 'agents'
-      end
+      get 'agents', on: :member
     end
     resources :agents, only: [:index, :show]
 
@@ -136,17 +136,14 @@ gem 'omniauth-vkontakte'
   end
 ```
 
-Дополнения в `config/secrets.yml`
----------------------------------
+Добавления в `.env`
+-------------------
 
-```yaml
-  vkontakte:
-    app_id:
-    app_secret:
-  twitter:
-    api_key:
-    api_secret:
-  facebook:
-    app_id:
-    app_secret:
+```
+TWITTER_API_KEY=
+TWITTER_API_SECRET=
+FACEBOOK_APP_ID=
+FACEBOOK_APP_SECRET=
+VKONTAKTE_APP_ID=
+VKONTAKTE_APP_SECRET=
 ```

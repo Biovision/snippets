@@ -5,6 +5,8 @@ Empty rails
 
 Версия 1.0.1 (160920)
 
+Не забудь отредактировать `.env`, девелопернейм!
+
 Добавления в `.gitignore`
 -------------------------
 
@@ -131,9 +133,7 @@ end
   end
 
   concern :changeable_priority do
-    member do
-      post 'priority'
-    end
+    post 'priority', on: :member
   end
 
   root 'index#index'

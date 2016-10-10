@@ -1,6 +1,8 @@
 class Category < ApplicationRecord
   include Toggleable
 
+  METRIC_COUNT = 'categories.count'
+
   toggleable :visible
 
   belongs_to :parent, class_name: Category.to_s, optional: true
