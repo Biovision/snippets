@@ -73,6 +73,8 @@ ru:
         roles:
           administrator: "Администратор"
           moderator: "Модератор"
+          chief_editor: "Главный редактор"
+          editor: "Редактор"
       token:
         user: "Пользователь"
         user_id: "Пользователь"

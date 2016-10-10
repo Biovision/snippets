@@ -20,7 +20,7 @@ module ParsingHelper
   # @param [String] string
   # @return [String]
   def parse_post_links(string)
-    pattern = /\[post (?<id>\d{1,7})\](?:\((?<text>[^)]{1,64})\))?/
+    pattern = Post::LINK_PATTERN
     string.gsub pattern do |chunk|
       match = pattern.match chunk
       post  = Post.visible.find_by id: match[:id]
