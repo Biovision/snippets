@@ -20,7 +20,7 @@ class CreateUsers < ActiveRecord::Migration[5.0]
       t.string :email
       t.string :screen_name
       t.string :name
-      t.string :partonymic
+      t.string :patronymic
       t.string :surname
       t.string :phone
       t.string :image
