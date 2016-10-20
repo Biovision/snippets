@@ -7,8 +7,6 @@ class Post < ApplicationRecord
   LEAD_LIMIT   = 500
   LINK_PATTERN = /\[post (?<id>\d{1,7})\](?:\((?<text>[^)]{1,64})\))?/
 
-  METRIC_COUNT = 'posts.count'
-
   toggleable :visible
 
   belongs_to :user
