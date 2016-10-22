@@ -4,17 +4,18 @@ class Order < ApplicationRecord
   PER_PAGE = 10
 
   belongs_to :user, optional: true
+  belongs_to :agent, optional: true
   has_many :order_items, dependent: :destroy
   has_many :items, through: :order_items
 
-  enum status: [:incomplete, :placed, :processing, :ready, :delivered, :rejected]
+  enum status: %i(incomplete placed processing ready delivered rejected)
 
   validates_presence_of :slug
   after_initialize :generate_slug
 
   scope :recent, -> { order 'id desc' }
-  scope :within_date, ->(date) { where 'date(created_at) = ?', date.strftime('%Y-%m-%d') }
-  scope :with_status, ->(status) { where status: Order.statuses[status] unless status.blank? }
+  scope :within_date, ->(date) { where 'date(created_at) = ?', date }
+  scope :with_status, ->(s) { where status: Order.statuses[s] unless s.blank? }
   scope :filtered, ->(f) { with_status(f[:status]) }
 
   # @param [Integer] page
@@ -26,6 +27,19 @@ class Order < ApplicationRecord
   # @param [Integer] order_id
   def self.from_session(order_id)
     self.find_by id: order_id unless order_id.nil?
+  end
+
+  def self.entity_parameters
+    %i(status)
+  end
+
+  def self.order_parameters
+    %i(name email phone address comment)
+  end
+
+  # @param [Item] item
+  def <<(item)
+    add_item(item, 1)
   end
 
   # @param [Item] item
@@ -43,7 +57,7 @@ class Order < ApplicationRecord
   # @param [Item] item
   # @param [Integer] quantity
   def remove_item(item, quantity = 1)
-    order_item = order_items.where(item: item).order('price asc').first
+    order_item = self.order_items.where(item: item).order('price asc').first
     if order_item.is_a? OrderItem
       order_item.remove quantity
       recalculate!

@@ -1,0 +1,55 @@
+ru:
+  order:
+    zero: "заказов нет"
+    one: "%{count} заказ"
+    few: "%{count} заказа"
+    many: "%{count} заказов"
+    other: "%{count} заказов"
+  activerecord:
+    models:
+      order: "Заказ"
+      order_item: "Товар в заказе"
+    attributes:
+      order:
+        user: "Пользователь"
+        price: "Сумма"
+        status: "Состояние"
+        slug: "Идентификатор"
+        name: "Контактное лицо"
+        phone: "Контактный телефон"
+        email: "Контактный email"
+        address: "Адрес"
+        comment: "Комментарий"
+        statuses:
+          incomplete: "Набирается"
+          placed: "Размещён"
+          processing: "В работе"
+          ready: "Готов"
+          delivered: "Доставлен"
+          rejected: "Отказ"
+      order_item:
+        order: "Заказ"
+        item: "Товар"
+        price: "Цена"
+        quantity: "Количество"
+  admin:
+    orders:
+      show:
+        title: "Заказ №%{slug}"
+      index:
+        title: "Заказы, страница %{page}"
+        heading: "Заказы"
+        description: "Список и состояние заказов"
+  orders:
+    edit:
+      title: "Редактирование заказа"
+      heading: "Редактирование заказа"
+    update:
+      success: "Заказ успешно изменён"
+    destroy:
+      success: "Заказ успешно удалён"
+  carts:
+    update:
+      success: "Заказ успешно размещён"
+    destroy:
+      success: "Корзина успешно очищена"
