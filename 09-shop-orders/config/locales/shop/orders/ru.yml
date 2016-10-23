@@ -5,6 +5,7 @@ ru:
     few: "%{count} заказа"
     many: "%{count} заказов"
     other: "%{count} заказов"
+  cart: "Корзина"
   activerecord:
     models:
       order: "Заказ"
@@ -68,6 +69,3 @@ ru:
       title: "Результат"
       heading: "Результат"
       continue: "Продолжить покупки"
-  layouts:
-    header:
-      cart: "Корзина"

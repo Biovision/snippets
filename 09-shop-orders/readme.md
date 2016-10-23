@@ -4,7 +4,7 @@
 Версия 0.1.0 (161023)
 
 _Важный момент!_ 
-Чтобы корзина не отваливалась вместе с зактырием окна браузера,
+Чтобы корзина не отваливалась вместе с закрытием окна браузера,
 нужно выставить подходящее время жизни сессии. Для этого следует добавить 
 в `config/initializers/session_store.rb` параметр `expire_after: 2.weeks`
 (или любой другой) в той же строке, где название куки и тип хранилища.
@@ -51,7 +51,7 @@ _Важный момент!_
 
 ```html
   <div id="cart-brief">
-    <div><%= link_to t('.cart'), cart_path %></div>
+    <div><%= link_to t(:cart), cart_path %></div>
     <div><span class="items-count"><%= t(:item, count: 0) %></span></div>
     <div><span class="price">0</span></div>
   </div>
