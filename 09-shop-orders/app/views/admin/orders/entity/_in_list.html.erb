@@ -1,0 +1,18 @@
+<div class="data">
+  <div><%= link_to order.slug, admin_order_path(order) %></div>
+  <div class="info">
+    <div class="order-status <%= order.status %>">
+      <%= t("activerecord.attributes.order.statuses.#{order.status}") %>
+    </div>
+    <div>
+      <span class="price"><%= order.price %></span>,
+      <%= t(:item, count: order.items_count) %>
+    </div>
+  </div>
+
+  <ul class="actions">
+    <li>
+      <%= edit_icon edit_order_path(order) %>
+    </li>
+  </ul>
+</div>

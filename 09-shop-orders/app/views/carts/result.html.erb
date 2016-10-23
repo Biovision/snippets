@@ -1,0 +1,11 @@
+<% content_for :meta_title, t('.title') %>
+
+<article class="cart-result">
+  <h1><%= t('.heading') %></h1>
+
+  <% if flash[:result] %>
+      <div class="message"><%= flash[:result] %></div>
+  <% end %>
+
+  <div><%= link_to t('.continue'), root_path %></div>
+</article>

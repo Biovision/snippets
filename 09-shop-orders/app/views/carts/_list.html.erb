@@ -1,0 +1,21 @@
+<ul id="order-items">
+  <% collection.each do |order_item| %>
+      <li data-item-id="<%= order_item.item_id %>">
+        <div class="image">
+          <%= image_tag(order_item.item.image.small.url, alt: order_item.item.name) %>
+        </div>
+        <div class="data">
+          <div class="name"><%= item_link(order_item.item) %></div>
+          <div class="numbers">
+            <span class="quantity"><%= order_item.quantity %></span><span class="price"><%= order_item.price %></span>
+            (<span class="total price"><%= order_item.total_price %></span>)
+          </div>
+        </div>
+        <div class="control">
+          <button class="decrement">&minus;</button>
+          <span class="quantity"><%= order_item.quantity %></span>
+          <button class="increment">&plus;</button>
+        </div>
+      </li>
+  <% end %>
+</ul>

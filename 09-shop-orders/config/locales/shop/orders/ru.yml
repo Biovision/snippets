@@ -53,3 +53,21 @@ ru:
       success: "Заказ успешно размещён"
     destroy:
       success: "Корзина успешно очищена"
+    show:
+      title: "Ваша корзина"
+      heading: "Ваша корзина"
+      empty: "В корзине ничего нет"
+      total: "Итого"
+      price_sum: "на сумму"
+    edit:
+      title: "Оформление заказа"
+      heading: "Оформление заказа"
+      place_order: "Оформить заказ"
+      please_fill_in: "Пожалуйста, заполните"
+    result:
+      title: "Результат"
+      heading: "Результат"
+      continue: "Продолжить покупки"
+  layouts:
+    header:
+      cart: "Корзина"

@@ -1,0 +1,69 @@
+<% content_for :meta_title, t('.title') %>
+
+<article class="entity-page">
+  <h1><%= t('.heading') %></h1>
+
+  <%= form_tag cart_path, method: :patch, id: 'order-form' do %>
+  <table>
+    <thead>
+    <tr>
+      <td colspan="2">
+        <%= t(:item, count: @order.items_count) %>,
+        <span class="price"><%= @order.price %></span>
+      </td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <th>
+        <%= label_tag :order_name, t('activerecord.attributes.order.name') %>
+      </th>
+      <td>
+        <%= text_field_tag 'order[name]', @order.name, required: true, placeholder: 'Имя', size: 50 %>
+        <div class="direction"><%= t('.please_fill_in') %></div>
+      </td>
+    </tr>
+    <tr>
+      <th>
+        <%= label_tag :order_phone, t('activerecord.attributes.order.phone') %>
+      </th>
+      <td>
+        <%= phone_field_tag 'order[phone]', @order.phone, required: true, placeholder: '+7 (000) 000-00-00', size: 50 %>
+        <div class="direction"><%= t('.please_fill_in') %></div>
+      </td>
+    </tr>
+    <tr>
+      <th>
+        <%= label_tag :order_email, t('activerecord.attributes.order.email') %>
+      </th>
+      <td>
+        <%= email_field_tag 'order[email]', @order.email, size: 50 %>
+      </td>
+    </tr>
+    <tr>
+      <th>
+        <%= label_tag :order_address, t('activerecord.attributes.order.address') %>
+      </th>
+      <td>
+        <%= text_field_tag 'order[address]', @order.address, size: 50 %>
+      </td>
+    </tr>
+    <tr>
+      <th>
+        <%= label_tag :order_comment, t('activerecord.attributes.order.comment') %>
+      </th>
+      <td>
+        <%= text_area_tag 'order[comment]', @order.comment, cols: 50, rows: 5 %>
+      </td>
+    </tr>
+    </tbody>
+    <tfoot>
+    <tr>
+      <td colspan="2">
+        <%= button_tag t('.place_order'), type: :submit %>
+      </td>
+    </tr>
+    </tfoot>
+  </table>
+  <% end %>
+</article>

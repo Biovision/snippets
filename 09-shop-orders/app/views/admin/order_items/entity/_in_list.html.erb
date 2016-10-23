@@ -1,0 +1,11 @@
+<div class="image">
+  <%= image_tag(order_item.item.image.small.url, alt: order_item.item.name) %>
+</div>
+<div class="data">
+  <div>
+    <%= link_to(order_item.item.name, admin_item_path(order_item.item_id)) %>
+  </div>
+  <div class="info">
+    <%= order_item.quantity %>&times;<span class="price"><%= order_item.price %></span>
+  </div>
+</div>

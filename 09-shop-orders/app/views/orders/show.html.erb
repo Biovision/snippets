@@ -1,0 +1,63 @@
+<% content_for :meta_title, t('.title', number: @entity.number) %>
+<% content_for :stripe do %>
+    <div class="breadcrumbs">
+      <%= link_to t('admin.index.index.title'), admin_path %> /
+      <%= link_to t('orders.index.header'), orders_path %> /
+      <span><%= t('.title', number: @entity.number) %></span>
+    </div>
+<% end %>
+<% content_for :options do %>
+    <ul>
+      <li><%= link_to t(:list), orders_path %></li>
+      <li><%= link_to t(:edit), edit_order_path(@entity) %></li>
+      <li><%= link_to_delete @entity %></li>
+    </ul>
+<% end %>
+
+<article class="order">
+  <h1><%= t('.title', number: @entity.number) %></h1>
+  <dl>
+    <dt><%= t(:created_at) %></dt>
+    <dd><%= time_tag @entity.created_at %></dd>
+    <dt><%= t(:updated_at) %></dt>
+    <dd><%= time_tag @entity.updated_at %></dd>
+    <dt><%= t('activerecord.attributes.order.item_count') %></dt>
+    <dd><%= @entity.item_count %></dd>
+    <dt><%= t('activerecord.attributes.order.price') %></dt>
+    <dd><span class="currency"><%= @entity.price %></span></dd>
+    <dt><%= t('activerecord.attributes.order.state') %></dt>
+    <dd><%= t("activerecord.attributes.order.states.#{@entity.state}") %></dd>
+  </dl>
+
+  <% if @entity.item_count > 0 %>
+      <section>
+        <h1><%= t('.items') %></h1>
+
+        <ul>
+          <% @entity.order_items.each do |order_item| %>
+              <li>
+                <%= link_to order_item.item.name, order_item.item %>
+                <%= order_item.quantity %>&#x2715;<span class="currency"><%= order_item.price %></span>
+              </li>
+          <% end %>
+        </ul>
+      </section>
+  <% end %>
+
+  <section>
+    <h1><%= t('.contact') %></h1>
+
+    <dl>
+      <dt><%= t('activerecord.attributes.order.name') %></dt>
+      <dd><%= @entity.name %></dd>
+      <dt><%= t('activerecord.attributes.order.phone') %></dt>
+      <dd><%= @entity.phone %></dd>
+      <dt><%= t('activerecord.attributes.order.email') %></dt>
+      <dd><%= @entity.email %></dd>
+      <dt><%= t('activerecord.attributes.order.address') %></dt>
+      <dd><%= @entity.address %></dd>
+      <dt><%= t('activerecord.attributes.order.comment') %></dt>
+      <dd><%= @entity.comment %></dd>
+    </dl>
+  </section>
+</article>

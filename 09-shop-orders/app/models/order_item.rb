@@ -5,15 +5,19 @@ class OrderItem < ApplicationRecord
   before_validation :normalize_price
   validates_numericality_of :quantity, greater_than: 0
 
-  # @param [Integer] quantity
-  def add(quantity = 1)
-    increment! :quantity, quantity
+  # @param [Integer] delta
+  def add(delta = 1)
+    update(quantity: quantity + delta, price: item.price.to_i)
   end
 
   # @param [Integer] quantity
   def remove(quantity = 1)
     decrement! :quantity, quantity
     destroy if self.quantity < 1
+  end
+
+  def total_price
+    quantity * price
   end
 
   private

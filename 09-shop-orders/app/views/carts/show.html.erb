@@ -1,0 +1,23 @@
+<% content_for :meta_title, t('.title') %>
+
+<article>
+  <h1><%= t('.heading') %></h1>
+
+  <% if @order&.order_items.blank? %>
+      <div class="warning"><%= t('.empty') %></div>
+  <% else %>
+      <%= render partial: 'carts/list', locals: { collection: @order.order_items } %>
+
+      <div id="order-summary">
+        <div>
+          <%= t('.total') %>
+          <span class="items-count"><%= t(:item, count: @order.items_count) %></span>
+          <%= t('.price_sum') %>
+          <span class="price"><%= @order.price %></span>
+        </div>
+        <div class="process">
+          <%= link_to t('carts.edit.heading'), edit_cart_path %>
+        </div>
+      </div>
+  <% end %>
+</article>

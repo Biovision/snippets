@@ -1,0 +1,75 @@
+<% content_for :meta_title, t('.title') %>
+
+<article class="entity-page">
+  <h1><%= t('.heading') %></h1>
+  <ul class="actions">
+    <li><%= back_icon admin_order_path(@entity) %></li>
+    <li><%= list_icon admin_orders_path %></li>
+    <li><%= destroy_icon @entity %></li>
+  </ul>
+
+  <%= form_for @entity do |f| %>
+      <table>
+        <caption>
+          <%= @entity.slug %>, <%= t(:item, count: @entity.items_count) %>
+        </caption>
+        <tbody>
+        <tr>
+          <th><%= t('activerecord.attributes.order.status') %></th>
+          <td class="flags">
+            <ul>
+              <% Order.statuses.each do |status, index| %>
+                  <li>
+                    <% field_id = "order_status_#{index}" %>
+                    <%= radio_button_tag('order[status]', status, @entity.status == status, id: field_id) %>
+                    <%= label_tag(field_id, t("activerecord.attributes.order.statuses.#{status}")) %>
+                  </li>
+              <% end %>
+            </ul>
+          </td>
+        </tr>
+        <tr>
+          <th><%= t('activerecord.attributes.order.price') %></th>
+          <td><span class="price"><%= @entity.price %></span></td>
+        </tr>
+        <% unless @entity.user.nil? %>
+            <tr>
+              <th><%= t('activerecord.attributes.order.user') %></th>
+              <td><%= admin_user_link(@order.user) %></td>
+            </tr>
+        <% end %>
+        <% unless @entity.name.blank? %>
+            <tr>
+              <th><%= t('activerecord.attributes.order.name') %></th>
+              <td><%= @order.name %></td>
+            </tr>
+        <% end %>
+        <% unless @entity.phone.blank? %>
+            <tr>
+              <th><%= t('activerecord.attributes.order.phone') %></th>
+              <td><%= @order.phone %></td>
+            </tr>
+        <% end %>
+        <% unless @entity.email.blank? %>
+            <tr>
+              <th><%= t('activerecord.attributes.order.email') %></th>
+              <td><%= @order.email %></td>
+            </tr>
+        <% end %>
+        <% unless @entity.address.blank? %>
+            <tr>
+              <th><%= t('activerecord.attributes.order.address') %></th>
+              <td><%= @order.address %></td>
+            </tr>
+        <% end %>
+        </tbody>
+        <tfoot>
+        <tr>
+          <td colspan="2">
+            <%= button_tag t(:save), type: :submit %>
+          </td>
+        </tr>
+        </tfoot>
+      </table>
+  <% end %>
+</article>

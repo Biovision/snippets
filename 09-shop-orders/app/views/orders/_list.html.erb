@@ -1,0 +1,14 @@
+<% if orders.any? %>
+    <ul>
+      <% orders.each do |order| %>
+          <li>
+            <%= link_to order.name || order.id, order %>,
+            <%= t(:item, count: order.item_count) %>,
+            <span class="currency"><%= order.price %></span>
+            (<%= t("activerecord.attributes.order.states.#{order.state}") %> <%= time_tag order.updated_at %>)
+          </li>
+      <% end %>
+    </ul>
+<% else %>
+    <div class="warning" title="<%= t('shared.flash_messages.warning') %>"><%= t(:nothing_found) %></div>
+<% end %>

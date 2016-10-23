@@ -1,0 +1,15 @@
+<% content_for :meta_title, t('.title', page: current_page) %>
+<% content_for :stripe do %>
+    <div class="breadcrumbs">
+      <%= link_to t('admin.index.index.title'), admin_path %> /
+      <span><%= t('.header') %></span>
+    </div>
+<% end %>
+
+<article class="orders">
+  <h1><%= t('.header') %></h1>
+
+  <%= paginate @collection %>
+  <%= render partial: 'orders/list', locals: { orders: @collection } %>
+  <%= paginate @collection %>
+</article>
