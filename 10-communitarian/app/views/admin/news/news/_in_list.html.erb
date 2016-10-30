@@ -1,0 +1,25 @@
+<div class="image">
+  <% unless news.image.blank? %>
+      <%= image_tag news.image.preview.url %>
+  <% end %>
+</div>
+<div class="data">
+  <div>
+    <% unless news.region.nil? %>
+        <span class="news-region"><%= news.region.name %>:</span>
+    <% end %>
+    <cite><%= link_to news.title, admin_news_path(news) %></cite>
+  </div>
+  <div class="info">
+    <%= user_link news.user %>,
+    <%= time_tag news.created_at %>
+  </div>
+
+  <%= render partial: 'admin/news/toggleable', locals: { news: news } %>
+  <ul class="actions">
+    <li class="lockable <%= news.editable_by?(current_user) ? '' : 'hidden' %>">
+      <%= edit_icon edit_news_path(news) %>
+    </li>
+    <%= render partial: 'shared/actions/locks', locals: { entity: news, path: (current_user_has_role?(:chief_editor) ? lock_api_news_path(news) : '') } %>
+  </ul>
+</div>

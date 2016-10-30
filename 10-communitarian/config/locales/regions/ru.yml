@@ -1,0 +1,26 @@
+ru:
+  activerecord:
+    models:
+      region: "Регион"
+    attributes:
+      region:
+        name: "Название"
+        slug: "Код"
+  admin:
+    regions:
+      index:
+        title: "Регионы"
+        heading: "Регионы"
+        lead: "Управление регионами"
+      show:
+        title: "Регион «%{name}»"
+  regions:
+    update:
+      success: "Регион успешно изменён"
+    destroy:
+      success: "Регион успешно удалён"
+    edit:
+      title: "Редактирование региона"
+      forbidden: "Редактирование этого региона запрещено"
+    new:
+      title: "Добавить регион"

@@ -1,0 +1,39 @@
+<article class="news" itemscope itemtype="http://schema.org/Article">
+  <% if news.editable_by? current_user %>
+      <ul class="actions">
+        <li><%= edit_icon edit_news_path(news) %></li>
+      </ul>
+  <% end %>
+  <div class="time">
+    <%= time_tag news.created_at, itemProp: 'datePublished' %>
+  </div>
+  <% unless news.image.blank? %>
+      <figure><%= image_tag(news.image.small.url, alt: news.title, itemprop: 'image') %></figure>
+  <% end %>
+
+  <h1 itemprop="name"><%= news.title %></h1>
+
+  <div class="body" itemprop="articleBody">
+    <div class="lead"><%= news.lead %></div>
+
+    <%= prepare_post_text news %>
+  </div>
+
+  <div class="footer">
+    <div class="source">
+      <% unless news.source.blank? %>
+          <%= t('activerecord.attributes.news.source') %>:
+          <%= link_to news.source, news.source, rel: 'external' %>
+      <% end %>
+    </div>
+    <div class="back-to-list">
+      <%= link_to t('.back_to_list'), category_news_index_path(category_slug: @category.slug) %>
+    </div>
+  </div>
+
+
+  <%# render partial: 'shared/track', locals: { item: news } %>
+
+  <meta itemprop="commentCount" content="<%= news.comments_count %>"/>
+  <%# render partial: 'comments/list', locals: { commentable: news, comments: news.comments } %>
+</article>
