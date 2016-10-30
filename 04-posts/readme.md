@@ -1,15 +1,18 @@
 Публикации
 ==========
 
-В процессе разработки
+Версия 0.1.0 (161030)
+
+Важный момент! Если в проекте уже используется bootstrap, нужно убрать ссылки
+на него из `app/views/shared/_summernote.html.erb`
 
 ToDo
 ----
 
- * Представления для публикаций, меток и иллюстраций
- * Стили по умолчанию
- * Разбор текста публикации
- * Предварительный просмотр текста публикации
+ * Список публикаций пользователя в админке
+ * Список публикаций пользователя в профиле
+ * Вынос обработчиков summernote в параметры
+ * Управление иллюстрациями
 
 Добавления в `config/routes.rb`
 -------------------------------
@@ -29,6 +32,7 @@ ToDo
 
   namespace :api, defaults: { format: :json } do
     resources :posts, except: [:new, :edit], concerns: [:toggleable, :lockable]
+    resources :illustrations, only: [:create, :destroy]
   end
 
   namespace :my do
@@ -80,7 +84,6 @@ ToDo
 
 ### `app/models/agent.rb`
 
-
 ```ruby
 has_many :posts, dependent: :nullify
 ```
@@ -89,4 +92,5 @@ has_many :posts, dependent: :nullify
 
 ```ruby
 has_many :posts, dependent: :destroy
+has_many :illustrations, dependent: :nullify
 ```

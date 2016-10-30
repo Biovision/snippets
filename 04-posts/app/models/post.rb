@@ -26,7 +26,7 @@ class Post < ApplicationRecord
   scope :recent, -> { order 'id desc' }
   scope :visible, -> { where(deleted: false, visible: true) }
   scope :tagged, -> (tag) { joins(:post_tags).where(post_tags: { tag: tag }) }
-  scope :archive, -> (year, month) { where "date_trunc('month', created_at) = ?", '%04d-%02d-01' % [year, month] }
+  scope :archive, -> (y, m) { where "date_trunc('month', created_at) = ?", '%04d-%02d-01' % [y, m] }
 
   # @param [Integer] page
   def self.page_for_administration(page)
@@ -45,17 +45,17 @@ class Post < ApplicationRecord
   end
 
   def self.entity_parameters
-    %i(image title lead body)
+    %i(image title slug meta_keywords lead body)
   end
 
   def tags_string
     tags.ordered_by_slug.map { |tag| tag.name }.join(', ')
   end
 
-  # @param [String] tags_string
-  def tags_string=(tags_string)
+  # @param [String] string
+  def tags_string=(string)
     list_of_tags = []
-    tags_string.split(/,\s*/).reject { |tag_name| tag_name.blank? }.each do |tag_name|
+    string.split(/,\s*/).reject { |tag| tag.blank? }.each do |tag_name|
       list_of_tags << Tag.match_or_create_by_name(tag_name.squish)
     end
     self.tags = list_of_tags.uniq
@@ -83,6 +83,8 @@ class Post < ApplicationRecord
   private
 
   def generate_slug
-    self.slug = Canonizer.transliterate self.title.to_s
+    if slug.blank?
+      self.slug = Canonizer.transliterate self.title.to_s
+    end
   end
 end

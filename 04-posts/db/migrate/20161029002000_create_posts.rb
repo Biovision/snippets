@@ -9,12 +9,10 @@ class CreatePosts < ActiveRecord::Migration[5.0]
       t.boolean :locked, null: false, default: false
       t.boolean :visible, null: false, default: true
       t.integer :comments_count, null: false, default: 0
-      t.integer :rating, null: false, default: 0
-      t.integer :upvote_count, null: false, default: 0
-      t.integer :downvote_count, null: false, default: 0
       t.string :image
       t.string :title
       t.string :slug
+      t.string :meta_keywords
       t.text :lead
       t.text :body, null: false
       t.string :tags_cache, array: true, null: false, default: []

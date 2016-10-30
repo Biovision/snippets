@@ -12,7 +12,7 @@
           <% User.networks.each do |name, number| %>
               <li>
                 <%= radio_button_tag 'filter[network]', number, filter[:network].to_s == number.to_s %>
-                <%= label_tag "filter_network_#{number}", name %>
+                <%= label_tag "filter_network_#{number}", t("activerecord.attributes.user.networks.#{name}") %>
               </li>
           <% end %>
         </ul>

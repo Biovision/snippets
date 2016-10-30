@@ -12,6 +12,7 @@ ru:
       post: "Публикация"
       tag: "Метка"
       figure: "Иллюстрация"
+      illustration: "Иллюстрация"
     errors:
       models:
         figure:
@@ -33,6 +34,7 @@ ru:
         slug: "Идентификатор"
         lead: "Аннотация"
         body: "Текст"
+        meta_keywords: "Ключевые слова для метатэга"
       tag:
         name: "Название"
         slug: "Идентификатор"
@@ -47,11 +49,18 @@ ru:
         slug: "Идентификатор"
         caption: "Заголовок"
         alt_text: "Текст атрибута alt"
+      illustration:
+        user: "Пользователь"
+        name: "Название"
+        image: "Изображение"
   admin:
     posts:
       index:
         title: "Публикации, страница %{page}"
         heading: "Публикации"
+        lead: "Управление публикациями"
+      show:
+        title: "Публикация «%{name}»"
     tags:
       index:
         title: "Метки, страница %{page}"
@@ -73,6 +82,7 @@ ru:
       title: "Добавить публикацию"
     edit:
       title: "Редактирование публикации"
+      forbidden: "Редактирование этой публикации запрещено"
     form:
       tags: "Метки"
       figures: "Иллюстрации"
@@ -97,6 +107,7 @@ ru:
       title: "Добавить метку"
     edit:
       title: "Редактирование метки"
+      forbidden: "Редактирование этой метки запрещено"
   figures:
     show:
       title: "Иллюстрация «%{figure}» к публикации «%{post}»"

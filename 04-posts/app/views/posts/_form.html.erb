@@ -1,10 +1,11 @@
+<%= render 'shared/summernote' %>
 <%= render partial: 'shared/list_of_errors', locals: { entity: entity } %>
 
 <%= form_for entity do |f| %>
     <table>
       <tbody>
       <tr>
-        <td colspan="2">
+        <td>
           <figure class="preview" id="post-image">
             <% if entity.image.blank? %>
                 <%= image_tag 'image-placeholder.png' %>
@@ -19,32 +20,38 @@
         </td>
       </tr>
       <tr>
-        <td colspan="2">
+        <td>
           <div><%= f.label :title %></div>
-          <%= f.text_field :title, size: 20, mexlength: Post::TITLE_LIMIT, required: true %>
+          <%= f.text_field :title, size: 50, mexlength: Post::TITLE_LIMIT, required: true %>
         </td>
       </tr>
       <tr>
         <td>
           <div><%= f.label :lead %></div>
-          <%= f.text_area :lead, cols: 20, rows: 5, required: true %>
+          <%= f.text_area :lead, cols: 50, rows: 5, required: true %>
         </td>
       </tr>
       <tr>
         <td>
           <div><%= f.label :body %></div>
-          <%= f.text_area :body, cols: 20, rows: 25, required: true %>
+          <%= f.text_area :body, cols: 50, rows: 25, required: true, data: { provider: :summernote } %>
         </td>
       </tr>
       <tr>
-        <td colspan="2" class="flags">
+        <td>
+          <div><%= f.label :meta_keywords %></div>
+          <%= f.text_field :meta_keywords, size: 50 %>
+        </td>
+      </tr>
+      <tr>
+        <td class="flags">
           <ul>
             <li><%= f.check_box :visible %><%= f.label :visible %></li>
           </ul>
         </td>
       </tr>
       <tr>
-        <td colspan="2" class="tags">
+        <td class="tags">
           <div class="heading"><%= t('posts.form.tags') %></div>
           <% Tag.visible.ordered_by_slug.each do |tag| %>
               <div>
@@ -58,7 +65,7 @@
       </tbody>
       <tfoot>
       <tr>
-        <th colspan="2">
+        <th>
           <%= f.button t(:save), type: :submit %>
         </th>
       </tr>
