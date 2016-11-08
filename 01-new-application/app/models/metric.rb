@@ -12,5 +12,8 @@ class Metric < ApplicationRecord
   def self.register(name, quantity = 1)
     instance = Metric.find_or_create_by(name: name)
     instance.metric_values.create(time: Time.now, quantity: quantity)
+    value = instance.incremental? ? instance.metric_values.sum(:quantity) : quantity
+
+    instance.update(value: value)
   end
 end

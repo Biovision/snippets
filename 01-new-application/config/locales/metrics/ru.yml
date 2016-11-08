@@ -5,6 +5,8 @@ ru:
       metric_value: "Значение метрики"
     attributes:
       metric:
+        incremental: "Суммарная"
+        value: "Значение"
         name: "Название"
         description: "Описание"
       metric_value:
