@@ -4,9 +4,13 @@ New application
 Локализация, CSS, JS и почты для нового rails-приложения, а также метрики
 и начальная версия модуля пользователей.
 
-Версия 1.1.0 (161020)
+Версия 1.1.0 (1611109)
 
 Не забудь отредактировать `.env`, девелопернейм!
+
+Также стоит удалить `app/assets/application.css`, так как используется scss,
+и локаль `config/locales/en.yml`, если не планируется использование английской
+локали.
 
 ToDo
 ----
@@ -18,7 +22,7 @@ ToDo
  * Выбор пользователя для `owner_for_entity`
  * Работа с подсетями (чёрные списки IP и так далее)
  * Поиск пользователя через AJAX
-
+ * График в метриках
 
 Добавления в `.gitignore`
 -------------------------
@@ -300,3 +304,19 @@ end
   }
   config.action_mailer.default_url_options = { :host => '0.0.0.0:3000' }
 ```
+
+Дополнения в `config/puma.rb`
+-----------------------------
+
+```ruby
+if ENV.fetch('RAILS_ENV') == 'production'
+  shared_path = '/var/www/example.com/shared'
+  logs_dir    = "#{shared_path}/log"
+
+  state_path "#{shared_path}/tmp/puma.state"
+  bind "unix://#{shared_path}/tmp/puma.sock"
+  stdout_redirect "#{logs_dir}/stdout.log", "#{logs_dir}/stderr.log", true
+end
+```
+
+Возможно, имеет смысл использовать предыдущиую версию конфигурации.
