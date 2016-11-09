@@ -349,31 +349,34 @@ ul.actions {
   }
 }
 
-nav.admin-menu {
-  box-shadow: 0 0 0.2rem 0.2rem rgba(0, 0, 0, 0.25);
-  margin: 0.4rem;
-  max-width: 32rem;
+.dashboard {
+  nav {
+    box-shadow: 0 0 0.2rem 0.2rem rgba(0, 0, 0, 0.25);
+    margin: 0.4rem;
+    max-width: 32rem;
 
-  ul {
-    margin: 0;
-    padding: 0;
-
-    li {
-      background: $row_background_odd;
-      list-style: none;
+    ul {
       margin: 0;
-      padding: 0.4rem;
+      padding: 0;
 
-      &:nth-last-of-type(even) {
-        background: $row_background_even;
-      }
+      li {
+        background: $row_background_odd;
+        list-style: none;
+        margin: 0;
+        padding: 0.4rem;
 
-      .lead {
-        color: $secondary_text_color;
-        font-size: $decreased_font_size;
+        &:nth-last-of-type(even) {
+          background: $row_background_even;
+        }
+
+        .description {
+          color: $secondary_text_color;
+          font-size: $decreased_font_size;
+        }
       }
     }
   }
+
 }
 
 .list-of-metrics {
