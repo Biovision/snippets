@@ -86,6 +86,8 @@ end
 Добавления в `spec/rails_helper.rb` (`$ rails generate rspec:install`)
 ----------------------------------------------------------------------
 
+Раскомментировать строку 62 (включение содержимого `spec/support`)
+
 ```ruby
 RSpec.configure do |config|
   config.include FactoryGirl::Syntax::Methods

@@ -97,6 +97,7 @@ ru:
       index:
         title: "Пользователи, страница %{page}"
         heading: "Пользователи"
+        description: "Управление пользователями"
       show:
         title: "Пользователь %{name}"
       tokens:
@@ -107,12 +108,14 @@ ru:
       index:
         title: "Жетоны, страница %{page}"
         heading: "Жетоны"
+        description: "Управление жетонами доступа"
       show:
         title: "Жетон №%{id}"
     codes:
       index:
         title: "Коды, страница %{page}"
         heading: "Коды"
+        description: "Управление кодами подтверждения почты, сброса пароля и т.п."
       show:
         title: "Код «%{body}»"
   authentication:

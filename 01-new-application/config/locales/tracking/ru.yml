@@ -26,6 +26,7 @@ ru:
       index:
         title: "Браузеры, страница %{page}"
         heading: "Браузеры"
+        description: "Управление браузерами"
       show:
         title: "Браузер «%{name}»"
       agents:
@@ -34,6 +35,7 @@ ru:
       index:
         title: "Агенты пользователя, страница %{page}"
         heading: "Агенты пользователя"
+        description: "Управление агентами пользователя"
       show:
         title: "Агент пользователя «%{name}»"
   browsers:
