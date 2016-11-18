@@ -1,0 +1,27 @@
+<article class="post <%= entry.privacy %>" itemscope itemtype="http://schema.org/BlogPosting">
+  <h1 itemprop="name"><%= entry.title || t(:untitled) %></h1>
+
+  <meta itemprop="commentCount" content="<%= entry.comments_count %> "/>
+
+  <% if entry.editable_by? current_user %>
+      <ul class="actions">
+        <li><%= edit_icon edit_entry_path(entry) %></li>
+      </ul>
+  <% end %>
+
+  <div class="body" itemprop="articleBody">
+    <%= raw entry.body %>
+  </div>
+
+  <div class="footer">
+    <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <span itemprop="name"><%= user_link entry.user %></span>
+    </div>
+    <div class="time">
+      <%= time_tag entry.created_at, itemProp: 'datePublished' %>
+    </div>
+  </div>
+  <%= render partial: 'shared/track', locals: { item: entry } %>
+
+  <%= render partial: 'comments/list', locals: { comments: entry.comments.visible.recent, commentable: entry } %>
+</article>

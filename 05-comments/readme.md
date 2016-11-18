@@ -1,7 +1,7 @@
 Комментарии к комментируемому
 =============================
 
-Версия 0.1.1 (161010)
+Версия 0.1.1 (161118)
 
 ToDo
 ----
@@ -14,9 +14,13 @@ ToDo
  * Проверка видимости комментария
 
 Дополнения к `config/routes.rb`
-------------------------
+-------------------------------
 
 ```ruby
+  concern :list_of_comments do
+    get 'comments', on: :member
+  end
+
   resources :comments, except: [:index, :new]
 
   namespace :admin do

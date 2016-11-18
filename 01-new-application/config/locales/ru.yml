@@ -43,6 +43,7 @@ ru:
   deleted_entity: "Удалённый объект"
   locked: "Редактирование зарещено"
   unlocked: "Редактирование разрешено"
+  untitles: "Без названия"
   views:
     pagination:
       first: "⇤"

@@ -86,7 +86,7 @@ end
 Добавления в `spec/rails_helper.rb` (`$ rails generate rspec:install`)
 ----------------------------------------------------------------------
 
-Раскомментировать строку 62 (включение содержимого `spec/support`)
+Раскомментировать строку 23 (включение содержимого `spec/support`)
 
 ```ruby
 RSpec.configure do |config|
@@ -311,7 +311,7 @@ end
 -----------------------------
 
 ```ruby
-if ENV.fetch('RAILS_ENV') == 'production'
+if ENV['RAILS_ENV'] == 'production'
   shared_path = '/var/www/example.com/shared'
   logs_dir    = "#{shared_path}/log"
 
