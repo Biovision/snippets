@@ -8,6 +8,6 @@ class Admin::IndexController < ApplicationController
   protected
 
   def restrict_access
-    require_role :administrator
+    require_role *Array(UserRole.roles.keys)
   end
 end

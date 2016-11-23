@@ -4,9 +4,11 @@ New application
 Локализация, CSS, JS и почты для нового rails-приложения, а также метрики
 и начальная версия модуля пользователей.
 
-Версия 1.1.0 (1611109)
+Версия 1.1.1 (161123)
 
 Не забудь отредактировать `.env`, девелопернейм!
+
+Ещё нужно поменять `example.com` на актуальное название.
 
 Также стоит удалить `app/assets/application.css`, так как используется scss,
 и локаль `config/locales/en.yml`, если не планируется использование английской
@@ -22,7 +24,6 @@ ToDo
  * Выбор пользователя для `owner_for_entity`
  * Работа с подсетями (чёрные списки IP и так далее)
  * Поиск пользователя через AJAX
- * График в метриках
 
 Добавления в `.gitignore`
 -------------------------
@@ -167,8 +168,12 @@ end
   end
 
   # Информация о текущем пользователе для сущности
-  def owner_for_entity
-    { user: current_user }
+  #
+  # @param [Boolean] track
+  def owner_for_entity(track = false)
+    result = { user: current_user }
+    result.merge!(tracking_for_entity) if track
+    result
   end
 
   def agent
@@ -254,26 +259,6 @@ end
 Дополнения в `config/environments/production.rb`
 ------------------------------------------------
 
-Вариант для `gmail.com`
-
-```ruby
-  config.action_mailer.delivery_method = :smtp
-  config.action_mailer.smtp_settings = {
-      address: 'smtp.gmail.com',
-      port: 587,
-      domain: 'example.com',
-      user_name: 'support@example.com',
-      password: ENV['MAIL_PASSWORD'],
-      authentication: :plain,
-      enable_starttls_auto: true
-  }
-  config.action_mailer.default_options = {
-      from: 'example.com <support@example.com>',
-      reply_to: 'support@example.com'
-  }
-  config.action_mailer.default_url_options = { host: 'example.com' }
-```
-
 Вариант для `mail.ru`
 
 ```ruby
@@ -295,8 +280,39 @@ end
   config.action_mailer.default_url_options = { host: 'example.com' }
 ```
 
-Дополнения в `config/environments/test.rb` и `config/environments/development.rb`
----------------------------------------------------------------------------------
+Вариант для `gmail.com`
+
+```ruby
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+      address: 'smtp.gmail.com',
+      port: 587,
+      domain: 'example.com',
+      user_name: 'support@example.com',
+      password: ENV['MAIL_PASSWORD'],
+      authentication: :plain,
+      enable_starttls_auto: true
+  }
+  config.action_mailer.default_options = {
+      from: 'example.com <support@example.com>',
+      reply_to: 'support@example.com'
+  }
+  config.action_mailer.default_url_options = { host: 'example.com' }
+```
+
+Дополнения в `config/environments/test.rb`
+------------------------------------------
+
+```ruby
+  config.action_mailer.default_options = {
+      from: 'example.com <support@example.com>',
+      reply_to: 'support@example.com'
+  }
+  config.action_mailer.default_url_options = { :host => '0.0.0.0:3000' }
+```
+
+Дополнения в `config/environments/development.rb`
+-------------------------------------------------
 
 ```ruby
   config.action_mailer.delivery_method = :test
