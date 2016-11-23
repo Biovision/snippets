@@ -14,6 +14,24 @@ ToDo
  * Друзья онлайн
  * Сохранение/восстановление данных
  * Бан/игнорирование
+ 
+Добавления в `config/routes.rb`
+-------------------------------
+
+```ruby
+  resources :user_messages, only: [:create, :destroy]
+
+  namespace :my do
+    resources :followers, :followees, only: [:index]
+    resources :messages, only: [:index] do
+      get '/:user_slug' => :dialog, on: :collection, as: :dialog
+    end
+  end
+  
+  namespace :api, defaults: { format: :json } do
+    resources :user_links, except: [:new, :edit], concerns: [:toggleable]
+  end
+```
 
 Добавления в `app/models/user.rb`
 ---------------------------------
