@@ -153,6 +153,17 @@ end
     ActiveRecord::RecordNotFound
   end
 
+  # Handle HTTP error with status 404 without raising exception
+  #
+  # @param [String] message
+  # @param [String] metric
+  # @param [Symbol|String] view
+  def handle_http_404(message, metric = nil, view = :not_found)
+    logger.warn message
+    Metric.register(metric || Metric::METRIC_HTTP_404)
+    render view, status: :not_found
+  end
+
   # Ограничить доступ для анонимных посетителей
   def restrict_anonymous_access
     redirect_to login_path, alert: t(:please_log_in) unless current_user.is_a? User
