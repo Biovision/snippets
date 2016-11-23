@@ -8,6 +8,8 @@ class CreateUsers < ActiveRecord::Migration[5.0]
       t.integer :native_id
       t.string :slug, null: false
       t.integer :gender, limit: 2
+      t.integer :follower_count, null: false, default: 0
+      t.integer :followee_count, null: false, default: 0
       t.boolean :deleted, null: false, default: false
       t.boolean :bot, null: false, default: false
       t.boolean :allow_login, null: false, default: true
