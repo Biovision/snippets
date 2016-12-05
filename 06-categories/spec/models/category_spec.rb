@@ -15,6 +15,8 @@ RSpec.describe Category, type: :model do
   end
 
   describe 'before validation' do
+    it_behaves_like 'stripping_name'
+
     it 'generates slug as transliterated name' do
       subject.name = '  Категория в тестах!  '
       subject.valid?
@@ -139,5 +141,13 @@ RSpec.describe Category, type: :model do
         expect(subject.parents).to eq([])
       end
     end
+  end
+
+  describe '#change_priority' do
+    let!(:entity_a) { create :category, parent: subject.parent, priority: 2 }
+    let!(:entity_b) { create :category, parent: subject.parent, priority: 3 }
+    let!(:entity_c) { create :category, parent: subject.parent, priority: 4 }
+
+    it_behaves_like 'changing_priority_with_switching'
   end
 end

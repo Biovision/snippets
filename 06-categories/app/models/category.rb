@@ -11,10 +11,11 @@ class Category < ApplicationRecord
   validates_uniqueness_of :slug
 
   after_initialize :set_next_priority
+  before_validation { self.name = name.strip unless name.nil? }
   before_validation :generate_slug
   before_save :compact_children_cache
 
-  scope :ordered_by_priority, -> { order 'priority asc, name asc' }
+  scope :ordered_by_priority, -> { order 'parent_id, priority asc, name asc' }
   scope :visible, -> { where visible: true, deleted: false }
   scope :for_tree, -> (parent_id = nil) { where(parent_id: parent_id).ordered_by_priority }
 
@@ -59,6 +60,18 @@ class Category < ApplicationRecord
 
   def can_be_deleted?
     !locked? && children.count < 1
+  end
+
+  # @param [Integer] delta
+  def change_priority(delta)
+    new_priority = priority + delta
+    adjacent     = Category.find_by(parent_id: parent_id, priority: new_priority)
+    if adjacent.is_a?(Category) && (adjacent.id != id)
+      adjacent.update!(priority: priority)
+    end
+    self.update(priority: new_priority)
+
+    Category.where(parent_id: parent_id).ordered_by_priority.map { |a| [a.id, a.priority] }.to_h
   end
 
   private

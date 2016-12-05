@@ -92,13 +92,23 @@ $(function () {
 
         if (parseInt($li.data('number')) + delta > 0) {
             $.post(url, {delta: delta}, function (response) {
-                if (response.hasOwnProperty('data') && response['data'].hasOwnProperty('priority')) {
+                console.log(response);
+                if (response.hasOwnProperty('data')) {
                     var $container = $li.parent();
                     var $list = $container.children('li');
 
-                    $li.data('number', response['data']['priority']);
-                    $li.attr('data-number', response['data']['priority']);
-
+                    if (response['data'].hasOwnProperty('priority')) {
+                        $li.data('number', response['data']['priority']);
+                        $li.attr('data-number', response['data']['priority']);
+                    } else {
+                        for (var entity_id in response['data']) {
+                            if (response['data'].hasOwnProperty(entity_id)) {
+                                $li = $container.find('li[data-id=' + entity_id + ']');
+                                $li.data('number', response['data'][entity_id]);
+                                $li.attr('data-number', response['data'][entity_id]);
+                            }
+                        }
+                    }
                     $list.sort(function (a, b) {
                         var an = parseInt($(a).data('number'));
                         var bn = parseInt($(b).data('number'));
@@ -113,8 +123,6 @@ $(function () {
                     });
 
                     $list.detach().appendTo($container);
-                } else {
-                    console.log(response);
                 }
             }).fail(handle_ajax_failure);
         }

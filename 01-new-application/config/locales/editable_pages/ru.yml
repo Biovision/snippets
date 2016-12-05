@@ -1,0 +1,25 @@
+ru:
+  activerecord:
+    models:
+      editable_page: "Редактируемая страница"
+    attributes:
+      editable_page:
+        name: "Название"
+        slug: "Идентификатор"
+        title: "Название (meta)"
+        keywords: "Ключевые слова (meta)"
+        description: "Описание (meta)"
+        body: "Содержимое"
+  admin:
+    editable_pages:
+      index:
+        title: "Редактируемые страницы"
+        heading: "Редактируемые страницы"
+        description: "Управление редактируемыми страницами"
+      show:
+        title: "Страница «%{name}»"
+  editable_pages:
+    update:
+      success: "Страница успешно обновлена"
+    edit:
+      title: "Редактирование страницы"
