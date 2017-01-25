@@ -4,7 +4,7 @@ class Api::NotificationsController < ApplicationController
   # delete /api/notifications/:id
   def destroy
     @entity.destroy
-    render nothing: true, status: :no_content
+    head :no_content
   end
 
   private

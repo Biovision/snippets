@@ -1,14 +1,10 @@
-ul.notifications-list {
-  @include striped-list;
-}
-
 div.notification {
   > .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: 0 0 1rem 0;
-    padding: 0 0 0.25rem;
-    border-bottom: solid #777777 0.0625rem;
+    margin: 0 0 1.6rem 0;
+    padding: 0 0 .4rem;
+    border-bottom: solid #777 .1rem;
   }
 }

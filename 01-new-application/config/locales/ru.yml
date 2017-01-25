@@ -63,3 +63,8 @@ ru:
   index:
     index:
       title: "Главная страница"
+  application:
+    not_found:
+      title: "Страница не найдена"
+      heading: "Страница не найдена"
+      message: "Страница не существует или была удалена"

@@ -40,6 +40,8 @@ ToDo
 Добавления в `Gemfile`
 ----------------------
 
+Нужно раскомментировать `bcrypt`
+
 ```ruby
 gem 'dotenv-rails'
 
@@ -49,7 +51,7 @@ gem 'kaminari'
 gem 'rails-i18n', '~> 5.0.0'
 
 gem 'mini_magick'
-gem 'carrierwave', git: 'https://github.com/carrierwaveuploader/carrierwave'
+gem 'carrierwave'
 gem 'carrierwave-bombshelter'
 
 gem 'omniauth-twitter'
@@ -159,7 +161,7 @@ end
   # @param [String] metric
   # @param [Symbol|String] view
   def handle_http_404(message, metric = nil, view = :not_found)
-    logger.warn message
+    logger.warn "#{message}\n\t#{request.method} #{request.original_url}"
     Metric.register(metric || Metric::METRIC_HTTP_404)
     render view, status: :not_found
   end
@@ -279,13 +281,13 @@ end
       port: 465,
       tls: true,
       domain: 'example.com',
-      user_name: 'support@example.com',
+      user_name: 'webmaster@example.com',
       password: ENV['MAIL_PASSWORD'],
       authentication: :login,
       enable_starttls_auto: true
   }
   config.action_mailer.default_options = {
-      from: 'example.com <support@example.com>',
+      from: 'example.com <webmaster@example.com>',
       reply_to: 'support@example.com'
   }
   config.action_mailer.default_url_options = { host: 'example.com' }
@@ -299,13 +301,13 @@ end
       address: 'smtp.gmail.com',
       port: 587,
       domain: 'example.com',
-      user_name: 'support@example.com',
+      user_name: 'webmaster@example.com',
       password: ENV['MAIL_PASSWORD'],
       authentication: :plain,
       enable_starttls_auto: true
   }
   config.action_mailer.default_options = {
-      from: 'example.com <support@example.com>',
+      from: 'example.com <webmaster@example.com>',
       reply_to: 'support@example.com'
   }
   config.action_mailer.default_url_options = { host: 'example.com' }
@@ -316,7 +318,7 @@ end
 
 ```ruby
   config.action_mailer.default_options = {
-      from: 'example.com <support@example.com>',
+      from: 'example.com <webmaster@example.com>',
       reply_to: 'support@example.com'
   }
   config.action_mailer.default_url_options = { :host => '0.0.0.0:3000' }
@@ -328,7 +330,7 @@ end
 ```ruby
   config.action_mailer.delivery_method = :test
   config.action_mailer.default_options = {
-      from: 'example.com <support@example.com>',
+      from: 'example.com <webmaster@example.com>',
       reply_to: 'support@example.com'
   }
   config.action_mailer.default_url_options = { :host => '0.0.0.0:3000' }
@@ -342,10 +344,11 @@ if ENV['RAILS_ENV'] == 'production'
   shared_path = '/var/www/example.com/shared'
   logs_dir    = "#{shared_path}/log"
 
-  state_path "#{shared_path}/tmp/puma.state"
+  state_path "#{shared_path}/tmp/puma/state"
+  pidfile "#{shared_path}/tmp/puma/pid"
   bind "unix://#{shared_path}/tmp/puma.sock"
   stdout_redirect "#{logs_dir}/stdout.log", "#{logs_dir}/stderr.log", true
+  
+  activate_control_app
 end
 ```
-
-Возможно, имеет смысл использовать предыдущиую версию конфигурации.
