@@ -4,7 +4,7 @@ New application
 Локализация, CSS, JS и почты для нового rails-приложения, а также метрики
 и начальная версия модуля пользователей.
 
-Версия 1.1.2 (161129)
+Версия 1.2.0 (170129)
 
 Не забудь отредактировать `.env`, девелопернейм!
 
@@ -22,7 +22,6 @@ ToDo
  * Разметка schema.org для профиля
  * Разметка opengraph для профиля
  * Выбор пользователя для `owner_for_entity`
- * Работа с подсетями (чёрные списки IP и так далее)
  * Поиск пользователя через AJAX
 
 Добавления в `.gitignore`
@@ -57,6 +56,8 @@ gem 'carrierwave-bombshelter'
 gem 'omniauth-twitter'
 gem 'omniauth-facebook'
 gem 'omniauth-vkontakte'
+
+gem 'track', git: 'https://github.com/Biovision/track.git'
 
 group :development, :test do
   gem 'rspec-rails'
@@ -155,17 +156,6 @@ end
     ActiveRecord::RecordNotFound
   end
 
-  # Handle HTTP error with status 404 without raising exception
-  #
-  # @param [String] message
-  # @param [String] metric
-  # @param [Symbol|String] view
-  def handle_http_404(message, metric = nil, view = :not_found)
-    logger.warn "#{message}\n\t#{request.method} #{request.original_url}"
-    Metric.register(metric || Metric::METRIC_HTTP_404)
-    render view, status: :not_found
-  end
-
   # Ограничить доступ для анонимных посетителей
   def restrict_anonymous_access
     redirect_to login_path, alert: t(:please_log_in) unless current_user.is_a? User
@@ -187,14 +177,6 @@ end
     result = { user: current_user }
     result.merge!(tracking_for_entity) if track
     result
-  end
-
-  def agent
-    @agent ||= Agent.named(request.user_agent || 'n/a')
-  end
-
-  def tracking_for_entity
-    { agent: agent, ip: request.env['HTTP_X_REAL_IP'] || request.remote_ip }
   end
 ```
 
@@ -219,8 +201,6 @@ end
 
   root 'index#index'
 
-  resources :browsers, :agents, except: [:index, :show]
-  
   resources :users, except: [:index, :show]
   resources :tokens, :codes, except: [:index, :show]
 
@@ -242,13 +222,6 @@ end
   namespace :admin do
     get '/' => 'index#index'
     
-    resources :metrics, only: [:index, :show]
-
-    resources :browsers, only: [:index, :show] do
-      get 'agents', on: :member
-    end
-    resources :agents, only: [:index, :show]
-
     resources :users, only: [:index, :show] do
       member do
         get 'tokens'
@@ -260,7 +233,6 @@ end
 
   namespace :api, defaults: { format: :json } do
     resources :users, :tokens, except: [:new, :edit], concerns: [:toggleable]
-    resources :browsers, :agents, except: [:new, :edit], concerns: [:toggleable, :lockable]
   end
 
   scope 'u/:slug', controller: :profiles do

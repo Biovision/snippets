@@ -14,6 +14,9 @@ class NetworkManager
   # @param [Hash] data
   def update_user(user, attributes, data = {})
     user.assign_attributes(attributes)
+    unless data[:image_path].blank?
+      user.remote_image_url = "#{MAIN_HOST}#{data[:image_path]}"
+    end
     user.save!
   end
 

@@ -9,6 +9,9 @@
     controller :sites do
       put 'sites/:id' => :synchronize, as: :synchronize_site
     end
+    scope 'users', controller: :users do
+      put ':id' => :synchronize, as: :synchronize_user
+    end
   end
 ```
 

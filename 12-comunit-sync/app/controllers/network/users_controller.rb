@@ -1,4 +1,4 @@
-class Network::UsersController < ApplicationController
+class Network::UsersController < NetworkController
   # put /network/users/:id
   def synchronize
     user = User.find_by(external_id: params[:id]) || User.new(external_id: params[:id])
