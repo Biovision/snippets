@@ -4,7 +4,7 @@ New application
 Локализация, CSS, JS и почты для нового rails-приложения, а также метрики
 и начальная версия модуля пользователей.
 
-Версия 1.2.0 (170129)
+Версия 1.3.0 (170217)
 
 Не забудь отредактировать `.env`, девелопернейм!
 
@@ -13,6 +13,14 @@ New application
 Также стоит удалить `app/assets/application.css`, так как используется scss,
 и локаль `config/locales/en.yml`, если не планируется использование английской
 локали.
+
+После установки приложения нужно накатить миграции:
+
+ 1. `$ rails railties:install:migrations`
+ 2. `$ rake db:migrate`
+
+Чтобы не было проблем, миграции из пакетов должны иметь более раннюю дату, 
+чем миграции из этого куска. 
 
 ToDo
 ----
@@ -46,7 +54,6 @@ gem 'dotenv-rails'
 
 gem 'autoprefixer-rails', group: :production
 
-gem 'kaminari'
 gem 'rails-i18n', '~> 5.0.0'
 
 gem 'mini_magick'
@@ -57,6 +64,7 @@ gem 'omniauth-twitter'
 gem 'omniauth-facebook'
 gem 'omniauth-vkontakte'
 
+gem 'biovision-base', git: 'https://github.com/Biovision/biovision-base.git'
 gem 'track', git: 'https://github.com/Biovision/track.git'
 
 group :development, :test do
@@ -68,6 +76,15 @@ end
 group :development do
   gem 'mina'
 end
+```
+
+Добавления в `app/assets/application.js`
+----------------------------------------
+
+Это добавляется перед `//= require tree .`
+
+```js
+//= require biovision/base/biovision.js
 ```
 
 Добавления в `config/application.rb`
@@ -115,25 +132,7 @@ end
 --------------------------------------------------------
 
 ```ruby
-  helper_method :current_page, :param_from_request
   helper_method :current_user, :current_user_has_role?
-    
-  # Получить текущую страницу из запроса
-  #
-  # @return [Integer]
-  def current_page
-    @current_page ||= (params[:page] || 1).to_s.to_i.abs
-  end
-    
-  # Получить параметр из запроса и нормализовать его
-  #
-  # Приводит параметр к строке в UTF-8 и удаляет недействительные символы
-  #
-  # @param [Symbol] param
-  # @return [String]
-  def param_from_request(param)
-    params[param].to_s.encode('UTF-8', 'UTF-8', invalid: :replace, replace: '')
-  end
 
   # Получить текущего пользователя из жетона доступа в куки
   #
