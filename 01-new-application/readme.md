@@ -4,7 +4,7 @@ New application
 Локализация, CSS, JS и почты для нового rails-приложения, а также метрики
 и начальная версия модуля пользователей.
 
-Версия 1.3.0 (170217)
+Версия 1.3.0 (170420)
 
 Не забудь отредактировать `.env`, девелопернейм!
 
@@ -54,23 +54,12 @@ gem 'dotenv-rails'
 
 gem 'autoprefixer-rails', group: :production
 
-gem 'rails-i18n', '~> 5.0.0'
-
-gem 'mini_magick'
-gem 'carrierwave'
-gem 'carrierwave-bombshelter'
-
-gem 'omniauth-twitter'
-gem 'omniauth-facebook'
-gem 'omniauth-vkontakte'
-
 gem 'biovision-base', git: 'https://github.com/Biovision/biovision-base.git'
-gem 'track', git: 'https://github.com/Biovision/track.git'
 
 group :development, :test do
-  gem 'rspec-rails'
   gem 'database_cleaner'
   gem 'factory_girl_rails'
+  gem 'rspec-rails'
 end
 
 group :development do
@@ -102,7 +91,8 @@ end
       config.autoload_paths << config.root.join(path).to_s
     end
 
-    config.assets.precompile << %w(biovision/base/**/*)
+    config.assets.precompile << %w(biovision/base/icons/*)
+    config.assets.precompile << %w(biovision/base/placeholders/*)
   end
 ```
 
