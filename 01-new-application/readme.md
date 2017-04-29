@@ -3,7 +3,7 @@ New application
 
 Новое приложение на базе `biovision-base`.
 
-Версия 1.4.0.170421
+Версия 1.4.0.170430
 
 Не забудь отредактировать `.env`, девелопернейм!
 
@@ -59,6 +59,7 @@ end
 Это добавляется перед `//= require tree .`
 
 ```js
+//= require jquery
 //= require biovision/base/biovision.js
 ```
 
