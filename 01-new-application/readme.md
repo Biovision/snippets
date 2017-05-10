@@ -3,7 +3,7 @@ New application
 
 Новое приложение на базе `biovision-base`.
 
-Версия 1.4.0.170430
+Версия 1.4.0.170510
 
 Не забудь отредактировать `.env`, девелопернейм!
 
@@ -58,8 +58,11 @@ end
 
 Это добавляется перед `//= require tree .`
 
+Нужно положить в `vendor/assets/javascripts` файл `jquery.min.js` (его можно
+взять с сайта jQuery).
+
 ```js
-//= require jquery
+//= require jquery.min
 //= require biovision/base/biovision.js
 ```
 
@@ -78,6 +81,7 @@ end
       config.autoload_paths << config.root.join(path).to_s
     end
 
+    config.assets.precompile << %w(admin.scss)
     config.assets.precompile << %w(biovision/base/icons/*)
     config.assets.precompile << %w(biovision/base/placeholders/*)
   end
