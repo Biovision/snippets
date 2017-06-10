@@ -3,7 +3,7 @@ New application
 
 Новое приложение на базе `biovision-base`.
 
-Версия 1.4.0.170510
+Версия 1.4.0.170611
 
 Не забудь отредактировать `.env`, девелопернейм!
 
@@ -37,6 +37,7 @@ New application
 
 ```ruby
 gem 'dotenv-rails'
+gem 'jquery-rails'
 
 gem 'autoprefixer-rails', group: :production
 
@@ -62,7 +63,7 @@ end
 взять с сайта jQuery).
 
 ```js
-//= require jquery.min
+//= require jquery3
 //= require biovision/base/biovision.js
 ```
 
@@ -80,11 +81,16 @@ end
     %w(app/services lib).each do |path|
       config.autoload_paths << config.root.join(path).to_s
     end
-
-    config.assets.precompile << %w(admin.scss)
-    config.assets.precompile << %w(biovision/base/icons/*)
-    config.assets.precompile << %w(biovision/base/placeholders/*)
   end
+```
+
+Добавления в `config/initializers/assets.rb`
+--------------------------------------------
+
+```ruby
+Rails.application.config.assets.precompile << %w(admin.scss)
+Rails.application.config.assets.precompile << %w(biovision/base/icons/*)
+Rails.application.config.assets.precompile << %w(biovision/base/placeholders/*)
 ```
 
 Добавления в `spec/rails_helper.rb` (`$ rails generate rspec:install`)
