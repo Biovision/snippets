@@ -3,7 +3,7 @@ New application
 
 Новое приложение на базе `biovision-base`.
 
-Версия 1.4.0.170611
+Версия 1.4.0.170619
 
 Не забудь отредактировать `.env`, девелопернейм!
 
@@ -42,6 +42,7 @@ gem 'jquery-rails'
 gem 'autoprefixer-rails', group: :production
 
 gem 'biovision-base', git: 'https://github.com/Biovision/biovision-base.git'
+# gem 'biovision-base', path: '/Users/maxim/Projects/Biovision/biovision-base'
 
 group :development, :test do
   gem 'database_cleaner'
@@ -58,9 +59,6 @@ end
 ----------------------------------------
 
 Это добавляется перед `//= require tree .`
-
-Нужно положить в `vendor/assets/javascripts` файл `jquery.min.js` (его можно
-взять с сайта jQuery).
 
 ```js
 //= require jquery3
