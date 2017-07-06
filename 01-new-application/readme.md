@@ -42,7 +42,7 @@ gem 'jquery-rails'
 gem 'autoprefixer-rails', group: :production
 
 gem 'biovision-base', git: 'https://github.com/Biovision/biovision-base.git'
-# gem 'biovision-base', path: '/Users/maxim/Projects/Biovision/biovision-base'
+# gem 'biovision-base', path: '/Users/maxim/Projects/Biovision/gems/biovision-base'
 
 group :development, :test do
   gem 'database_cleaner'
